@@ -1,4 +1,5 @@
 ﻿using System;
+using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
 
 namespace MissionLibrary.Event
@@ -7,6 +8,8 @@ namespace MissionLibrary.Event
     {
         public static event Action<Agent> MainAgentWillBeChangedToAnotherOne;
 
+        public static event Action<MatrixFrame> RequestToSetFreeCamera;
+
         public static event Action<bool> ToggleFreeCamera;
 
         public delegate void SwitchTeamDelegate();
@@ -14,12 +17,15 @@ namespace MissionLibrary.Event
         public static event SwitchTeamDelegate PreSwitchTeam;
         public static event SwitchTeamDelegate PostSwitchTeam;
 
+        public static event Action MissionMenuClosed;
+
         public static void Clear()
         {
             MainAgentWillBeChangedToAnotherOne = null;
             ToggleFreeCamera = null;
             PreSwitchTeam = null;
             PostSwitchTeam = null;
+            MissionMenuClosed = null;
         }
 
         public static void OnMainAgentWillBeChangedToAnotherOne(Agent newAgent)
@@ -27,9 +33,14 @@ namespace MissionLibrary.Event
             MainAgentWillBeChangedToAnotherOne?.Invoke(newAgent);
         }
 
-        public static void OnToggleFreeCamera(bool obj)
+        private static void OnRequestToSetFreeCamera(MatrixFrame targetCameraFrame)
         {
-            ToggleFreeCamera?.Invoke(obj);
+            RequestToSetFreeCamera?.Invoke(targetCameraFrame);
+        }
+
+        public static void OnToggleFreeCamera(bool freeCamera)
+        {
+            ToggleFreeCamera?.Invoke(freeCamera);
         }
 
         public static void OnPreSwitchTeam()
@@ -40,6 +51,11 @@ namespace MissionLibrary.Event
         public static void OnPostSwitchTeam()
         {
             PostSwitchTeam?.Invoke();
+        }
+
+        private static void OnMissionMenuClosed()
+        {
+            MissionMenuClosed?.Invoke();
         }
     }
 }
