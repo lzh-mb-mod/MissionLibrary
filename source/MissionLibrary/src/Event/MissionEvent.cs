@@ -8,8 +8,6 @@ namespace MissionLibrary.Event
     {
         public static event Action<Agent> MainAgentWillBeChangedToAnotherOne;
 
-        public static event Action<MatrixFrame> RequestToSetFreeCamera;
-
         public static event Action<bool> ToggleFreeCamera;
 
         public delegate void SwitchTeamDelegate();
@@ -31,11 +29,6 @@ namespace MissionLibrary.Event
         public static void OnMainAgentWillBeChangedToAnotherOne(Agent newAgent)
         {
             MainAgentWillBeChangedToAnotherOne?.Invoke(newAgent);
-        }
-
-        private static void OnRequestToSetFreeCamera(MatrixFrame targetCameraFrame)
-        {
-            RequestToSetFreeCamera?.Invoke(targetCameraFrame);
         }
 
         public static void OnToggleFreeCamera(bool freeCamera)
