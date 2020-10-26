@@ -16,14 +16,14 @@ namespace MissionLibrary
 
             _isInitialized = true;
             GameKeyCategoryManager = new GameKeyCategoryManager();
-            MissionLibraryGameKeyCategories.RegisterGameKeyCategory();
+            MissionLibraryGameKeyCategory.RegisterGameKeyCategory();
         }
 
         public static void Clear()
         {
             _isInitialized = false;
             GameKeyCategoryManager = null;
-            MissionLibraryGameKeyCategories.Clear();
+            MissionLibraryGameKeyCategory.Clear();
         }
     }
 }

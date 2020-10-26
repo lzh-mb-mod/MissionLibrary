@@ -1,5 +1,6 @@
 ﻿using MissionLibrary.Config.HotKey;
 using MissionSharedLibrary.Config.HotKey;
+using TaleWorlds.InputSystem;
 
 namespace MissionLibrary.HotKey.Category
 {
@@ -9,14 +10,19 @@ namespace MissionLibrary.HotKey.Category
         NumberOfGameKeyEnums
     }
 
-    public class MissionLibraryGameKeyCategories
+    public class MissionLibraryGameKeyCategory
     {
+        public const string CategoryId = nameof(MissionLibrary) + nameof(GeneralGameKey);
+
         public static IGameKeyCategory GeneralGameKeyCategory { get; set; }
 
         public static IGameKeyCategory CreateGeneralGameKeyCategory()
         {
-            return new GameKeyCategory(nameof(MissionLibrary) + nameof(GeneralGameKey), (int) GeneralGameKey.NumberOfGameKeyEnums,
+            var result = new GameKeyCategory(nameof(MissionLibrary) + nameof(GeneralGameKey), (int) GeneralGameKey.NumberOfGameKeyEnums,
                 MissionLibraryGameKeyConfig.Get());
+            result.AddGameKey(new GameKey((int) GeneralGameKey.OpenMenu, CategoryId + nameof(GeneralGameKey.OpenMenu),
+                CategoryId, InputKey.L, CategoryId));
+            return result;
         }
 
         public static void RegisterGameKeyCategory()
