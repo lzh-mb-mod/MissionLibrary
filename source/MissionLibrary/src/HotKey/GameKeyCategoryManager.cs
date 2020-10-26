@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MissionLibrary.HotKey.Category;
+﻿using System.Collections.Generic;
 
 namespace MissionLibrary.HotKey
 {
     public class GameKeyCategoryManager
     {
-        public Dictionary<string, IGameKeyCategory> Categories { get; set; }
+        public Dictionary<string, IGameKeyCategory> Categories { get; set; } = new Dictionary<string, IGameKeyCategory>();
 
         public void AddCategories(IGameKeyCategory category, bool addOnlyWhenMissing = true)
         {

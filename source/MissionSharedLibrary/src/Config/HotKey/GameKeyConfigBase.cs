@@ -1,9 +1,4 @@
-﻿using MissionSharedLibrary.Config;
-using MissionSharedLibrary.Config.HotKey;
-using System.Collections.Generic;
-using MissionLibrary.Config.HotKey;
-
-namespace MissionSharedLibrary.src.Config.HotKey
+﻿namespace MissionSharedLibrary.Config.HotKey
 {
     public abstract class GameKeyConfigBase<T> : MissionConfigBase<T>, IGameKeyConfig where T: GameKeyConfigBase<T>
     {

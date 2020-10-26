@@ -1,6 +1,6 @@
 ﻿using MissionSharedLibrary.Config;
-using MissionSharedLibrary.src.Config.HotKey;
 using System.IO;
+using MissionSharedLibrary.Config.HotKey;
 
 namespace MissionLibrary.Config.HotKey
 {
