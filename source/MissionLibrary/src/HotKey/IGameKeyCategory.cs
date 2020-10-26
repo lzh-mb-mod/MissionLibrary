@@ -8,5 +8,11 @@ namespace MissionLibrary.HotKey
         List<GameKey> GameKeys { get; }
 
         string GameKeyCategoryId { get; }
+
+        GameKey GetGameKey(int i);
+
+        void Save();
+
+        void Load();
     }
 }

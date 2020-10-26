@@ -1,5 +1,4 @@
 ﻿using System;
-using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
 
 namespace MissionLibrary.Event

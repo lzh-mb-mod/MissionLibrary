@@ -5,7 +5,13 @@ VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MissionLibrary", "MissionLibrary\MissionLibrary.csproj", "{52F1FF82-ABCD-4725-9E0D-37EA5A1D7EF6}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "MissionSharedLibrary", "MissionSharedLibrary\MissionSharedLibrary.shproj", "{BB80A10D-E971-4C13-8EA6-F31EF29BA86D}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		MissionSharedLibrary\MissionSharedLibrary.projitems*{52f1ff82-abcd-4725-9e0d-37ea5a1d7ef6}*SharedItemsImports = 5
+		MissionSharedLibrary\MissionSharedLibrary.projitems*{bb80a10d-e971-4c13-8ea6-f31ef29ba86d}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

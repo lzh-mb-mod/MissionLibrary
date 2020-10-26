@@ -7,16 +7,11 @@ using MissionLibrary.HotKey.Category;
 
 namespace MissionLibrary.HotKey
 {
-    public static class HotKeyCategoryManager
+    public class GameKeyCategoryManager
     {
-        public static Dictionary<string, IGameKeyCategory> Categories { get; set; }
+        public Dictionary<string, IGameKeyCategory> Categories { get; set; }
 
-        public static void AddDefaultCategories()
-        {
-            AddCategories(new MissionLibraryGeneralHotKeyCategory());
-        }
-
-        public static void AddCategories(IGameKeyCategory category, bool addOnlyWhenMissing = true)
+        public void AddCategories(IGameKeyCategory category, bool addOnlyWhenMissing = true)
         {
             if (Categories.ContainsKey(category.GameKeyCategoryId))
             {
@@ -27,6 +22,9 @@ namespace MissionLibrary.HotKey
             }
 
             Categories.Add(category.GameKeyCategoryId, category);
+
+            category.Load();
+            category.Save();
         }
     }
 }

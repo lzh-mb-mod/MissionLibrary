@@ -10,13 +10,15 @@ namespace MissionLibrary.HotKey.View
 {
     public class MissionLibraryHotKeyConfigVM : ViewModel
     {
+        private readonly GameKeyCategoryManager _gameKeyCategoryManager;
         private readonly Dictionary<GameKey, InputKey> _keysToChangeOnDone = new Dictionary<GameKey, InputKey>();
         private string _name;
         private MBBindingList<MissionLibraryGameKeyGroupVM> _groups;
 
-        public MissionLibraryHotKeyConfigVM(Action<GameKeyOptionVM> onKeyBindRequest)
+        public MissionLibraryHotKeyConfigVM(GameKeyCategoryManager gameKeyCategoryManager, Action<GameKeyOptionVM> onKeyBindRequest)
         {
-            var categories = HotKeyCategoryManager.Categories.ToDictionary(pair => pair.Key, pair => pair.Value.GameKeys);
+            _gameKeyCategoryManager = gameKeyCategoryManager;
+            var categories = _gameKeyCategoryManager.Categories.ToDictionary(pair => pair.Key, pair => pair.Value.GameKeys);
             Groups = new MBBindingList<MissionLibraryGameKeyGroupVM>();
             foreach (KeyValuePair<string, List<GameKey>> category in categories)
             {
@@ -55,7 +57,7 @@ namespace MissionLibrary.HotKey.View
 
         private void UpdateKeysOfGameKeysWithId(string categoryId, int gameKeyId, InputKey newKey)
         {
-            if (HotKeyCategoryManager.Categories.TryGetValue(categoryId, out IGameKeyCategory category))
+            if (_gameKeyCategoryManager.Categories.TryGetValue(categoryId, out IGameKeyCategory category))
             {
                 if (gameKeyId < 0 || gameKeyId >= category.GameKeys.Count)
                     return;

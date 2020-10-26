@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>bb80a10d-e971-4c13-8ea6-f31ef29ba86d</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>MissionSharedLibrary</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)src\Config\HotKey\GameKeyCategory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\Config\HotKey\GameKeyConfigBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\Config\HotKey\IGameKeyConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\Config\HotKey\SerializedGameKeyCategory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\Config\MissionConfigBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\Utility.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\View\MissionMenuViewBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\View\MissionMenuVMBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\View\NumericVM.cs" />
+  </ItemGroup>
+</Project>
