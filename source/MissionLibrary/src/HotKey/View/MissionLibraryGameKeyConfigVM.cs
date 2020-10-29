@@ -8,14 +8,14 @@ using TaleWorlds.MountAndBlade.ViewModelCollection.GameOptions;
 
 namespace MissionLibrary.HotKey.View
 {
-    public class MissionLibraryHotKeyConfigVM : ViewModel
+    public class MissionLibraryGameKeyConfigVM : ViewModel
     {
         private readonly GameKeyCategoryManager _gameKeyCategoryManager;
         private readonly Dictionary<GameKey, InputKey> _keysToChangeOnDone = new Dictionary<GameKey, InputKey>();
         private string _name;
         private MBBindingList<MissionLibraryGameKeyGroupVM> _groups;
 
-        public MissionLibraryHotKeyConfigVM(GameKeyCategoryManager gameKeyCategoryManager, Action<GameKeyOptionVM> onKeyBindRequest)
+        public MissionLibraryGameKeyConfigVM(GameKeyCategoryManager gameKeyCategoryManager, Action<GameKeyOptionVM> onKeyBindRequest)
         {
             _gameKeyCategoryManager = gameKeyCategoryManager;
             var categories = _gameKeyCategoryManager.Categories.ToDictionary(pair => pair.Key, pair => pair.Value.GameKeys);

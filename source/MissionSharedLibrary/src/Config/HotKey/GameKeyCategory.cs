@@ -12,14 +12,14 @@ namespace MissionSharedLibrary.Config.HotKey
 
         private readonly IGameKeyConfig _config;
 
-        public GameKey GetGameKey(int i)
+        public InputKey GetKey(int i)
         {
             if (GameKeys == null || i < 0 || i >= GameKeys.Count)
             {
-                return InvalidGameKey();
+                return InputKey.Invalid;
             }
 
-            return GameKeys[i] ?? InvalidGameKey();
+            return GameKeys[i]?.PrimaryKey.InputKey ?? InputKey.Invalid;
         }
 
         public void Save()
@@ -49,11 +49,6 @@ namespace MissionSharedLibrary.Config.HotKey
                 return;
 
             GameKeys[gameKey.Id] = gameKey;
-        }
-
-        private GameKey InvalidGameKey()
-        {
-            return new GameKey(-1, "", "", InputKey.Invalid, "");
         }
     }
 }

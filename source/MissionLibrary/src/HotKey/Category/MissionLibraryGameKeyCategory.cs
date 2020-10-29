@@ -18,9 +18,9 @@ namespace MissionLibrary.HotKey.Category
 
         public static IGameKeyCategory CreateGeneralGameKeyCategory()
         {
-            var result = new GameKeyCategory(nameof(MissionLibrary) + nameof(GeneralGameKey), (int) GeneralGameKey.NumberOfGameKeyEnums,
+            var result = new GameKeyCategory(CategoryId, (int) GeneralGameKey.NumberOfGameKeyEnums,
                 MissionLibraryGameKeyConfig.Get());
-            result.AddGameKey(new GameKey((int) GeneralGameKey.OpenMenu, CategoryId + nameof(GeneralGameKey.OpenMenu),
+            result.AddGameKey(new GameKey((int) GeneralGameKey.OpenMenu, nameof(GeneralGameKey.OpenMenu),
                 CategoryId, InputKey.L, CategoryId));
             return result;
         }
@@ -29,6 +29,11 @@ namespace MissionLibrary.HotKey.Category
         {
             GeneralGameKeyCategory = CreateGeneralGameKeyCategory();
             Global.GameKeyCategoryManager.AddCategories(GeneralGameKeyCategory, true);
+        }
+
+        public static InputKey GetKey(GeneralGameKey key)
+        {
+            return GeneralGameKeyCategory?.GetKey((int) key) ?? InputKey.Invalid;
         }
 
         public static void Clear()

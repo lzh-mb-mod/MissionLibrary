@@ -9,7 +9,7 @@ namespace MissionLibrary.HotKey
 
         string GameKeyCategoryId { get; }
 
-        GameKey GetGameKey(int i);
+        InputKey GetKey(int i);
 
         void Save();
 

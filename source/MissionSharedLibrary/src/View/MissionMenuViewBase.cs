@@ -91,19 +91,14 @@ namespace MissionSharedLibrary.View
             Game.Current.GameStateManager.ActiveStateDisabledByUser = false;
         }
 
-        private bool _oldGameStatusDisabledStatus;
-
         private void PauseGame()
         {
             MBCommon.PauseGameEngine();
-            _oldGameStatusDisabledStatus = Game.Current.GameStateManager.ActiveStateDisabledByUser;
-            Game.Current.GameStateManager.ActiveStateDisabledByUser = true;
         }
 
         private void UnpauseGame()
         {
             MBCommon.UnPauseGameEngine();
-            Game.Current.GameStateManager.ActiveStateDisabledByUser = _oldGameStatusDisabledStatus;
         }
     }
 }
