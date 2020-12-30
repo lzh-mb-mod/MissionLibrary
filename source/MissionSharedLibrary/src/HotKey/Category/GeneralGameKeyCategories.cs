@@ -1,8 +1,11 @@
-﻿using MissionLibrary.Config.HotKey;
-using MissionSharedLibrary.Config.HotKey;
+﻿using JetBrains.Annotations;
+using MissionLibrary.Config.HotKey;
+using MissionLibrary.HotKey;
+using MissionSharedLibrary.HotKey.Category;
+using System;
 using TaleWorlds.InputSystem;
 
-namespace MissionLibrary.HotKey.Category
+namespace MissionSharedLibrary.HotKey.Category
 {
     public enum GeneralGameKey
     {
@@ -10,16 +13,17 @@ namespace MissionLibrary.HotKey.Category
         NumberOfGameKeyEnums
     }
 
-    public class MissionLibraryGameKeyCategory
+    public class GeneralGameKeyCategories
     {
         public const string CategoryId = nameof(MissionLibrary) + nameof(GeneralGameKey);
 
-        public static IGameKeyCategory GeneralGameKeyCategory { get; set; }
+        public static AGameKeyCategory GeneralGameKeyCategory => AGameKeyCategoryManager.Get()?.GetCategory(CategoryId);
 
-        public static IGameKeyCategory CreateGeneralGameKeyCategory()
+        [NotNull]
+        public static AGameKeyCategory CreateGeneralGameKeyCategory()
         {
             var result = new GameKeyCategory(CategoryId, (int) GeneralGameKey.NumberOfGameKeyEnums,
-                MissionLibraryGameKeyConfig.Get());
+                GeneralGameKeyConfig.Get());
             result.AddGameKey(new GameKey((int) GeneralGameKey.OpenMenu, nameof(GeneralGameKey.OpenMenu),
                 CategoryId, InputKey.L, CategoryId));
             return result;
@@ -27,18 +31,12 @@ namespace MissionLibrary.HotKey.Category
 
         public static void RegisterGameKeyCategory()
         {
-            GeneralGameKeyCategory = CreateGeneralGameKeyCategory();
-            Global.GameKeyCategoryManager.AddCategories(GeneralGameKeyCategory, true);
+            AGameKeyCategoryManager.Get()?.AddCategory(CreateGeneralGameKeyCategory, new Version(1, 0));
         }
 
         public static InputKey GetKey(GeneralGameKey key)
         {
             return GeneralGameKeyCategory?.GetKey((int) key) ?? InputKey.Invalid;
-        }
-
-        public static void Clear()
-        {
-            GeneralGameKeyCategory = null;
         }
     }
 }

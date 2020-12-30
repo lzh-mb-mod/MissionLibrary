@@ -27,7 +27,7 @@ namespace MissionSharedLibrary.Config.HotKey
 
         public List<SerializedGameKey> GameKeys { get; set; } = new List<SerializedGameKey>();
 
-        public static SerializedGameKeyCategory FromGameKeyCategory(IGameKeyCategory category)
+        public static SerializedGameKeyCategory FromGameKeyCategory(AGameKeyCategory category)
         {
             return new SerializedGameKeyCategory
             {
@@ -36,7 +36,7 @@ namespace MissionSharedLibrary.Config.HotKey
             };
         }
 
-        public void ToGameKeyCategory(IGameKeyCategory category)
+        public void ToGameKeyCategory(AGameKeyCategory category)
         {
             var dictionary = GameKeys.ToDictionary(serializedGameKey => serializedGameKey.StringId);
             for (var i = 0; i < category.GameKeys.Count; i++)

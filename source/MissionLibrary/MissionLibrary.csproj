@@ -1,7 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="..\MissionSharedLibrary\MissionSharedLibrary.projitems" Label="Shared" />
-
   <Import Project="$(MSBuildProjectDirectory)\*.props" />
 
   <PropertyGroup>
@@ -116,6 +114,10 @@
     <Reference Include="TaleWorlds.ObjectSystem">
       <HintPath>$(GamePath)bin\Win64_Shipping_Client\TaleWorlds.ObjectSystem.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="src\HotKey\View\" />
   </ItemGroup>
 
 </Project>

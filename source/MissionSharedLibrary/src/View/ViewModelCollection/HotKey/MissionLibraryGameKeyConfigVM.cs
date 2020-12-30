@@ -10,20 +10,21 @@ namespace MissionLibrary.HotKey.View
 {
     public class MissionLibraryGameKeyConfigVM : ViewModel
     {
-        private readonly GameKeyCategoryManager _gameKeyCategoryManager;
+        private readonly AGameKeyCategoryManager _gameKeyCategoryManager;
         private readonly Dictionary<GameKey, InputKey> _keysToChangeOnDone = new Dictionary<GameKey, InputKey>();
         private string _name;
         private MBBindingList<MissionLibraryGameKeyGroupVM> _groups;
+        private readonly Dictionary<string, AGameKeyCategory> _categories;
 
-        public MissionLibraryGameKeyConfigVM(GameKeyCategoryManager gameKeyCategoryManager, Action<GameKeyOptionVM> onKeyBindRequest)
+        public MissionLibraryGameKeyConfigVM(AGameKeyCategoryManager gameKeyCategoryManager, Action<GameKeyOptionVM> onKeyBindRequest)
         {
             _gameKeyCategoryManager = gameKeyCategoryManager;
-            var categories = _gameKeyCategoryManager.Categories.ToDictionary(pair => pair.Key, pair => pair.Value.GameKeys);
+            _categories = _gameKeyCategoryManager.Categories.ToDictionary(pair => pair.Key, pair => pair.Value.Value);
             Groups = new MBBindingList<MissionLibraryGameKeyGroupVM>();
-            foreach (KeyValuePair<string, List<GameKey>> category in categories)
+            foreach (KeyValuePair<string, AGameKeyCategory> category in _categories)
             {
-                if (category.Value.Count > 0)
-                    Groups.Add(new MissionLibraryGameKeyGroupVM(category.Key, category.Value, onKeyBindRequest, UpdateKeysOfGameKeysWithId));
+                if (category.Value.GameKeys.Count > 0)
+                    Groups.Add(new MissionLibraryGameKeyGroupVM(category.Key, category.Value.GameKeys, onKeyBindRequest, UpdateKeysOfGameKeysWithId));
             }
             RefreshValues();
         }
@@ -57,7 +58,7 @@ namespace MissionLibrary.HotKey.View
 
         private void UpdateKeysOfGameKeysWithId(string categoryId, int gameKeyId, InputKey newKey)
         {
-            if (_gameKeyCategoryManager.Categories.TryGetValue(categoryId, out IGameKeyCategory category))
+            if (_categories.TryGetValue(categoryId, out AGameKeyCategory category))
             {
                 if (gameKeyId < 0 || gameKeyId >= category.GameKeys.Count)
                     return;

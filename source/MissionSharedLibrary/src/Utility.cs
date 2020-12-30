@@ -8,6 +8,7 @@ using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.View.Missions;
 using TaleWorlds.MountAndBlade.View.Screen;
+using MathF = TaleWorlds.Library.MathF;
 using Module = TaleWorlds.MountAndBlade.Module;
 
 namespace MissionSharedLibrary

@@ -1,4 +1,5 @@
-﻿namespace MissionSharedLibrary.Config.HotKey
+﻿
+namespace MissionSharedLibrary.Config.HotKey
 {
     public interface IGameKeyConfig
     {

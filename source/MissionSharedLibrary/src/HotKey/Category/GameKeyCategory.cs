@@ -1,18 +1,19 @@
 ﻿using MissionLibrary.HotKey;
+using MissionSharedLibrary.Config.HotKey;
 using System.Collections.Generic;
 using TaleWorlds.InputSystem;
 
-namespace MissionSharedLibrary.Config.HotKey
+namespace MissionSharedLibrary.HotKey.Category
 {
-    public class GameKeyCategory : IGameKeyCategory
+    public class GameKeyCategory : AGameKeyCategory
     {
-        public List<GameKey> GameKeys { get; }
+        public sealed override List<GameKey> GameKeys { get; }
 
-        public string GameKeyCategoryId { get; private set; }
+        public override string GameKeyCategoryId { get; }
 
         private readonly IGameKeyConfig _config;
 
-        public InputKey GetKey(int i)
+        public override InputKey GetKey(int i)
         {
             if (GameKeys == null || i < 0 || i >= GameKeys.Count)
             {
@@ -22,13 +23,13 @@ namespace MissionSharedLibrary.Config.HotKey
             return GameKeys[i]?.PrimaryKey.InputKey ?? InputKey.Invalid;
         }
 
-        public void Save()
+        public override void Save()
         {
             _config.Category = SerializedGameKeyCategory.FromGameKeyCategory(this);
             _config.Serialize();
         }
 
-        public void Load()
+        public override void Load()
         {
             _config.Deserialize();
             _config.Category.ToGameKeyCategory(this);
