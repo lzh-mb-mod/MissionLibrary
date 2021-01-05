@@ -20,7 +20,7 @@ namespace MissionSharedLibrary.HotKey.Category
                 return InputKey.Invalid;
             }
 
-            return GameKeys[i]?.PrimaryKey.InputKey ?? InputKey.Invalid;
+            return GameKeys[i]?.KeyboardKey.InputKey ?? InputKey.Invalid;
         }
 
         public override void Save()

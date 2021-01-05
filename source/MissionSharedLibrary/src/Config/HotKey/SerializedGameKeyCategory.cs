@@ -16,7 +16,7 @@ namespace MissionSharedLibrary.Config.HotKey
             return new SerializedGameKey
             {
                 StringId = gameKey.StringId,
-                Key = gameKey.PrimaryKey.InputKey
+                Key = gameKey.KeyboardKey.InputKey
             };
         }
     }

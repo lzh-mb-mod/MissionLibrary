@@ -53,7 +53,7 @@ namespace MissionLibrary.HotKey.View
 
         private Key FindValidInputKey(GameKey gameKey)
         {
-            return gameKey.PrimaryKey;
+            return gameKey.KeyboardKey;
         }
 
         private void UpdateKeysOfGameKeysWithId(string categoryId, int gameKeyId, InputKey newKey)
