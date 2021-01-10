@@ -49,6 +49,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)src\View\ViewModelCollection\Options\Selection\SelectionOptionViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\View\ViewModelCollection\Options\OptionViewModel.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)CopyAssets.targets" />
+  </ItemGroup>
   <Import Project="$(MSBuildThisFileDirectory)CopyAssets.targets" />
   <Import Project="$(MSBuildThisFileDirectory)\*.props" />
 </Project>

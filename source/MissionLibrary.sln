@@ -7,9 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MissionLibrary", "MissionLi
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "MissionSharedLibrary", "MissionSharedLibrary\MissionSharedLibrary.shproj", "{BB80A10D-E971-4C13-8EA6-F31EF29BA86D}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "BasicSharedLibrary", "BasicSharedLibrary\BasicSharedLibrary.shproj", "{035A7C54-5161-4057-BB0D-20D39A607B50}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		MissionSharedLibrary\MissionSharedLibrary.projitems*{52f1ff82-abcd-4725-9e0d-37ea5a1d7ef6}*SharedItemsImports = 5
+		BasicSharedLibrary\BasicSharedLibrary.projitems*{035a7c54-5161-4057-bb0d-20d39a607b50}*SharedItemsImports = 13
+		BasicSharedLibrary\BasicSharedLibrary.projitems*{52f1ff82-abcd-4725-9e0d-37ea5a1d7ef6}*SharedItemsImports = 5
 		MissionSharedLibrary\MissionSharedLibrary.projitems*{bb80a10d-e971-4c13-8ea6-f31ef29ba86d}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
