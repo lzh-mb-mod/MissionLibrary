@@ -23,7 +23,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options
         }
 
         public ViewModel GetViewModel()
-        {
+        {  
             return this;
         }
 

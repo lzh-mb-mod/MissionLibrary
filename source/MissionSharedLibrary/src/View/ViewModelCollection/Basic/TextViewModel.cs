@@ -7,6 +7,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Basic
     {
         private TextObject _textObject;
         private string _text;
+        private bool _isVisible;
 
         public TextObject TextObject
         {
@@ -31,9 +32,23 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Basic
             }
         }
 
-        public TextViewModel(TextObject text)
+        [DataSourceProperty]
+        public bool IsVisible
+        {
+            get => _isVisible;
+            set
+            {
+                if (_isVisible == value)
+                    return;
+                _isVisible = value;
+                OnPropertyChanged(nameof(IsVisible));
+            }
+        }
+
+        public TextViewModel(TextObject text, bool isVisible = true)
         {
             TextObject = text;
+            IsVisible = isVisible;
         }
 
         public override void RefreshValues()

@@ -10,11 +10,11 @@ namespace MissionSharedLibrary.HotKey
     public class GameKeyCategoryManager : AGameKeyCategoryManager
     {
 
-        public override Dictionary<string, IProvider<AGameKeyCategory>> Categories { get; } = new Dictionary<string, IProvider<AGameKeyCategory>>();
+        public override Dictionary<string, IVersionProvider<AGameKeyCategory>> Categories { get; } = new Dictionary<string, IVersionProvider<AGameKeyCategory>>();
 
-        public override void AddCategory(IProvider<AGameKeyCategory> provider, bool addOnlyWhenMissing = true)
+        public override void AddCategory(IVersionProvider<AGameKeyCategory> provider, bool addOnlyWhenMissing = true)
         {
-            if (Categories.TryGetValue(provider.Value.GameKeyCategoryId, out IProvider<AGameKeyCategory> existingProvider))
+            if (Categories.TryGetValue(provider.Value.GameKeyCategoryId, out IVersionProvider<AGameKeyCategory> existingProvider))
             {
                 if (existingProvider.ProviderVersion == provider.ProviderVersion && addOnlyWhenMissing ||
                     existingProvider.ProviderVersion > provider.ProviderVersion)
@@ -31,7 +31,7 @@ namespace MissionSharedLibrary.HotKey
 
         public override AGameKeyCategory GetCategory(string categoryId)
         {
-            if (Categories.TryGetValue(categoryId, out IProvider<AGameKeyCategory> provider))
+            if (Categories.TryGetValue(categoryId, out IVersionProvider<AGameKeyCategory> provider))
             {
                 return provider.Value;
             }
@@ -41,7 +41,7 @@ namespace MissionSharedLibrary.HotKey
 
         public override T GetCategory<T>(string categoryId)
         {
-            if (Categories.TryGetValue(categoryId, out IProvider<AGameKeyCategory> provider) && provider.Value is T t)
+            if (Categories.TryGetValue(categoryId, out IVersionProvider<AGameKeyCategory> provider) && provider.Value is T t)
             {
                 return t;
             }

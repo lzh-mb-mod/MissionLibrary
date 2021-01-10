@@ -34,6 +34,13 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options
             _setValue = setValue;
         }
 
+        public override void RefreshValues()
+        {
+            base.RefreshValues();
+
+            OnPropertyChanged(nameof(OptionValueAsBoolean));
+        }
+
         public ViewModel GetViewModel()
         {
             return this;

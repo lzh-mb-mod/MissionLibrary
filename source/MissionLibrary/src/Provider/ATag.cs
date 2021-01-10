@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace MissionLibrary.Provider
 {
-    public interface ITag<out T> where T : class, ITag<T>
+    public abstract class ATag<T> where T : ATag<T>
     {
-        T Self { get; }
+        public virtual T Self => (T)this;
     }
 }

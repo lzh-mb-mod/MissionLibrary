@@ -2,7 +2,7 @@
 
 namespace MissionLibrary.Controller.Camera
 {
-    public abstract class ACameraControllerManager : ITag<ACameraControllerManager>
+    public abstract class ACameraControllerManager : ATag<ACameraControllerManager>
     {
         public static ACameraControllerManager Get()
         {
@@ -11,6 +11,5 @@ namespace MissionLibrary.Controller.Camera
 
         public abstract ICameraController Instance { get; set; }
         public abstract void Clear();
-        public ACameraControllerManager Self => this;
     }
 }

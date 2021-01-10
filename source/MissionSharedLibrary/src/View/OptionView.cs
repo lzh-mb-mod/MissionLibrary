@@ -25,6 +25,13 @@ namespace MissionSharedLibrary.View
                 ActivateMenu();
         }
 
+        public override void OnMissionScreenFinalize()
+        {
+            base.OnMissionScreenFinalize();
+            
+            AMenuManager.Get().MenuClassCollection.Clear();
+        }
+
         protected override MissionMenuVMBase GetDataSource()
         {
             return new OptionVM(AMenuManager.Get().MenuClassCollection, OnCloseMenu);

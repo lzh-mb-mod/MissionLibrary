@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using MissionLibrary.View;
+using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
-using TaleWorlds.Engine.Options;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
-using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.ViewModelCollection.GameOptions;
 
 namespace MissionSharedLibrary.View.ViewModelCollection.Options.Selection
@@ -13,6 +12,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options.Selection
     public class SelectionOptionViewModel : OptionViewModel, IOption
     {
         private readonly SelectionOptionData _selectionOptionData;
+        private readonly bool _commitOnlyWhenChange;
         private SelectorVM<SelectorItemVM> _selector;
 
         [DataSourceProperty]
@@ -28,10 +28,11 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options.Selection
             }
         }
 
-        public SelectionOptionViewModel(TextObject name, TextObject description, SelectionOptionData selectionOptionData) 
+        public SelectionOptionViewModel(TextObject name, TextObject description, SelectionOptionData selectionOptionData, bool commitOnlyWhenChange) 
             : base(name, description, OptionsVM.OptionsDataType.MultipleSelectionOption)
         {
             _selectionOptionData = selectionOptionData;
+            _commitOnlyWhenChange = commitOnlyWhenChange;
             Selector = new SelectorVM<SelectorItemVM>(0, null);
             UpdateData(true);
             Selector.SelectedIndex = _selectionOptionData.GetDefaultValue();
@@ -65,7 +66,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options.Selection
                 List<TextObject> textObjectList = new List<TextObject>();
                 foreach (SelectionItem selectionData in selectionItems)
                 {
-                    TextObject text = Module.CurrentModule.GlobalTextManager.FindText(selectionData.Data, selectionData.Variation);
+                    TextObject text = GameTexts.FindText(selectionData.Data, selectionData.Variation);
                     textObjectList.Add(text);
                 }
                 Selector.Refresh(textObjectList, _selectionOptionData.GetValue(), UpdateValue);
@@ -77,7 +78,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options.Selection
                 {
                     if (selectionData.IsLocalizationId)
                     {
-                        TextObject text = Module.CurrentModule.GlobalTextManager.FindText(selectionData.Data);
+                        TextObject text = GameTexts.FindText(selectionData.Data);
                         stringList.Add(text.ToString());
                     }
                     else
@@ -97,7 +98,9 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options.Selection
         {
             if (selector.SelectedIndex < 0)
                 return;
-            this._selectionOptionData.SetValue(selector.SelectedIndex);
+            _selectionOptionData.SetValue(selector.SelectedIndex);
+            if (!_commitOnlyWhenChange || _selectionOptionData.GetValue() != _selectionOptionData.GetDefaultValue())
+                _selectionOptionData.Commit();
         }
     }
 }

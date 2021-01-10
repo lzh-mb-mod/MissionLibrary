@@ -81,7 +81,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options
 
         public NumericOptionViewModel(TextObject name, TextObject description, Func<float> getValue,
             Action<float> setValue, float min, float max, bool isDiscrete, bool updateContinuously)
-            : base(name, description, OptionsVM.OptionsDataType.BooleanOption)
+            : base(name, description, OptionsVM.OptionsDataType.NumericOption)
         {
             _getValue = getValue;
             _setValue = setValue;

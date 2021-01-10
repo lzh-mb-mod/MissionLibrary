@@ -4,7 +4,7 @@ using TaleWorlds.InputSystem;
 
 namespace MissionLibrary.HotKey
 {
-    public abstract class AGameKeyCategory : ITag<AGameKeyCategory>
+    public abstract class AGameKeyCategory : ATag<AGameKeyCategory>
     {
         public abstract List<GameKey> GameKeys { get; }
 
@@ -15,6 +15,5 @@ namespace MissionLibrary.HotKey
         public abstract void Save();
 
         public abstract void Load();
-        public AGameKeyCategory Self => this;
     }
 }

@@ -5,11 +5,11 @@ namespace MissionLibrary.Provider
 {
     public class ProviderManager : IProviderManager
     {
-        private readonly Dictionary<Type, IProvider> _providers = new Dictionary<Type, IProvider>();
+        private readonly Dictionary<Type, IVersionProvider> _providers = new Dictionary<Type, IVersionProvider>();
 
-        public void RegisterProvider<T>(IProvider<T> newProvider) where T : class, ITag<T>
+        public void RegisterProvider<T>(IVersionProvider<T> newProvider) where T : ATag<T>
         {
-            if (!_providers.TryGetValue(typeof(T), out IProvider oldProvider))
+            if (!_providers.TryGetValue(typeof(T), out IVersionProvider oldProvider))
             {
                 _providers.Add(typeof(T), newProvider);
             }
@@ -19,14 +19,22 @@ namespace MissionLibrary.Provider
             }
         }
 
-        public T GetProvider<T>() where T : class, ITag<T>
+        public T GetProvider<T>() where T : ATag<T>
         {
-            if (!_providers.TryGetValue(typeof(T), out IProvider provider) || !(provider is IProvider<T> tProvider))
+            if (!_providers.TryGetValue(typeof(T), out IVersionProvider provider) || !(provider is IVersionProvider<T> tProvider))
             {
                 return null;
             }
 
             return tProvider.Value;
+        }
+
+        public void InstantiateAll()
+        {
+            foreach (var pair in _providers)
+            {
+                pair.Value.ForceCreate();
+            }
         }
     }
 }

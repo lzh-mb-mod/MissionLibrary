@@ -2,12 +2,13 @@
 
 namespace MissionLibrary.Provider
 {
-    public interface IProvider
+    public interface IVersionProvider
     {
         Version ProviderVersion { get; }
+        void ForceCreate();
     }
 
-    public interface IProvider<out T>: IProvider where T : class, ITag<T>
+    public interface IVersionProvider<out T>: IVersionProvider where T : ATag<T>
     {
         T Value { get; }
     }

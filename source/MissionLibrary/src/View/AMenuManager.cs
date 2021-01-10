@@ -1,17 +1,26 @@
 ﻿using MissionLibrary.Provider;
-using TaleWorlds.Library;
+using System;
+using TaleWorlds.MountAndBlade.View.Missions;
 
 namespace MissionLibrary.View
 {
-    public abstract class AMenuManager : ITag<AMenuManager>
+    public abstract class AMenuManager : ATag<AMenuManager>
     {
         public static AMenuManager Get()
         {
             return Global.GetProvider<AMenuManager>();
         }
+
+        public event Action OnMenuClosedEvent;
+
+        public void OnMenuClosed()
+        {
+            OnMenuClosedEvent?.Invoke();
+        }
         
         public abstract IMenuClassCollection MenuClassCollection { get; }
-
-        public AMenuManager Self => this;
+        public abstract MissionView CreateMenuView();
+        public abstract void RequestToOpenMenu();
+        public abstract void RequestToCloseMenu();
     }
 }

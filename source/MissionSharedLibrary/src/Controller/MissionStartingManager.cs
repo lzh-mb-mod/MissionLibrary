@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MissionLibrary;
+﻿using MissionLibrary;
 using MissionLibrary.Controller;
 using MissionSharedLibrary.View;
+using System;
+using System.Collections.Generic;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.View.Missions;
 
@@ -21,7 +20,6 @@ namespace MissionSharedLibrary.Controller
 
         public override void OnCreated(MissionView entranceView)
         {
-            AddMissionLibraryMissionBehaviors(entranceView);
             foreach (var handler in _handlers)
             {
                 handler.OnCreated(entranceView);
@@ -39,12 +37,6 @@ namespace MissionSharedLibrary.Controller
         public override void AddHandler(AMissionStartingHandler handler)
         {
             _handlers.Add(handler);
-        }
-
-        private void AddMissionLibraryMissionBehaviors(MissionView entranceView)
-        {
-            AddMissionBehaviour(entranceView, Global.GetProvider<AInputControllerFactory>().CreateInputController(entranceView.Mission));
-            AddMissionBehaviour(entranceView, new OptionView(24, new Version(1, 0, 0)));
         }
     }
 }

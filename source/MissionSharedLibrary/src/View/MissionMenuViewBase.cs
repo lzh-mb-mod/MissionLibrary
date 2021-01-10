@@ -1,10 +1,8 @@
-﻿using System;
-using TaleWorlds.Core;
+﻿using TaleWorlds.Core;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.GauntletUI.Data;
 using TaleWorlds.InputSystem;
-using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.View.Missions;
 
@@ -13,13 +11,13 @@ namespace MissionSharedLibrary.View
     public abstract class MissionMenuViewBase : MissionView
     {
         private readonly string _movieName;
-        private MissionMenuVMBase _dataSource;
+        protected MissionMenuVMBase DataSource;
         protected GauntletLayer GauntletLayer;
         private GauntletMovie _movie;
 
         public bool IsActivated { get; set; }
 
-        public MissionMenuViewBase(int viewOrderPriority, string movieName)
+        protected MissionMenuViewBase(int viewOrderPriority, string movieName)
         {
             ViewOrderPriorty = viewOrderPriority;
             _movieName = movieName;
@@ -31,8 +29,8 @@ namespace MissionSharedLibrary.View
         {
             base.OnMissionScreenFinalize();
             GauntletLayer = null;
-            _dataSource?.OnFinalize();
-            _dataSource = null;
+            DataSource?.OnFinalize();
+            DataSource = null;
             _movie = null;
         }
 
@@ -47,13 +45,13 @@ namespace MissionSharedLibrary.View
         public void ActivateMenu()
         {
             IsActivated = true;
-            _dataSource = GetDataSource();
-            if (_dataSource == null)
+            DataSource = GetDataSource();
+            if (DataSource == null)
                 return;
             GauntletLayer = new GauntletLayer(ViewOrderPriorty) { IsFocusLayer = true };
             GauntletLayer.InputRestrictions.SetInputRestrictions();
             GauntletLayer.Input.RegisterHotKeyCategory(HotKeyManager.GetCategory("GenericPanelGameKeyCategory"));
-            _movie = GauntletLayer.LoadMovie(_movieName, _dataSource);
+            _movie = GauntletLayer.LoadMovie(_movieName, DataSource);
             MissionScreen.AddLayer(GauntletLayer);
             ScreenManager.TrySetFocus(GauntletLayer);
             PauseGame();
@@ -61,15 +59,15 @@ namespace MissionSharedLibrary.View
 
         public void DeactivateMenu()
         {
-            _dataSource?.CloseMenu();
+            DataSource?.CloseMenu();
         }
         protected void OnCloseMenu()
         {
             IsActivated = false;
-            _dataSource.OnFinalize();
-            _dataSource = null;
             GauntletLayer.InputRestrictions.ResetInputRestrictions();
             MissionScreen.RemoveLayer(GauntletLayer);
+            DataSource.OnFinalize();
+            DataSource = null;
             _movie = null;
             GauntletLayer = null;
             UnpauseGame();

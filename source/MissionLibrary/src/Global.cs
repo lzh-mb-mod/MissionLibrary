@@ -4,31 +4,46 @@ namespace MissionLibrary
 {
     public static class Global
     {
-        private static bool _isInitialized;
+        private static bool IsInitialized { get; set; }
+        private static bool IsSecondInitialized { get; set; }
 
         private static ProviderManager ProviderManager { get; set; }
 
         public static void Initialize()
         {
-            if (_isInitialized)
+            if (IsInitialized)
                 return;
 
-            _isInitialized = true;
+            IsInitialized = true;
             ProviderManager = new ProviderManager();
         }
-        public static void RegisterProvider<T>(IProvider<T> newProvider) where T : class, ITag<T>
+
+        public static void SecondInitialize()
+        {
+            if (IsSecondInitialized)
+                return;
+
+            IsSecondInitialized = true;
+            ProviderManager.InstantiateAll();
+        }
+
+        public static void RegisterProvider<T>(IVersionProvider<T> newProvider) where T : ATag<T>
         {
             ProviderManager.RegisterProvider(newProvider);
         }
 
-        public static T GetProvider<T>() where T : class, ITag<T>
+        public static T GetProvider<T>() where T : ATag<T>
         {
             return ProviderManager.GetProvider<T>();
         }
 
         public static void Clear()
         {
-            _isInitialized = false;
+            if (!IsInitialized)
+                return;
+
+            IsInitialized = false;
+            IsSecondInitialized = false;
             ProviderManager = null;
         }
     }

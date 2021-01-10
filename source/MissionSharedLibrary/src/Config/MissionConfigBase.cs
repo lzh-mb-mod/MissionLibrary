@@ -45,10 +45,8 @@ namespace MissionSharedLibrary.Config
             {
                 EnsureParentDirectory();
                 XmlSerializer serializer = Serializer;
-                using (TextWriter writer = new StreamWriter(SaveName))
-                {
-                    serializer.Serialize(writer, this);
-                }
+                using TextWriter writer = new StreamWriter(SaveName);
+                serializer.Serialize(writer, this);
                 return true;
             }
             catch (Exception e)

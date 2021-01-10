@@ -1,4 +1,6 @@
-﻿using TaleWorlds.Library;
+﻿using MissionSharedLibrary.View.ViewModelCollection.Basic;
+using TaleWorlds.Core.ViewModelCollection;
+using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade.ViewModelCollection.GameOptions;
 
@@ -6,58 +8,23 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options
 {
     public abstract class OptionViewModel : ViewModel
     {
-        private int _optionTypeId = -1;
-        private readonly TextObject _textText;
         private readonly TextObject _descriptionText;
-        private string _description;
-        private string _name;
+        private int _optionTypeId = -1;
         private string[] _imageIDs;
+        private HintViewModel _description;
 
-        protected OptionViewModel(
-            TextObject name,
-            TextObject description,
-            OptionsVM.OptionsDataType typeID)
-        {
-            _textText = name;
-            _descriptionText = description;
-            OptionTypeID = (int) typeID;
-            RefreshValues();
-        }
-
-        public virtual void UpdateData(bool initUpdate)
-        {
-        }
-
-        public override void RefreshValues()
-        {
-            base.RefreshValues();
-            Name = _textText.ToString();
-            Description = _descriptionText.ToString();
-        }
+        public TextViewModel Name { get; }
 
         [DataSourceProperty]
-        public string Description
+        public HintViewModel Description
         {
             get => _description;
             set
             {
-                if (value == _description)
+                if (_description == value)
                     return;
                 _description = value;
-                OnPropertyChangedWithValue(value, nameof(Description));
-            }
-        }
-
-        [DataSourceProperty]
-        public string Name
-        {
-            get => _name;
-            set
-            {
-                if (value == _name)
-                    return;
-                _name = value;
-                OnPropertyChangedWithValue(value, nameof(Name));
+                OnPropertyChanged(nameof(Description));
             }
         }
 
@@ -85,6 +52,37 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options
                 _optionTypeId = value;
                 OnPropertyChangedWithValue(value, nameof(OptionTypeID));
             }
+        }   
+
+        protected OptionViewModel(
+            TextObject name,
+            TextObject description,
+            OptionsVM.OptionsDataType typeID)
+        {
+            _descriptionText = description;
+
+            Name = new TextViewModel(name);
+            Description = new HintViewModel(_descriptionText.ToString());
+            OptionTypeID = (int) typeID;
+
+            Refresh();
+        }
+
+        public virtual void UpdateData(bool initUpdate)
+        {
+        }
+
+        public override void RefreshValues()
+        {
+            base.RefreshValues();
+
+            Refresh();
+        }
+
+        private void Refresh()
+        {
+            Name.RefreshValues();
+            Description = new HintViewModel(_descriptionText.ToString());
         }
     }
 }

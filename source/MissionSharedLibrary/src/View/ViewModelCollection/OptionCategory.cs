@@ -1,6 +1,8 @@
 ﻿using MissionLibrary.View;
 using System.Collections.Generic;
+using MissionSharedLibrary.View.ViewModelCollection.Basic;
 using TaleWorlds.Library;
+using TaleWorlds.Localization;
 
 namespace MissionSharedLibrary.View.ViewModelCollection
 {
@@ -10,6 +12,8 @@ namespace MissionSharedLibrary.View.ViewModelCollection
         private MBBindingList<ViewModel> _optionViewModels;
 
         public string Id { get; }
+
+        public TextViewModel Title { get; }
 
         [DataSourceProperty]
         public MBBindingList<ViewModel> OptionViewModels
@@ -24,34 +28,27 @@ namespace MissionSharedLibrary.View.ViewModelCollection
             }
         }
 
-        public OptionCategory(string id)
+        public OptionCategory(string id, TextObject title)
         {
             Id = id;
-
-            Refresh();
+            Title = new TextViewModel(title);
+            OptionViewModels = new MBBindingList<ViewModel>();
         }
 
         public void AddOption(IOption option)
         {
             _options.Add(option);
+            OptionViewModels.Add(option.GetViewModel());
         }
 
         public override void RefreshValues()
         {
             base.RefreshValues();
 
-            Refresh();
-        }
-
-        private void Refresh()
-        {
-            var optionViewModels = new MBBindingList<ViewModel>();
-            foreach (var option in _options)
+            foreach (var optionViewModel in OptionViewModels)
             {
-                optionViewModels.Add(option.GetViewModel());
+                optionViewModel.RefreshValues();
             }
-
-            OptionViewModels = optionViewModels;
         }
 
         public ViewModel GetViewModel()

@@ -15,7 +15,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection
             get => _categories;
             set
             {
-                if (_categories != value)
+                if (_categories == value)
                     return;
                 _categories = value;
                 OnPropertyChanged(nameof(Categories));
@@ -24,16 +24,22 @@ namespace MissionSharedLibrary.View.ViewModelCollection
 
         public OptionColumnViewModel()
         {
-            Refresh();
+            Categories = new MBBindingList<ViewModel>();
         }
 
         public void AddOptionCategory(IOptionCategory optionCategory)
         {
             var index = _optionCategories.FindIndex(o => o.Id == optionCategory.Id);
             if (index < 0)
+            {
                 _optionCategories.Add(optionCategory);
+                Categories.Add(optionCategory.GetViewModel());
+            }
             else
+            {
                 _optionCategories[index] = optionCategory;
+                Categories[index] = optionCategory.GetViewModel();
+            }
         }
 
         public override void RefreshValues()
@@ -45,15 +51,10 @@ namespace MissionSharedLibrary.View.ViewModelCollection
 
         private void Refresh()
         {
-            var categories = new MBBindingList<ViewModel>();
-            foreach (var optionCategory in _optionCategories)
+            foreach (var viewModel in Categories)
             {
-                var viewModel = optionCategory.GetViewModel();
                 viewModel.RefreshValues();
-                categories.Add(viewModel);
             }
-
-            Categories = categories;
         }
     }
 }

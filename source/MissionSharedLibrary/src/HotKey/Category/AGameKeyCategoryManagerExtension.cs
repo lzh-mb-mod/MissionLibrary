@@ -9,7 +9,7 @@ namespace MissionSharedLibrary.HotKey.Category
         public static void AddCategory(this AGameKeyCategoryManager categoryManager, Func<AGameKeyCategory> creator,
             Version version, bool addOnlyWhenMissing = true)
         {
-            categoryManager.AddCategory(new ConcreteProvider<AGameKeyCategory>(creator, version), addOnlyWhenMissing);
+            categoryManager.AddCategory(new ConcreteVersionProvider<AGameKeyCategory>(creator, version), addOnlyWhenMissing);
         }
     }
 }

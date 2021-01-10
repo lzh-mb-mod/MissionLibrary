@@ -1,4 +1,5 @@
 ﻿using System;
+using MissionLibrary.View;
 using TaleWorlds.Library;
 
 namespace MissionSharedLibrary.View
@@ -9,6 +10,7 @@ namespace MissionSharedLibrary.View
 
         public virtual void CloseMenu()
         {
+            AMenuManager.Get().OnMenuClosed();
             _closeMenu?.Invoke();
         }
 
