@@ -2,6 +2,7 @@
 using MissionSharedLibrary.View.ViewModelCollection.Basic;
 using RTSCamera.Config;
 using System;
+using MissionSharedLibrary.View.HotKey;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
@@ -42,7 +43,7 @@ namespace MissionSharedLibrary.View
         public HintViewModel ConfigKeyHint { get; set; } =
             new HintViewModel(GameTexts.FindText("str_rts_camera_config_key_hint").ToString());
 
-        private readonly RTSCameraGameKeyConfigView _gameKeyConfigView = Mission.Current.GetMissionBehaviour<RTSCameraGameKeyConfigView>();
+        private readonly GameKeyConfigView _gameKeyConfigView = Mission.Current.GetMissionBehaviour<GameKeyConfigView>();
 
         public void ConfigKey()
         {

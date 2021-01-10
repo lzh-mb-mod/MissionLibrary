@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MissionLibrary.View;
-using TaleWorlds.Library;
+﻿using MissionLibrary.View;
+using MissionSharedLibrary.View.HotKey;
+using System;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.View.Missions;
 
@@ -14,6 +12,11 @@ namespace MissionSharedLibrary.View
         public override MissionView CreateMenuView()
         {
             return new OptionView(24, new Version(1, 0, 0));
+        }
+
+        public override MissionView CreateGameKeyConfigView()
+        {
+            return new GameKeyConfigView();
         }
 
         public override void RequestToOpenMenu()

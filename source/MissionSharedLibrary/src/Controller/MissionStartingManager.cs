@@ -1,7 +1,4 @@
-﻿using MissionLibrary;
-using MissionLibrary.Controller;
-using MissionSharedLibrary.View;
-using System;
+﻿using MissionLibrary.Controller;
 using System.Collections.Generic;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.View.Missions;

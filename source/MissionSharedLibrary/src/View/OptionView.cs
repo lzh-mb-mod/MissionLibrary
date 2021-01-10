@@ -1,6 +1,5 @@
-﻿using System;
-using MissionLibrary;
-using MissionLibrary.View;
+﻿using MissionLibrary.View;
+using System;
 using MissionSharedLibrary.HotKey.Category;
 using TaleWorlds.InputSystem;
 
@@ -18,10 +17,10 @@ namespace MissionSharedLibrary.View
             base.OnMissionScreenTick(dt);
             if (IsActivated)
             {
-                if (GauntletLayer.Input.IsKeyReleased(InputKey.K))
+                if (GauntletLayer.Input.IsKeyReleased(GeneralGameKeyCategories.GetKey(GeneralGameKey.OpenMenu)))
                     DeactivateMenu();
             }
-            else if (Input.IsKeyReleased(InputKey.K))
+            else if (GauntletLayer.Input.IsKeyReleased(GeneralGameKeyCategories.GetKey(GeneralGameKey.OpenMenu)))
                 ActivateMenu();
         }
 
