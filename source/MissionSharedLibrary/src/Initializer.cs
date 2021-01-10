@@ -15,24 +15,26 @@ namespace MissionSharedLibrary
         public static bool IsInitialized { get; private set; }
         public static bool IsSecondInitialized { get; private set; }
 
-        public static void Initialize()
+        public static bool Initialize()
         {
             if (IsInitialized)
-                return;
+                return false;
 
             IsInitialized = true;
             Global.Initialize();
             RegisterProviders();
+            return true;
         }
 
-        public static void SecondInitialize()
+        public static bool SecondInitialize()
         {
             if (IsSecondInitialized)
-                return;
+                return false;
 
             IsSecondInitialized = true;
             Global.SecondInitialize();
             GeneralGameKeyCategories.RegisterGameKeyCategory();
+            return true;
         }
 
         public static void Clear()
