@@ -52,7 +52,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options
                 _optionTypeId = value;
                 OnPropertyChangedWithValue(value, nameof(OptionTypeID));
             }
-        }   
+        }
 
         protected OptionViewModel(
             TextObject name,
@@ -62,8 +62,9 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options
             _descriptionText = description;
 
             Name = new TextViewModel(name);
-            Description = new HintViewModel(_descriptionText.ToString());
-            OptionTypeID = (int) typeID;
+            if (_descriptionText != null)
+                Description = new HintViewModel(_descriptionText.ToString());
+            OptionTypeID = (int)typeID;
 
             Refresh();
         }
@@ -82,7 +83,8 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options
         private void Refresh()
         {
             Name.RefreshValues();
-            Description = new HintViewModel(_descriptionText.ToString());
+            if (_descriptionText != null)
+                Description = new HintViewModel(_descriptionText.ToString());
         }
     }
 }

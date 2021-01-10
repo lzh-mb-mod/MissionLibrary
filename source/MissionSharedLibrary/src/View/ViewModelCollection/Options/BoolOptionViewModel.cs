@@ -17,7 +17,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options
             get => _getValue();
             set
             {
-                if (value == (_getValue?.Invoke() ?? false))
+                if (value == _getValue())
                     return;
                 if (_setValue != null)
                 {
