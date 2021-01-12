@@ -5,7 +5,7 @@ using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.ViewModelCollection.GameOptions;
 
-namespace MissionLibrary.HotKey.View
+namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
 {
     public class MissionLibraryGameKeyGroupVM : ViewModel
     {

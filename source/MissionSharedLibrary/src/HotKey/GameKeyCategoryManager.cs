@@ -48,5 +48,13 @@ namespace MissionSharedLibrary.HotKey
 
             return null;
         }
+
+        public override void Save()
+        {
+            foreach(var pair in Categories)
+            {
+                pair.Value.Value.Save();
+            }
+        }
     }
 }

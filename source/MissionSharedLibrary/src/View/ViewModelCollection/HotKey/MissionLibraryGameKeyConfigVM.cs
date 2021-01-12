@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MissionLibrary.HotKey;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.InputSystem;
@@ -6,7 +7,7 @@ using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade.ViewModelCollection.GameOptions;
 
-namespace MissionLibrary.HotKey.View
+namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
 {
     public class MissionLibraryGameKeyConfigVM : ViewModel
     {
@@ -49,6 +50,7 @@ namespace MissionLibrary.HotKey.View
                 group.OnDone();
             foreach (KeyValuePair<GameKey, InputKey> keyValuePair in _keysToChangeOnDone)
                 FindValidInputKey(keyValuePair.Key).ChangeKey(keyValuePair.Value);
+            _gameKeyCategoryManager.Save();
         }
 
         private Key FindValidInputKey(GameKey gameKey)

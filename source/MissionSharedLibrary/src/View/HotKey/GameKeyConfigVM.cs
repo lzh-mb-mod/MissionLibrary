@@ -1,6 +1,6 @@
 ﻿using System;
 using MissionLibrary.HotKey;
-using MissionLibrary.HotKey.View;
+using MissionSharedLibrary.View.ViewModelCollection.HotKey;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;

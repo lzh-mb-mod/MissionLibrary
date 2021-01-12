@@ -15,5 +15,7 @@ namespace MissionLibrary.HotKey
         public abstract AGameKeyCategory GetCategory(string categoryId);
 
         public abstract T GetCategory<T>(string categoryId) where T : AGameKeyCategory;
+
+        public abstract void Save();
     }
 }
