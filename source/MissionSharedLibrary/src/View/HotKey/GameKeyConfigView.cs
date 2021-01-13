@@ -58,7 +58,7 @@ namespace MissionSharedLibrary.View.HotKey
         {
             _dataSource = new GameKeyConfigVM(AGameKeyCategoryManager.Get(), OnKeyBindRequest, Deactivate);
             _gauntletLayer = new GauntletLayer(ViewOrderPriorty) {IsFocusLayer = true};
-            _gauntletLayer.LoadMovie("RTSCameraOptionsGameKeyPage", _dataSource);
+            _gauntletLayer.LoadMovie("MissionLibraryOptionsGameKeyScreen", _dataSource);
             _gauntletLayer.Input.RegisterHotKeyCategory(HotKeyManager.GetCategory("GenericPanelGameKeyCategory"));
             _gauntletLayer.InputRestrictions.SetInputRestrictions();
             _gauntletLayer.IsFocusLayer = true;
