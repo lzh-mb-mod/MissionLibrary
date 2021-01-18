@@ -13,7 +13,7 @@ namespace MissionLibrary.Provider
             {
                 _providers.Add(typeof(T), newProvider);
             }
-            else if (oldProvider.ProviderVersion.CompareTo(newProvider) <= 0)
+            else if (oldProvider.ProviderVersion.CompareTo(newProvider.ProviderVersion) <= 0)
             {
                 _providers[typeof(T)] = newProvider;
             }
