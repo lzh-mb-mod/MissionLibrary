@@ -1,8 +1,7 @@
 ﻿using MissionLibrary.View;
-using MissionSharedLibrary.View.ViewModelCollection.Basic;
-using RTSCamera.Config;
-using System;
 using MissionSharedLibrary.View.HotKey;
+using MissionSharedLibrary.View.ViewModelCollection.Basic;
+using System;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
