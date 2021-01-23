@@ -104,7 +104,9 @@ namespace MissionSharedLibrary.View
                 optionClassViewModels.Add(optionClass.Value.GetViewModel());
             }
             OptionClassViewModels = optionClassViewModels;
-            OnOptionClassSelected(optionClasses.FirstOrDefault(optionClass => optionClass.Value.Id == selectedOptionClassId)?.Value);
+            OnOptionClassSelected(
+                (optionClasses.FirstOrDefault(optionClass => optionClass.Value.Id == selectedOptionClassId) ??
+                 optionClasses.FirstOrDefault())?.Value);
         }
 
         public override void RefreshValues()
