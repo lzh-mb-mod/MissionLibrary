@@ -11,6 +11,7 @@ namespace MissionSharedLibrary.View
     {
         private readonly List<IIdProvider<AOptionClass>> _optionClasses = new List<IIdProvider<AOptionClass>>();
         private MenuClassCollectionViewModel _viewModel;
+        private string _previouslySelectedOptionClassId = "";
 
         public void AddOptionClass(IIdProvider<AOptionClass> provider)
         {
@@ -23,6 +24,7 @@ namespace MissionSharedLibrary.View
 
         public void OnOptionClassSelected(AOptionClass optionClass)
         {
+            _previouslySelectedOptionClassId = optionClass.Id;
             _viewModel?.OnOptionClassSelected(optionClass);
         }
 
@@ -37,7 +39,7 @@ namespace MissionSharedLibrary.View
 
         public ViewModel GetViewModel()
         {
-            return _viewModel ??= new MenuClassCollectionViewModel(_optionClasses);
+            return _viewModel ??= new MenuClassCollectionViewModel(_optionClasses, _previouslySelectedOptionClassId);
         }
     }
 
@@ -94,7 +96,7 @@ namespace MissionSharedLibrary.View
             CurrentSelectedOptionClass?.UpdateSelection(true);
         }
 
-        public MenuClassCollectionViewModel(List<IIdProvider<AOptionClass>> optionClasses)
+        public MenuClassCollectionViewModel(List<IIdProvider<AOptionClass>> optionClasses, string selectedOptionClassId)
         {
             var optionClassViewModels = new MBBindingList<ViewModel>();
             foreach (var optionClass in optionClasses)
@@ -102,7 +104,7 @@ namespace MissionSharedLibrary.View
                 optionClassViewModels.Add(optionClass.Value.GetViewModel());
             }
             OptionClassViewModels = optionClassViewModels;
-            OnOptionClassSelected(optionClasses.FirstOrDefault()?.Value);
+            OnOptionClassSelected(optionClasses.FirstOrDefault(optionClass => optionClass.Value.Id == selectedOptionClassId)?.Value);
         }
 
         public override void RefreshValues()

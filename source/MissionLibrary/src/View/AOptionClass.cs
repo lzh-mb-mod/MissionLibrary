@@ -11,6 +11,7 @@ namespace MissionLibrary.View
 {
     public abstract class AOptionClass : ATag<AOptionClass>, IViewModelProvider<ViewModel>
     {
+        public abstract string Id { get; }
         public abstract ViewModel GetViewModel();
 
         public abstract void UpdateSelection(bool isSelected);
