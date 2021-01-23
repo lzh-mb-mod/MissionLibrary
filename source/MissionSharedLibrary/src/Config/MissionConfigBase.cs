@@ -132,7 +132,7 @@ namespace MissionSharedLibrary.Config
         {
             try
             {
-                string firstOldName = OldNames.FirstOrDefault(File.Exists);
+                string firstOldName = OldNames?.FirstOrDefault(File.Exists);
                 if (firstOldName != null && !firstOldName.IsEmpty())
                 {
                     EnsureParentDirectory();
