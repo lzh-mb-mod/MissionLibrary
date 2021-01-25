@@ -15,6 +15,8 @@ namespace MissionSharedLibrary
 {
     public static class Utility
     {
+        public static string ModuleId;
+
         public static bool ShouldDisplayMessage { get; set; }
 
         private static readonly MethodInfo OnUnitJoinOrLeave =
@@ -74,12 +76,12 @@ namespace MissionSharedLibrary
 
         private static void DisplayMessageImpl(string str)
         {
-            InformationManager.DisplayMessage(new InformationMessage("RTS Camera: " + str));
+            InformationManager.DisplayMessage(new InformationMessage($"{ModuleId}: " + str));
         }
 
         private static void DisplayMessageImpl(string str, Color color)
         {
-            InformationManager.DisplayMessage(new InformationMessage("RTS Camera: " + str, color));
+            InformationManager.DisplayMessage(new InformationMessage($"{ModuleId}: " + str, color));
         }
 
         private static void DisplayMessageOutOfMission(string text)

@@ -4,10 +4,10 @@
   <VisualDefinitions>
   </VisualDefinitions>
   <Window>
-    <ButtonWidget Command.Click="CloseMenu" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="RTSCamera.TransparentBrush">
+    <ButtonWidget Command.Click="CloseMenu" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="MissionLibrary.TransparentBrush">
       <Children>
 
-        <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="1750" HorizontalAlignment="Center" VerticalAlignment="Top" MarginTop="50" Brush="RTSCamera.MissionMenuBrush">
+        <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="1750" HorizontalAlignment="Center" VerticalAlignment="Top" MarginTop="50" Brush="MissionLibrary.MissionMenuBrush">
           <Children>
 
             <ListPanel LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren">

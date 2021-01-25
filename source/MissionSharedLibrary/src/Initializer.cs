@@ -15,12 +15,13 @@ namespace MissionSharedLibrary
         public static bool IsInitialized { get; private set; }
         public static bool IsSecondInitialized { get; private set; }
 
-        public static bool Initialize()
+        public static bool Initialize(string moduleId)
         {
             if (IsInitialized)
                 return false;
 
             IsInitialized = true;
+            Utility.ModuleId = moduleId;
             Global.Initialize();
             RegisterProviders();
             return true;

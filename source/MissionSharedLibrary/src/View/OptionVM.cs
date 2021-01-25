@@ -37,10 +37,10 @@ namespace MissionSharedLibrary.View
         }
 
         public TextViewModel ConfigKeyTitle { get; set; } =
-            new TextViewModel(GameTexts.FindText("str_rts_camera_gamekey_config"));
+            new TextViewModel(GameTexts.FindText("str_mission_library_gamekey_config"));
 
         public HintViewModel ConfigKeyHint { get; set; } =
-            new HintViewModel(GameTexts.FindText("str_rts_camera_config_key_hint").ToString());
+            new HintViewModel(GameTexts.FindText("str_mission_library_config_key_hint").ToString());
 
         private readonly GameKeyConfigView _gameKeyConfigView = Mission.Current.GetMissionBehaviour<GameKeyConfigView>();
 

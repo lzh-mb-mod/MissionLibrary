@@ -5,6 +5,8 @@
     <tag language="English" />
   </tags>
   <strings>
+    <string id="MissionLibrary_config_key" text="Config Key" />
+    <string id="MissionLibrary_config_key_hint" text="Config hotkey." />
     <string id="MissionLibrary_general_game_key" text="General Hot Key" />
     <string id="MissionLibrary_openmenukey" text="Open Menu" />
     <string id="MissionLibrary_openmenukey_description" text="Open or close menu." />
