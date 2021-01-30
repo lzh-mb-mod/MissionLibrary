@@ -235,8 +235,9 @@ namespace MissionSharedLibrary.Utilities
             }
 
             // avoid crash after victory. After victory, team ai decision won't be made so that current tactics won't be updated.
-            if (mission.MissionEnded())
-                mission.AllowAiTicking = false;
+            // Update: Removed because it may cause enemy cannot retreat.
+            //if (mission.MissionEnded())
+                //mission.AllowAiTicking = false;
         }
 
         public static void SetMainAgentAlarmed(bool alarmed)
