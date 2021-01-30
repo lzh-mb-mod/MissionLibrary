@@ -1,6 +1,6 @@
-﻿using MissionLibrary.HotKey;
+﻿using System.Collections.Generic;
+using MissionLibrary.HotKey;
 using MissionSharedLibrary.Config.HotKey;
-using System.Collections.Generic;
 using TaleWorlds.InputSystem;
 
 namespace MissionSharedLibrary.HotKey.Category

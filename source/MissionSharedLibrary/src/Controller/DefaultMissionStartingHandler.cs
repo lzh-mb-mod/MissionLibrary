@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MissionLibrary;
+﻿using MissionLibrary;
 using MissionLibrary.Controller;
 using MissionLibrary.View;
-using MissionSharedLibrary.View.HotKey;
 using TaleWorlds.MountAndBlade.View.Missions;
 
 namespace MissionSharedLibrary.Controller

@@ -26,7 +26,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)src\Initializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Provider\ConcreteIdProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Provider\ConcreteVersionProvider.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)src\Utility.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\Utilities\Utility.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\View\HotKey\GameKeyConfigView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\View\HotKey\GameKeyConfigVM.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\View\MenuManager.cs" />
@@ -53,6 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)CopyAssets.targets" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)src\Utilities\" />
   </ItemGroup>
   <Import Project="$(MSBuildThisFileDirectory)CopyAssets.targets" />
   <Import Project="$(MSBuildThisFileDirectory)\*.props" />

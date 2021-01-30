@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TaleWorlds.Library;
+﻿using TaleWorlds.Library;
 
 namespace MissionSharedLibrary.View.ViewModelCollection.Basic
 {

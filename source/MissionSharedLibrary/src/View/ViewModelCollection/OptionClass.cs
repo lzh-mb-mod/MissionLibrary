@@ -1,6 +1,6 @@
-﻿using MissionLibrary.View;
+﻿using System;
+using MissionLibrary.View;
 using MissionSharedLibrary.View.ViewModelCollection.Basic;
-using System;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 

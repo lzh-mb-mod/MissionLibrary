@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using MissionSharedLibrary.HotKey.Category;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.InputSystem;
@@ -8,10 +9,9 @@ using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.View.Missions;
 using TaleWorlds.MountAndBlade.View.Screen;
-using MathF = TaleWorlds.Library.MathF;
 using Module = TaleWorlds.MountAndBlade.Module;
 
-namespace MissionSharedLibrary
+namespace MissionSharedLibrary.Utilities
 {
     public static class Utility
     {
@@ -84,7 +84,14 @@ namespace MissionSharedLibrary
             InformationManager.DisplayMessage(new InformationMessage($"{ModuleId}: " + str, color));
         }
 
-        private static void DisplayMessageOutOfMission(string text)
+        public static void PrintUsageHint()
+        {
+            var keyName = TextForKey(GeneralGameKeyCategories.GetKey(GeneralGameKey.OpenMenu));
+            var hint = Module.CurrentModule.GlobalTextManager.FindText("str_rts_camera_open_menu_hint").SetTextVariable("KeyName", keyName).ToString();
+            DisplayMessageOutOfMission(hint);
+        }
+
+        public  static void DisplayMessageOutOfMission(string text)
         {
             if (Mission.Current == null)
                 DisplayMessageImpl(text);
@@ -174,6 +181,13 @@ namespace MissionSharedLibrary
             {
                 agent.DisableScriptedMovement();
                 agent.AIUseGameObjectEnable(false);
+            }
+
+            var component = agent.GetComponent<VictoryComponent>();
+            if (component != null)
+            {
+                agent.RemoveComponent(component);
+                agent.SetActionChannel(1, ActionIndexCache.act_none, true);
             }
         }
 
@@ -384,7 +398,7 @@ namespace MissionSharedLibrary
             }
             catch (Exception e)
             {
-                Utility.DisplayMessage(e.ToString());
+                DisplayMessage(e.ToString());
             }
         }
     }

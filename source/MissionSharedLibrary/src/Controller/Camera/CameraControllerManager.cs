@@ -1,6 +1,4 @@
-﻿using MissionLibrary;
-using MissionLibrary.Controller.Camera;
-using MissionLibrary.HotKey;
+﻿using MissionLibrary.Controller.Camera;
 
 namespace MissionSharedLibrary.Controller.Camera
 {

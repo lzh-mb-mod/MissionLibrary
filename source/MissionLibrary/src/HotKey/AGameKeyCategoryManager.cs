@@ -1,5 +1,5 @@
-﻿using MissionLibrary.Provider;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using MissionLibrary.Provider;
 
 namespace MissionLibrary.HotKey
 {

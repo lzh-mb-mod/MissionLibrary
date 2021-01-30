@@ -1,5 +1,5 @@
-﻿using MissionLibrary.Controller;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using MissionLibrary.Controller;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.View.Missions;
 

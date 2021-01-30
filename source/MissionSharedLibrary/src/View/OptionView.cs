@@ -1,6 +1,6 @@
-﻿using MissionLibrary.View;
+﻿using System;
+using MissionLibrary.View;
 using MissionSharedLibrary.HotKey.Category;
-using System;
 
 namespace MissionSharedLibrary.View
 {

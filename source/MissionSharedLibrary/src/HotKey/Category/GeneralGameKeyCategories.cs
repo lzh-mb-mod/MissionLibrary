@@ -1,8 +1,7 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 using MissionLibrary.Config.HotKey;
 using MissionLibrary.HotKey;
-using MissionSharedLibrary.HotKey.Category;
-using System;
 using TaleWorlds.InputSystem;
 
 namespace MissionSharedLibrary.HotKey.Category

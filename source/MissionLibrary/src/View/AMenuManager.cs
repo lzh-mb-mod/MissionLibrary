@@ -1,5 +1,5 @@
-﻿using MissionLibrary.Provider;
-using System;
+﻿using System;
+using MissionLibrary.Provider;
 using TaleWorlds.MountAndBlade.View.Missions;
 
 namespace MissionLibrary.View

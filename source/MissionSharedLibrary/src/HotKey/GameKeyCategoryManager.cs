@@ -1,9 +1,6 @@
-﻿using MissionLibrary;
+﻿using System.Collections.Generic;
 using MissionLibrary.HotKey;
-using System;
-using System.Collections.Generic;
 using MissionLibrary.Provider;
-using MissionSharedLibrary.Provider;
 
 namespace MissionSharedLibrary.HotKey
 {

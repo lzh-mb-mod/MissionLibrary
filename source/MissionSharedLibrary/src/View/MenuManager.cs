@@ -1,6 +1,6 @@
-﻿using MissionLibrary.View;
+﻿using System;
+using MissionLibrary.View;
 using MissionSharedLibrary.View.HotKey;
-using System;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.View.Missions;
 

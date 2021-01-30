@@ -1,5 +1,4 @@
 ﻿using MissionLibrary.HotKey;
-using MissionSharedLibrary.HotKey;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.InputSystem;

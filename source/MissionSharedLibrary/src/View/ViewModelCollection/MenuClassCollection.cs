@@ -1,8 +1,7 @@
-﻿using MissionLibrary.View;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using MissionLibrary.Provider;
+using MissionLibrary.View;
 using TaleWorlds.Library;
 
 namespace MissionSharedLibrary.View

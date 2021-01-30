@@ -1,6 +1,5 @@
-﻿using MissionLibrary.View;
-using MissionSharedLibrary.View.ViewModelCollection.Options;
-using System;
+﻿using System;
+using MissionLibrary.View;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade.ViewModelCollection.GameOptions;
