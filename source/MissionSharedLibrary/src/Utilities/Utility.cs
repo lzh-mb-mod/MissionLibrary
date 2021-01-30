@@ -145,7 +145,8 @@ namespace MissionSharedLibrary.Utilities
                 var formation = mission.PlayerTeam.GetFormation(formationClass);
                 if (formation.CountOfUnits == 0)
                 {
-                    if (formation.IsAIControlled)
+                    // Fix the bug when player does not lead a formation, and the formation is assigned with another sergeant, the formation will not be controlled by AI.
+                    if (Mission.Current.PlayerTeam.IsPlayerGeneral && formation.IsAIControlled)
                         formation.IsAIControlled = false;
                     // fix crash when begin a battle and assign player to an empty formation, then give it an shield wall order.
                     formation.MovementOrder = MovementOrder.MovementOrderMove(mission.MainAgent.GetWorldPosition());
