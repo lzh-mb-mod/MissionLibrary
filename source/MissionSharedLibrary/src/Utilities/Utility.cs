@@ -189,6 +189,7 @@ namespace MissionSharedLibrary.Utilities
             {
                 agent.RemoveComponent(component);
                 agent.SetActionChannel(1, ActionIndexCache.act_none, true);
+                agent.ClearTargetFrame();
             }
         }
 
