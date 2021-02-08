@@ -42,7 +42,7 @@
 
             <ButtonWidget Id="DropdownButton" DoNotPassEventsToChildren="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="!DropdownCenter.Height" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="!DropdownCenterBrush">
               <Children>
-                <RichTextWidget Id="SelectedTextWidget" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" HorizontalAlignment="Center" VerticalAlignment="Center" PositionYOffset="1" Brush="!DropdownCenterTextBrush"/>
+                <RichTextWidget Id="SelectedTextWidget" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" HorizontalAlignment="Center" VerticalAlignment="Center" ScaledPositionYOffset="1" Brush="!DropdownCenterTextBrush"/>
                 <!-- Add HintWidget compared with official dropdown -->
                 <HintWidget DataSource="{..\Description}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
               </Children>

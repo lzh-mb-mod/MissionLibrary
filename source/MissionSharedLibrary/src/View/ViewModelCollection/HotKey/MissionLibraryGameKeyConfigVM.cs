@@ -55,7 +55,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
 
         private Key FindValidInputKey(GameKey gameKey)
         {
-            return gameKey.KeyboardKey;
+            return gameKey.PrimaryKey;
         }
 
         private void UpdateKeysOfGameKeysWithId(string categoryId, int gameKeyId, InputKey newKey)

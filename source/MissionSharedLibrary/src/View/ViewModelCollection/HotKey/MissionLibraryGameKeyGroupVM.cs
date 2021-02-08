@@ -27,7 +27,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
             {
                 Key validInputKey = FindValidInputKey(key);
                 if (validInputKey != null)
-                    _gameKeys.Add(new GameKeyOptionVM(key, onKeyBindRequest, SetGameKey));
+                    _gameKeys.Add(new GameKeyOptionVM(validInputKey, key, onKeyBindRequest, SetGameKey));
             }
             RefreshValues();
         }
@@ -41,7 +41,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
 
         private Key FindValidInputKey(GameKey gameKey)
         {
-            return gameKey.KeyboardKey;
+            return gameKey.PrimaryKey;
         }
 
         private void SetGameKey(GameKeyOptionVM option, InputKey newKey)
