@@ -63,7 +63,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options
 
             Name = new TextViewModel(name);
             if (_descriptionText != null)
-                Description = new HintViewModel(_descriptionText.ToString());
+                Description = new HintViewModel(_descriptionText);
             OptionTypeID = (int)typeID;
 
             Refresh();
@@ -84,7 +84,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options
         {
             Name.RefreshValues();
             if (_descriptionText != null)
-                Description = new HintViewModel(_descriptionText.ToString());
+                Description = new HintViewModel(_descriptionText);
         }
     }
 }
