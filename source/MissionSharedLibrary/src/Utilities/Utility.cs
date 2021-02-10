@@ -1,6 +1,6 @@
-﻿using System;
+﻿using MissionSharedLibrary.HotKey.Category;
+using System;
 using System.Reflection;
-using MissionSharedLibrary.HotKey.Category;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.InputSystem;
@@ -88,10 +88,10 @@ namespace MissionSharedLibrary.Utilities
         {
             var keyName = TextForKey(GeneralGameKeyCategories.GetKey(GeneralGameKey.OpenMenu));
             var hint = Module.CurrentModule.GlobalTextManager.FindText("str_rts_camera_open_menu_hint").SetTextVariable("KeyName", keyName).ToString();
-            DisplayMessageOutOfMission(hint);
+            DisplayMessageForced(hint);
         }
 
-        public  static void DisplayMessageOutOfMission(string text)
+        public  static void DisplayMessageForced(string text)
         {
             if (Mission.Current == null)
                 DisplayMessageImpl(text);

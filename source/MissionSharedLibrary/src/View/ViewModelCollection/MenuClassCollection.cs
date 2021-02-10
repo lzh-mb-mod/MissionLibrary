@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using MissionLibrary.Provider;
+﻿using MissionLibrary.Provider;
 using MissionLibrary.View;
+using MissionSharedLibrary.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using TaleWorlds.Library;
 
 namespace MissionSharedLibrary.View
@@ -100,12 +102,28 @@ namespace MissionSharedLibrary.View
             var optionClassViewModels = new MBBindingList<ViewModel>();
             foreach (var optionClass in optionClasses)
             {
-                optionClassViewModels.Add(optionClass.Value.GetViewModel());
+                try
+                {
+                    optionClassViewModels.Add(optionClass.Value.GetViewModel());
+                }
+                catch (Exception e)
+                {
+                    Utility.DisplayMessageForced(e.ToString());
+                    Console.WriteLine(e);
+                }
             }
             OptionClassViewModels = optionClassViewModels;
-            OnOptionClassSelected(
-                (optionClasses.FirstOrDefault(optionClass => optionClass.Value.Id == selectedOptionClassId) ??
-                 optionClasses.FirstOrDefault())?.Value);
+            try
+            {
+                OnOptionClassSelected(
+                    (optionClasses.FirstOrDefault(optionClass => optionClass.Value.Id == selectedOptionClassId) ??
+                     optionClasses.FirstOrDefault())?.Value);
+            }
+            catch (Exception e)
+            {
+                Utility.DisplayMessageForced(e.ToString());
+                Console.WriteLine(e);
+            }
         }
 
         public override void RefreshValues()
