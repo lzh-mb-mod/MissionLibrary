@@ -93,10 +93,7 @@ namespace MissionSharedLibrary.Utilities
 
         public  static void DisplayMessageForced(string text)
         {
-            if (Mission.Current == null)
-                DisplayMessageImpl(text);
-            else
-                DisplayMessage(text);
+            DisplayMessageImpl(text);
         }
 
         public static TextObject TextForKey(InputKey key)
