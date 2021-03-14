@@ -13,7 +13,7 @@ namespace MissionSharedLibrary.View
         private readonly string _movieName;
         protected MissionMenuVMBase DataSource;
         protected GauntletLayer GauntletLayer;
-        private GauntletMovie _movie;
+        private IGauntletMovie _movie;
 
         public bool IsActivated { get; set; }
 

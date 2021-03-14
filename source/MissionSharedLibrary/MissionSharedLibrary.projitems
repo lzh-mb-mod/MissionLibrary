@@ -37,7 +37,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)src\View\OptionView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\View\OptionVM.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\View\ViewModelCollection\Basic\NumericVM.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)src\View\ViewModelCollection\HotKey\MissionLibraryGameKeyConfigVM.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\View\ViewModelCollection\HotKey\MissionLibraryGameKeyOptionCategoryVM.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\View\ViewModelCollection\HotKey\MissionLibraryGameKeyGroupVM.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\View\ViewModelCollection\Options\ActionOptionViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\View\ViewModelCollection\Options\NumericOptionViewModel.cs" />

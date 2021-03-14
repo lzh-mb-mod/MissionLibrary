@@ -14,12 +14,12 @@ namespace MissionSharedLibrary.View.HotKey
         private string _cancelLbl;
         private string _doneLbl;
         private string _resetLbl;
-        public MissionLibraryGameKeyConfigVM GameKeyOptions { get; set; }
+        public MissionLibraryGameKeyOptionCategoryVM GameKeyOptions { get; set; }
 
         public GameKeyConfigVM(AGameKeyCategoryManager gameKeyCategoryManager, Action<GameKeyOptionVM> onKeyBindRequest, Action onClose)
         {
             _onClose = onClose;
-            GameKeyOptions = new MissionLibraryGameKeyConfigVM(gameKeyCategoryManager, onKeyBindRequest);
+            GameKeyOptions = new MissionLibraryGameKeyOptionCategoryVM(gameKeyCategoryManager, onKeyBindRequest);
             RefreshValues();
         }
 

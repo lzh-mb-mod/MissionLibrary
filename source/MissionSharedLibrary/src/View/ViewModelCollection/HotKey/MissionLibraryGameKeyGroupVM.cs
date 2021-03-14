@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.ViewModelCollection.GameOptions;
+using MissionSharedLibrary.Utilities;
 
 namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
 {
@@ -50,11 +52,20 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
             option.OptionValueText = Module.CurrentModule.GlobalTextManager.FindText("str_game_key_text", option.CurrentKey.ToString().ToLower()).ToString();
             _setAllKeysOfId(_categoryId, option.CurrentGameKey.Id, newKey);
         }
+        internal void Update()
+        {
+            foreach (GameKeyOptionVM gameKey in this.GameKeys)
+                gameKey.Update();
+        }
 
         public void OnReset()
         {
             foreach (GameKeyOptionVM gameKey in GameKeys)
-                gameKey.Reset();
+            {
+                gameKey.CurrentGameKey.Reset();
+            }
+
+            Update();
         }
 
         public void OnDone()

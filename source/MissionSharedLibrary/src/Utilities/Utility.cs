@@ -401,5 +401,22 @@ namespace MissionSharedLibrary.Utilities
                 DisplayMessage(e.ToString());
             }
         }
+
+        public static void Reset(this GameKey gameKey)
+        {
+
+            Key controllerKey = gameKey.ControllerKey;
+            if (controllerKey != null)
+            {
+                Key defaultControllerKey = gameKey.DefaultControllerKey;
+                controllerKey.ChangeKey((object)defaultControllerKey != null ? defaultControllerKey.InputKey : InputKey.Invalid);
+            }
+            Key keyboardKey = gameKey.KeyboardKey;
+            if (keyboardKey != null)
+            {
+                Key defaultKeyboardKey = gameKey.DefaultKeyboardKey;
+                keyboardKey.ChangeKey((object)defaultKeyboardKey != null ? defaultKeyboardKey.InputKey : InputKey.Invalid);
+            }
+        }
     }
 }

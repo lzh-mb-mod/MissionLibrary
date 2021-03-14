@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using MissionLibrary.HotKey;
+using MissionSharedLibrary.Utilities;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade.ViewModelCollection.GameOptions;
+using TaleWorlds.MountAndBlade.ViewModelCollection.GameOptions.GameKeys;
 
 namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
 {
-    public class MissionLibraryGameKeyConfigVM : ViewModel
+    public class MissionLibraryGameKeyOptionCategoryVM : ViewModel
     {
         private readonly AGameKeyCategoryManager _gameKeyCategoryManager;
         private readonly Dictionary<GameKey, InputKey> _keysToChangeOnDone = new Dictionary<GameKey, InputKey>();
@@ -17,7 +19,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
         private MBBindingList<MissionLibraryGameKeyGroupVM> _groups;
         private readonly Dictionary<string, AGameKeyCategory> _categories;
 
-        public MissionLibraryGameKeyConfigVM(AGameKeyCategoryManager gameKeyCategoryManager, Action<GameKeyOptionVM> onKeyBindRequest)
+        public MissionLibraryGameKeyOptionCategoryVM(AGameKeyCategoryManager gameKeyCategoryManager, Action<GameKeyOptionVM> onKeyBindRequest)
         {
             _gameKeyCategoryManager = gameKeyCategoryManager;
             _categories = _gameKeyCategoryManager.Categories.ToDictionary(pair => pair.Key, pair => pair.Value.Value);
@@ -39,9 +41,16 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
 
         public void OnReset()
         {
-            foreach (MissionLibraryGameKeyGroupVM group in Groups)
-                group.OnReset();
-            _keysToChangeOnDone.Clear();
+            try
+            {
+                foreach (var group in this.Groups)
+                    group.OnReset();
+                _keysToChangeOnDone.Clear();
+            }
+            catch (Exception e)
+            {
+                Utility.DisplayMessageForced(e.ToString());
+            }
         }
 
         public void OnDone()
