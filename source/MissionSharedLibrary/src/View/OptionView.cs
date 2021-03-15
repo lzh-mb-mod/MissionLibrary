@@ -16,17 +16,18 @@ namespace MissionSharedLibrary.View
             base.OnMissionScreenTick(dt);
             if (IsActivated)
             {
-                if (GauntletLayer.Input.IsKeyReleased(GeneralGameKeyCategories.GetKey(GeneralGameKey.OpenMenu)))
+                if (GeneralGameKeyCategories.GetKey(GeneralGameKey.OpenMenu).IsKeyPressed(GauntletLayer.Input))
                     DeactivateMenu();
             }
-            else if (Input.IsKeyReleased(GeneralGameKeyCategories.GetKey(GeneralGameKey.OpenMenu)))
+            else if (GeneralGameKeyCategories.GetKey(GeneralGameKey.OpenMenu).IsKeyPressed(Input))
                 ActivateMenu();
         }
 
         public override void OnMissionScreenFinalize()
         {
             base.OnMissionScreenFinalize();
-            
+
+            MissionLibrary.Event.MissionEvent.Clear();
             AMenuManager.Get().MenuClassCollection.Clear();
         }
 

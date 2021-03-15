@@ -1,20 +1,24 @@
-﻿using MissionLibrary.HotKey;
+﻿using MissionLibrary.Event;
+using MissionLibrary.HotKey;
+using MissionSharedLibrary.View.ViewModelCollection.HotKey;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.InputSystem;
 using TaleWorlds.MountAndBlade.GauntletUI;
 using TaleWorlds.MountAndBlade.View.Missions;
-using TaleWorlds.MountAndBlade.ViewModelCollection.GameOptions;
 
 namespace MissionSharedLibrary.View.HotKey
 {
-    class GameKeyConfigView : MissionView
+    public class GameKeyConfigView : MissionView
     {
         private GauntletLayer _gauntletLayer;
         private GameKeyConfigVM _dataSource;
         private KeybindingPopup _keybindingPopup;
-        private GameKeyOptionVM _currentGameKey;
+        private IHotKeySetter _currentGameKey;
         private bool _enableKeyBindingPopupNextTick;
+
+        public const string KeyBindRequestEventId = "KeyBindRequest";
+        public const string KeyBindRequestReceiverId = "GameKeyConfigView";
 
         public GameKeyConfigView()
         {
@@ -74,7 +78,7 @@ namespace MissionSharedLibrary.View.HotKey
             _dataSource = null;
         }
 
-        private void OnKeyBindRequest(GameKeyOptionVM requestedHotKeyToChange)
+        private void OnKeyBindRequest(IHotKeySetter requestedHotKeyToChange)
         {
             _currentGameKey = requestedHotKeyToChange;
             _enableKeyBindingPopupNextTick = true;

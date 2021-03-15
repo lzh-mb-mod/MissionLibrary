@@ -11,7 +11,7 @@ namespace MissionSharedLibrary.View
         public override IMenuClassCollection MenuClassCollection { get; } = new MenuClassCollection();
         public override MissionView CreateMenuView()
         {
-            return new OptionView(24, new Version(1, 0, 0));
+            return new OptionView(24, new Version(1, 1, 0));
         }
 
         public override MissionView CreateGameKeyConfigView()

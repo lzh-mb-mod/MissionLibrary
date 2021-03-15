@@ -16,7 +16,7 @@ namespace MissionSharedLibrary.View.HotKey
         private string _resetLbl;
         public MissionLibraryGameKeyOptionCategoryVM GameKeyOptions { get; set; }
 
-        public GameKeyConfigVM(AGameKeyCategoryManager gameKeyCategoryManager, Action<GameKeyOptionVM> onKeyBindRequest, Action onClose)
+        public GameKeyConfigVM(AGameKeyCategoryManager gameKeyCategoryManager, Action<IHotKeySetter> onKeyBindRequest, Action onClose)
         {
             _onClose = onClose;
             GameKeyOptions = new MissionLibraryGameKeyOptionCategoryVM(gameKeyCategoryManager, onKeyBindRequest);

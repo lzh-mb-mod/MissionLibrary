@@ -2,6 +2,8 @@
 using JetBrains.Annotations;
 using MissionLibrary.Config.HotKey;
 using MissionLibrary.HotKey;
+using MissionSharedLibrary.Config.HotKey;
+using System.Collections.Generic;
 using TaleWorlds.InputSystem;
 
 namespace MissionSharedLibrary.HotKey.Category
@@ -23,8 +25,13 @@ namespace MissionSharedLibrary.HotKey.Category
         {
             var result = new GameKeyCategory(CategoryId, (int) GeneralGameKey.NumberOfGameKeyEnums,
                 GeneralGameKeyConfig.Get());
-            result.AddGameKey(new GameKey((int) GeneralGameKey.OpenMenu, nameof(GeneralGameKey.OpenMenu),
-                CategoryId, InputKey.L, CategoryId));
+
+            result.AddGameKeySequence(new GameKeySequence((int) GeneralGameKey.OpenMenu,
+                nameof(GeneralGameKey.OpenMenu),
+                CategoryId, new List<InputKey>()
+                {
+                    InputKey.L
+                }, true));
             return result;
         }
 
@@ -33,9 +40,9 @@ namespace MissionSharedLibrary.HotKey.Category
             AGameKeyCategoryManager.Get()?.AddCategory(CreateGeneralGameKeyCategory, new Version(1, 0));
         }
 
-        public static InputKey GetKey(GeneralGameKey key)
+        public static IGameKeySequence GetKey(GeneralGameKey key)
         {
-            return GeneralGameKeyCategory?.GetKey((int) key) ?? InputKey.Invalid;
+            return GeneralGameKeyCategory.GetGameKeySequence((int) key);
         }
     }
 }

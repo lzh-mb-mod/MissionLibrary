@@ -2,32 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using MissionLibrary.HotKey;
+using MissionLibrary.View;
 using MissionSharedLibrary.Utilities;
+using TaleWorlds.Core;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
-using TaleWorlds.MountAndBlade.ViewModelCollection.GameOptions;
-using TaleWorlds.MountAndBlade.ViewModelCollection.GameOptions.GameKeys;
 
 namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
 {
     public class MissionLibraryGameKeyOptionCategoryVM : ViewModel
     {
         private readonly AGameKeyCategoryManager _gameKeyCategoryManager;
+        private readonly Action<MissionLibraryGameKeyOptionVM> _onKeyBindRequest;
         private readonly Dictionary<GameKey, InputKey> _keysToChangeOnDone = new Dictionary<GameKey, InputKey>();
         private string _name;
-        private MBBindingList<MissionLibraryGameKeyGroupVM> _groups;
+        private string _resetText;
+        private MBBindingList<AHotKeyConfigVM> _groups;
         private readonly Dictionary<string, AGameKeyCategory> _categories;
 
-        public MissionLibraryGameKeyOptionCategoryVM(AGameKeyCategoryManager gameKeyCategoryManager, Action<GameKeyOptionVM> onKeyBindRequest)
+        public MissionLibraryGameKeyOptionCategoryVM(AGameKeyCategoryManager gameKeyCategoryManager, Action<IHotKeySetter> onKeyBindRequest)
         {
             _gameKeyCategoryManager = gameKeyCategoryManager;
+            _onKeyBindRequest = onKeyBindRequest;
             _categories = _gameKeyCategoryManager.Categories.ToDictionary(pair => pair.Key, pair => pair.Value.Value);
-            Groups = new MBBindingList<MissionLibraryGameKeyGroupVM>();
+            Groups = new MBBindingList<AHotKeyConfigVM>();
             foreach (KeyValuePair<string, AGameKeyCategory> category in _categories)
             {
-                if (category.Value.GameKeys.Count > 0)
-                    Groups.Add(new MissionLibraryGameKeyGroupVM(category.Key, category.Value.GameKeys, onKeyBindRequest, UpdateKeysOfGameKeysWithId));
+                    Groups.Add(category.Value.CreateViewModel(onKeyBindRequest));
             }
             RefreshValues();
         }
@@ -37,6 +39,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
             base.RefreshValues();
             Name = new TextObject("{=Met1U45t}Mouse and Keyboard").ToString();
             Groups.ApplyActionOnAllItems(x => x.RefreshValues());
+            ResetText = new TextObject("{=RVIKFCno}Reset to Defaults").ToString();
         }
 
         public void OnReset()
@@ -44,7 +47,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
             try
             {
                 foreach (var group in this.Groups)
-                    group.OnReset();
+                    group.ExecuteCommand("OnReset", new object[]{});
                 _keysToChangeOnDone.Clear();
             }
             catch (Exception e)
@@ -55,7 +58,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
 
         public void OnDone()
         {
-            foreach (MissionLibraryGameKeyGroupVM group in Groups)
+            foreach (AHotKeyConfigVM group in Groups)
                 group.OnDone();
             foreach (KeyValuePair<GameKey, InputKey> keyValuePair in _keysToChangeOnDone)
                 FindValidInputKey(keyValuePair.Key).ChangeKey(keyValuePair.Value);
@@ -65,20 +68,6 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
         private Key FindValidInputKey(GameKey gameKey)
         {
             return gameKey.KeyboardKey;
-        }
-
-        private void UpdateKeysOfGameKeysWithId(string categoryId, int gameKeyId, InputKey newKey)
-        {
-            if (_categories.TryGetValue(categoryId, out AGameKeyCategory category))
-            {
-                if (gameKeyId < 0 || gameKeyId >= category.GameKeys.Count)
-                    return;
-                var gameKey = category.GameKeys[gameKeyId];
-                if (_keysToChangeOnDone.ContainsKey(gameKey))
-                    _keysToChangeOnDone[gameKey] = newKey;
-                else
-                    _keysToChangeOnDone.Add(gameKey, newKey);
-            }
         }
 
         [DataSourceProperty]
@@ -95,7 +84,20 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
         }
 
         [DataSourceProperty]
-        public MBBindingList<MissionLibraryGameKeyGroupVM> Groups
+        public string ResetText
+        {
+            get => _resetText;
+            set
+            {
+                if (_resetText == value)
+                    return;
+                _resetText = value;
+                OnPropertyChangedWithValue(value, nameof(ResetText));
+            }
+        }
+
+        [DataSourceProperty]
+        public MBBindingList<AHotKeyConfigVM> Groups
         {
             get => _groups;
             set
@@ -105,6 +107,16 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
                 _groups = value;
                 OnPropertyChangedWithValue(value, nameof(Groups));
             }
+        }
+
+        public void ExecuteResetToDefault()
+        {
+            InformationManager.ShowInquiry(new InquiryData(
+                new TextObject("{=4gCU2ykB}Reset all keys to default").ToString(),
+                new TextObject(
+                        "{=YjbNtFcw}This will reset ALL keys to their default states. You won't be able to undo this action. {newline} {newline}Are you sure?")
+                    .ToString(), true, true, new TextObject("{=aeouhelq}Yes").ToString(),
+                new TextObject("{=8OkPHu4f}No").ToString(), OnReset, null));
         }
     }
 }

@@ -9,6 +9,7 @@ using MissionSharedLibrary.Utilities;
 
 namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
 {
+    [Obsolete]
     public class MissionLibraryGameKeyGroupVM : ViewModel
     {
         private readonly Action<string, int, InputKey> _setAllKeysOfId;

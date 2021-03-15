@@ -11,6 +11,12 @@
       <Children>
         <Widget Id="@Name" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Top">
           <Children>
+            <ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="251" SuggestedHeight="64" Brush="Popup.Cancel.Button" HorizontalAlignment="Right" Command.Click="ExecuteResetToDefault" DoNotPassEventsToChildren="true">
+              <Children>
+                <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Popup.Button.Text" Text="@ResetText"/>
+              </Children>
+            </ButtonWidget>
+
             <ListPanel DataSource="{Groups}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Top" MarginTop="50" MarginBottom="200" LayoutImp.LayoutMethod="VerticalBottomToTop">
               <ItemTemplate>
                 <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" MarginBottom="80" LayoutImp.LayoutMethod="VerticalBottomToTop">
@@ -32,14 +38,14 @@
                               </Children>
                             </Widget>
 
-                            <BrushWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="2" VerticalAlignment="Center" MarginLeft="15" Brush="SPOptions.CollapserLine"  />
+                            <BrushWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="2" VerticalAlignment="Center" MarginLeft="15" Brush="SPOptions.CollapserLine" />
                           </Children>
                         </ListPanel>
 
                       </Children>
                     </PartyHeaderToggleWidget>
 
-                    <ListPanel Id="GameKeysList" DataSource="{GameKeys}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" MarginTop="35" LayoutImp.LayoutMethod="VerticalBottomToTop">
+                    <ListPanel Id="GameKeysList" DataSource="{GameKeySequenceOptions}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" MarginTop="35" LayoutImp.LayoutMethod="VerticalBottomToTop">
                       <ItemTemplate>
 
                         <MissionLibraryGameKeyConfigItemWidget Id="ListPanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" MarginTop="5" LayoutImp.LayoutMethod="HorizontalLeftToRight" OptionTitle="@Name" OptionDescription="@Description">
@@ -47,14 +53,32 @@
 
                             <RichTextWidget WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="565" HorizontalAlignment="Right" VerticalAlignment="Center" Brush="SPOptions.OptionName.Text" Text="@Name" />
 
-                            <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="338" SuggestedHeight="42" HorizontalAlignment="Right" VerticalAlignment="Center" MarginLeft="60" Command.Click="ExecuteKeybindRequest" UpdateChildrenStates="true">
-                              <Children>
-                                <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="362" SuggestedHeight="38" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="SPOptions.GameKey.Button.Canvas" IsEnabled="false" />
-                                <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="400" SuggestedHeight="65" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="SPOptions.GameKey.Button.Frame" IsEnabled="false" />
-                                <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="SPOptions.Dropdown.Center.Text" Text="@OptionValueText" />
-                              </Children>
-                            </ButtonWidget>
+                            <ListPanel DataSource="{Options}" WidthSizePolicy="Fixed" SuggestedWidth="500" HeightSizePolicy="CoverChildren" LayoutImp.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Right" VerticalAlignment="Center" >
+                              <ItemTemplate>
+                                <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="85" SuggestedHeight="42" HorizontalAlignment="Left" VerticalAlignment="Center" MarginLeft="30" Command.Click="ExecuteKeybindRequest" UpdateChildrenStates="true">
+                                  <Children>
+                                    <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="112" SuggestedHeight="38" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="SPOptions.GameKey.Button.Canvas" IsEnabled="false" />
+                                    <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="125" SuggestedHeight="65" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="SPOptions.GameKey.Button.Frame" IsEnabled="false" />
+                                    <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="SPOptions.Dropdown.Center.Text" Text="@OptionValueText" />
+                                  </Children>
+                                </ButtonWidget>
+                              </ItemTemplate>
+                            </ListPanel>
 
+                            <ListPanel WidthSizePolicy="Fixed" SuggestedWidth="80" HeightSizePolicy="CoverChildren" LayoutImp.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Right">
+                              <Children>
+                                <ButtonWidget DoNotPassEventsToChildren="true" Command.Click="PushGameKey" IsEnabled="@PushEnabled" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="40" Brush="ButtonBrush2" PositiveBehaviourBrush="ButtonBrush1" >
+                                  <Children>
+                                    <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="SPOptions.Dropdown.Center.Text" Text="+" />
+                                  </Children>
+                                </ButtonWidget>
+                                <ButtonWidget DoNotPassEventsToChildren="true" Command.Click="PopGameKey" IsEnabled="@PopEnabled" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="40" Brush="ButtonBrush2" PositiveBehaviourBrush="ButtonBrush1" >
+                                  <Children>
+                                    <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="SPOptions.Dropdown.Center.Text" Text="-" />
+                                  </Children>
+                                </ButtonWidget>
+                              </Children>
+                            </ListPanel>
                           </Children>
                         </MissionLibraryGameKeyConfigItemWidget>
 

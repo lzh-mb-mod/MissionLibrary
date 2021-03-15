@@ -9,6 +9,7 @@
     <Import_RootNamespace>MissionSharedLibrary</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)src\Config\HotKey\GameKeySequence.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Controller\DefaultMissionStartingHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Controller\InputControllerFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Controller\MissionBehaviors\InputController.cs" />
@@ -31,6 +32,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)src\View\HotKey\GameKeyConfigVM.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\View\MenuManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\View\ViewModelCollection\Basic\BoolVM.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\View\ViewModelCollection\HotKey\MissionLibraryGameKeyOptionVM.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\View\ViewModelCollection\HotKey\MissionLibraryGameKeySequenceGroupVM.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\View\ViewModelCollection\HotKey\MissionLibraryGameKeySequenceOptionVM.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\View\ViewModelCollection\MenuClassCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\View\MissionMenuViewBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\View\MissionMenuVMBase.cs" />
