@@ -91,15 +91,15 @@ namespace MissionSharedLibrary.Utilities
             DisplayMessageForced(hint);
         }
 
-        public  static void DisplayMessageForced(string text)
+        public static void DisplayMessageForced(string text)
         {
             DisplayMessageImpl(text);
         }
 
         public static TextObject TextForKey(InputKey key)
         {
-           return  Module.CurrentModule.GlobalTextManager.FindText("str_game_key_text",
-                new Key(key).ToString().ToLower());
+            return Module.CurrentModule.GlobalTextManager.FindText("str_game_key_text",
+                 new Key(key).ToString().ToLower());
         }
 
         public static bool IsAgentDead(Agent agent)
@@ -235,7 +235,7 @@ namespace MissionSharedLibrary.Utilities
             // avoid crash after victory. After victory, team ai decision won't be made so that current tactics won't be updated.
             // Update: Removed because it may cause enemy cannot retreat.
             //if (mission.MissionEnded())
-                //mission.AllowAiTicking = false;
+            //mission.AllowAiTicking = false;
         }
 
         public static void SetMainAgentAlarmed(bool alarmed)
