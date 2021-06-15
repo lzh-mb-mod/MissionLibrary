@@ -146,7 +146,7 @@ namespace MissionSharedLibrary.Utilities
                     if (Mission.Current.PlayerTeam.IsPlayerGeneral && formation.IsAIControlled)
                         formation.IsAIControlled = false;
                     // fix crash when begin a battle and assign player to an empty formation, then give it an shield wall order.
-                    formation.MovementOrder = MovementOrder.MovementOrderMove(mission.MainAgent.GetWorldPosition());
+                    formation.SetMovementOrder(MovementOrder.MovementOrderMove(mission.MainAgent.GetWorldPosition()));
                 }
 
                 if (mission.MainAgent.Formation != null)
@@ -220,7 +220,7 @@ namespace MissionSharedLibrary.Utilities
 
                     if (mission.MainAgent.Formation != null)
                     {
-                        OnUnitJoinOrLeave?.Invoke(mission.MainAgent.Formation.MovementOrder, new object[]
+                        OnUnitJoinOrLeave?.Invoke(mission.MainAgent.Formation.GetReadonlyMovementOrderReference(), new object[]
                         {
                             mission.MainAgent.Formation, mission.MainAgent, true
                         });
@@ -241,8 +241,8 @@ namespace MissionSharedLibrary.Utilities
         public static void SetMainAgentAlarmed(bool alarmed)
         {
             Mission.Current.MainAgent?.SetWatchState(alarmed
-                ? AgentAIStateFlagComponent.WatchState.Alarmed
-                : AgentAIStateFlagComponent.WatchState.Patroling);
+                ? Agent.WatchState.Alarmed
+                : Agent.WatchState.Patrolling);
         }
 
         public static bool IsEnemy(Agent agent)
