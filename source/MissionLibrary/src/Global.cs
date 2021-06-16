@@ -27,12 +27,12 @@ namespace MissionLibrary
             ProviderManager.InstantiateAll();
         }
 
-        public static void RegisterProvider<T>(IVersionProvider<T> newProvider) where T : ATag<T>
+        public static void RegisterProvider<T>(IVersionProvider<T> newProvider, string key = "") where T : ATag<T>
         {
-            ProviderManager.RegisterProvider(newProvider);
+            ProviderManager.RegisterProvider(newProvider, key);
         }
 
-        public static T GetProvider<T>() where T : ATag<T>
+        public static T GetProvider<T>(string key = "") where T : ATag<T>
         {
             return ProviderManager.GetProvider<T>();
         }

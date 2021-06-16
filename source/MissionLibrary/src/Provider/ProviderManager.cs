@@ -5,23 +5,28 @@ namespace MissionLibrary.Provider
 {
     public class ProviderManager : IProviderManager
     {
-        private readonly Dictionary<Type, IVersionProvider> _providers = new Dictionary<Type, IVersionProvider>();
+        private readonly Dictionary<Type, Dictionary<string, IVersionProvider>> _providersWithKey =
+            new Dictionary<Type, Dictionary<string, IVersionProvider>>();
 
-        public void RegisterProvider<T>(IVersionProvider<T> newProvider) where T : ATag<T>
+        public void RegisterProvider<T>(IVersionProvider<T> newProvider, string key = "") where T : ATag<T>
         {
-            if (!_providers.TryGetValue(typeof(T), out IVersionProvider oldProvider))
+            if (!_providersWithKey.TryGetValue(typeof(T), out var dictionary))
             {
-                _providers.Add(typeof(T), newProvider);
+                _providersWithKey.Add(typeof(T), new Dictionary<string, IVersionProvider>() {[key] = newProvider});
+            }
+            else if (!dictionary.TryGetValue(key, out var oldProvider))
+            {
+                dictionary.Add(key, newProvider);
             }
             else if (oldProvider.ProviderVersion.CompareTo(newProvider.ProviderVersion) <= 0)
             {
-                _providers[typeof(T)] = newProvider;
+                dictionary[key] = newProvider;
             }
         }
 
-        public T GetProvider<T>() where T : ATag<T>
+        public T GetProvider<T>(string key = "") where T : ATag<T>
         {
-            if (!_providers.TryGetValue(typeof(T), out IVersionProvider provider) || !(provider is IVersionProvider<T> tProvider))
+            if (!_providersWithKey.TryGetValue(typeof(T), out var dictionary) || !dictionary.TryGetValue(key, out IVersionProvider provider) || !(provider is IVersionProvider<T> tProvider))
             {
                 return null;
             }
@@ -31,9 +36,12 @@ namespace MissionLibrary.Provider
 
         public void InstantiateAll()
         {
-            foreach (var pair in _providers)
+            foreach (var pair in _providersWithKey)
             {
-                pair.Value.ForceCreate();
+                foreach (var versionProviderPair in pair.Value)
+                {
+                    versionProviderPair.Value.ForceCreate();
+                }
             }
         }
     }

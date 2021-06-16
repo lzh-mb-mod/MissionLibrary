@@ -54,7 +54,7 @@ namespace MissionSharedLibrary
             RegisterProvider(() => new MenuManager(), new Version(1, 1));
         }
 
-        public static void RegisterProvider<T>(Func<ATag<T>> creator, Version providerVersion) where T : ATag<T>
+        public static void RegisterProvider<T>(Func<ATag<T>> creator, Version providerVersion, string key = "") where T : ATag<T>
         {
             Global.RegisterProvider(VersionProviderCreator.Create(creator, providerVersion));
         }

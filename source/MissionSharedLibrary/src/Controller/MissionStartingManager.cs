@@ -9,6 +9,9 @@ namespace MissionSharedLibrary.Controller
     {
         private readonly List<AMissionStartingHandler> _handlers = new List<AMissionStartingHandler>();
 
+        private readonly Dictionary<string, AMissionStartingHandler> _dictionary =
+            new Dictionary<string, AMissionStartingHandler>();
+
         public static void AddMissionBehaviour(MissionView entranceView, MissionBehaviour behaviour)
         {
             behaviour.OnAfterMissionCreated();
@@ -34,6 +37,11 @@ namespace MissionSharedLibrary.Controller
         public override void AddHandler(AMissionStartingHandler handler)
         {
             _handlers.Add(handler);
+        }
+
+        public override void AddHandler(string key, AMissionStartingHandler handler)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
