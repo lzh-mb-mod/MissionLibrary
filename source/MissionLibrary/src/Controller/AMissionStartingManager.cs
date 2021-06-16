@@ -1,4 +1,5 @@
 ﻿using MissionLibrary.Provider;
+using System;
 using TaleWorlds.MountAndBlade.View.Missions;
 
 namespace MissionLibrary.Controller
@@ -19,7 +20,7 @@ namespace MissionLibrary.Controller
 
         public abstract void AddHandler(AMissionStartingHandler handler);
 
-        public abstract void AddHandler(string key, AMissionStartingHandler handler);
+        public abstract void AddHandler(string key, AMissionStartingHandler handler, Version version);
 
     }
 }

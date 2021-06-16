@@ -1,5 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using MissionLibrary;
+using System.Collections.Generic;
 using MissionLibrary.Controller;
+using MissionSharedLibrary.Provider;
+using System;
+using System.Linq;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.View.Missions;
 
@@ -20,7 +24,7 @@ namespace MissionSharedLibrary.Controller
 
         public override void OnCreated(MissionView entranceView)
         {
-            foreach (var handler in _handlers)
+            foreach (var handler in GetHandlers())
             {
                 handler.OnCreated(entranceView);
             }
@@ -28,7 +32,7 @@ namespace MissionSharedLibrary.Controller
 
         public override void OnPreMissionTick(MissionView entranceView, float dt)
         {
-            foreach (var handler in _handlers)
+            foreach (var handler in GetHandlers())
             {
                 handler.OnPreMissionTick(entranceView, dt);
             }
@@ -39,9 +43,14 @@ namespace MissionSharedLibrary.Controller
             _handlers.Add(handler);
         }
 
-        public override void AddHandler(string key, AMissionStartingHandler handler)
+        public override void AddHandler(string key, AMissionStartingHandler handler, Version version)
         {
-            throw new System.NotImplementedException();
+            Global.RegisterProvider(VersionProviderCreator.Create(() => handler, version), key);
+        }
+
+        private IEnumerable<AMissionStartingHandler> GetHandlers()
+        {
+            return _handlers.Concat(Global.GetProviders<AMissionStartingHandler>());
         }
     }
 }

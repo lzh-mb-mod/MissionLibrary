@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MissionLibrary.Provider
 {
@@ -32,6 +33,16 @@ namespace MissionLibrary.Provider
             }
 
             return tProvider.Value;
+        }
+
+        public IEnumerable<T> GetProviders<T>() where T : ATag<T>
+        {
+            if (!_providersWithKey.TryGetValue(typeof(T), out var dictionary))
+            {
+                return Enumerable.Empty<T>();
+            }
+
+            return dictionary.Values.Where(v => v is IVersionProvider<T>).Select(v => (v as IVersionProvider<T>)?.Value);
         }
 
         public void InstantiateAll()

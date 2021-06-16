@@ -1,4 +1,5 @@
 ﻿using MissionLibrary.Provider;
+using System.Collections.Generic;
 
 namespace MissionLibrary
 {
@@ -35,6 +36,11 @@ namespace MissionLibrary
         public static T GetProvider<T>(string key = "") where T : ATag<T>
         {
             return ProviderManager.GetProvider<T>();
+        }
+
+        public static IEnumerable<T> GetProviders<T>() where T : ATag<T>
+        {
+            return ProviderManager.GetProviders<T>();
         }
 
         public static void Clear()
