@@ -18,9 +18,6 @@ namespace MissionSharedLibrary.Utilities
         public static string ModuleId;
 
         public static bool ShouldDisplayMessage { get; set; }
-
-        private static readonly MethodInfo OnUnitJoinOrLeave =
-            typeof(MovementOrder).GetMethod("OnUnitJoinOrLeave", BindingFlags.Instance | BindingFlags.NonPublic);
         public static void DisplayLocalizedText(string id, string variation = null)
         {
             try
@@ -218,13 +215,8 @@ namespace MissionSharedLibrary.Utilities
                         }
                     }
 
-                    if (mission.MainAgent.Formation != null)
-                    {
-                        OnUnitJoinOrLeave?.Invoke(mission.MainAgent.Formation.GetReadonlyMovementOrderReference(), new object[]
-                        {
-                            mission.MainAgent.Formation, mission.MainAgent, true
-                        });
-                    }
+                    mission.MainAgent.Formation?.GetReadonlyMovementOrderReference()
+                        .OnUnitJoinOrLeave(mission.MainAgent.Formation, mission.MainAgent, true);
                 }
             }
             catch (Exception e)
