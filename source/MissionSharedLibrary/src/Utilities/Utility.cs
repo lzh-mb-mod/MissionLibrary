@@ -172,6 +172,11 @@ namespace MissionSharedLibrary.Utilities
                     if (mission.MainAgent.Formation != null)
                         SetHasPlayer(mission.MainAgent.Formation, false);
                     mission.MainAgent.Formation = formation;
+                    // add player's troop card. Disabled because the result is not good.
+                    //mission.MainAgent.Team.MasterOrderController.TransferUnits(
+                    //    originalFormation ?? (mission.MainAgent.Team.FormationsIncludingSpecialAndEmpty[0] == formation
+                    //        ? mission.MainAgent.Team.FormationsIncludingSpecialAndEmpty[1]
+                    //        : mission.MainAgent.Team.FormationsIncludingSpecialAndEmpty[0]), formation, 0);
                 }
             }
         }

@@ -3,6 +3,8 @@
     <Parameter Name="SelectorDataSource" DefaultValue="SelectorDataSource" />
     <Parameter Name="ShowNextAndPrevious" DefaultValue="true" />
     <Parameter Name="IsFlatDesign" DefaultValue="false" />
+    <Parameter Name="IsCustomWidth" DefaultValue="false" />
+    <Parameter Name="CustomWidth" DefaultValue="0" />
   </Parameters>
   <Constants>
     <Constant Name="PreviousButtonBrush" BooleanCheck="*IsFlatDesign" OnTrue="SPOptions.Dropdown.Left.Button" OnFalse="SPOptions.Dropdown.Left.Button" />
@@ -14,9 +16,12 @@
     <Constant Name="DropdownCenterTextBrush" BooleanCheck="*IsFlatDesign" OnTrue="MPLobby.CustomServer.CreateGamePanel.DropdownText" OnFalse="SPOptions.Dropdown.Center.Text" />
     <Constant Name="ItemTextBrush" BooleanCheck="*IsFlatDesign" OnTrue="Standard.DropdownItem.Text" OnFalse="SPOptions.Dropdown.Item.Text" />
 
-    <Constant Name="Extension.Width" BrushLayer="Default" BrushName="!DropdownListBackgroundBrush" BrushValueType="Width" />
-    <Constant Name="DropdownCenter.Width" BrushLayer="Default" BrushName="!DropdownCenterBrush" BrushValueType="Width" />
+    <Constant Name="Extension.Brush.Width" BrushLayer="Default" BrushName="!DropdownListBackgroundBrush" BrushValueType="Width" />
+    <Constant Name="DropdownCenter.Brush.Width" BrushLayer="Default" BrushName="!DropdownCenterBrush" BrushValueType="Width" />
     <Constant Name="DropdownCenter.Height" BrushLayer="Default" BrushName="!DropdownCenterBrush" BrushValueType="Height" />
+
+    <Constant Name="Extension.Width" BooleanCheck="*IsCustomWidth" OnTrue="*CustomWidth" OnFalse="!Extension.Brush.Width" />
+    <Constant Name="DropdownCenter.Width" BooleanCheck="*IsCustomWidth" OnTrue="*CustomWidth" OnFalse="!DropdownCenter.Brush.Width" />
 
   </Constants>
   <Variables>

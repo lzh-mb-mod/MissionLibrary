@@ -3,8 +3,10 @@ using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.GauntletUI.Data;
 using TaleWorlds.InputSystem;
+using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.View.Missions;
+using TaleWorlds.TwoDimension;
 
 namespace MissionSharedLibrary.View
 {
@@ -52,6 +54,10 @@ namespace MissionSharedLibrary.View
             GauntletLayer.InputRestrictions.SetInputRestrictions();
             GauntletLayer.Input.RegisterHotKeyCategory(HotKeyManager.GetCategory("GenericPanelGameKeyCategory"));
             _movie = GauntletLayer.LoadMovie(_movieName, DataSource);
+            SpriteData spriteData = UIResourceManager.SpriteData;
+            TwoDimensionEngineResourceContext resourceContext = UIResourceManager.ResourceContext;
+            ResourceDepot uiResourceDepot = UIResourceManager.UIResourceDepot;
+            spriteData.SpriteCategories["ui_saveload"]?.Load(resourceContext, uiResourceDepot);
             MissionScreen.AddLayer(GauntletLayer);
             ScreenManager.TrySetFocus(GauntletLayer);
             PauseGame();
