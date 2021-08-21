@@ -133,22 +133,46 @@ namespace MissionSharedLibrary.Utilities
         public static void SetPlayerFormation(FormationClass formationClass)
         {
             var mission = Mission.Current;
-            if (mission.MainAgent != null && Mission.Current.PlayerTeam != null &&
-                mission.MainAgent.Formation?.FormationIndex != formationClass)
+            if (mission.MainAgent != null && mission.PlayerTeam != null)
             {
-                var formation = mission.PlayerTeam.GetFormation(formationClass);
-                if (formation.CountOfUnits == 0)
+                var originalFormation = mission.MainAgent.Formation;
+                if (originalFormation?.FormationIndex != formationClass)
                 {
-                    // Fix the bug when player does not lead a formation, and the formation is assigned with another sergeant, the formation will not be controlled by AI.
-                    if (Mission.Current.PlayerTeam.IsPlayerGeneral && formation.IsAIControlled)
-                        formation.IsAIControlled = false;
-                    // fix crash when begin a battle and assign player to an empty formation, then give it an shield wall order.
-                    formation.SetMovementOrder(MovementOrder.MovementOrderMove(mission.MainAgent.GetWorldPosition()));
-                }
+                    var formation = mission.PlayerTeam.GetFormation(formationClass);
+                    if (formation.CountOfUnits == 0)
+                    {
+                        // Fix the bug when player is a sergeant of another formation, and the target formation is led by another sergeant, the formation will not be controlled by AI.
+                        if (Mission.Current.PlayerTeam.IsPlayerGeneral && formation.IsAIControlled)
+                            formation.IsAIControlled = false;
+                        if (originalFormation == null)
+                        {
+                            // fix crash when begin a battle and assign player to an empty formation, then give it an shield wall order.
+                            formation.SetMovementOrder(
+                                MovementOrder.MovementOrderMove(mission.MainAgent.GetWorldPosition()));
+                        }
+                        else
+                        {
+                            // copied from Formation.CopyOrdersFrom
+                            formation.SetMovementOrder(originalFormation.GetReadonlyMovementOrderReference());
+                            formation.FormOrder = originalFormation.FormOrder;
+                            formation.SetPositioning(unitSpacing: originalFormation.UnitSpacing);
+                            formation.RidingOrder = originalFormation.RidingOrder;
+                            formation.WeaponUsageOrder = originalFormation.WeaponUsageOrder;
+                            formation.FiringOrder = originalFormation.FiringOrder;
+                            formation.IsAIControlled = originalFormation.IsAIControlled || !originalFormation.Team.IsPlayerGeneral;
+                            formation.AI.Side = originalFormation.AI.Side;
+                            formation.SetMovementOrder(originalFormation.GetReadonlyMovementOrderReference());
+                            formation.FacingOrder = originalFormation.FacingOrder;
+                            formation.ArrangementOrder = originalFormation.ArrangementOrder;
 
-                if (mission.MainAgent.Formation != null)
-                    SetHasPlayer(mission.MainAgent.Formation, false);
-                mission.MainAgent.Formation = formation;
+                            formation.SetPositioning(formation.OrderPosition, formation.Direction, formation.UnitSpacing);
+                        }
+                    }
+
+                    if (mission.MainAgent.Formation != null)
+                        SetHasPlayer(mission.MainAgent.Formation, false);
+                    mission.MainAgent.Formation = formation;
+                }
             }
         }
 
@@ -346,7 +370,7 @@ namespace MissionSharedLibrary.Utilities
             MatrixFrame result = MatrixFrame.Identity;
             float cameraBaseDistance = 0.6f;
             float agentScale = agentToFollow.AgentScale;
-            if (missionScreen.IsViewingChar())
+            if (missionScreen.IsViewingCharacter())
             {
                 cameraBaseDistance += 0.5f;
             }

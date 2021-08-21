@@ -6,6 +6,7 @@ using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.ViewModelCollection.GameOptions;
 using MissionSharedLibrary.Utilities;
+using TaleWorlds.MountAndBlade.ViewModelCollection;
 
 namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
 {
@@ -15,17 +16,17 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
         private readonly Action<string, int, InputKey> _setAllKeysOfId;
         private readonly string _categoryId;
         private string _description;
-        private MBBindingList<GameKeyOptionVM> _gameKeys;
+        private MBBindingList<KeyOptionVM> _gameKeys;
 
         public MissionLibraryGameKeyGroupVM(
           string categoryId,
           IEnumerable<GameKey> keys,
-          Action<GameKeyOptionVM> onKeyBindRequest,
+          Action<KeyOptionVM> onKeyBindRequest,
           Action<string, int, InputKey> setAllKeysOfId)
         {
             _setAllKeysOfId = setAllKeysOfId;
             _categoryId = categoryId;
-            _gameKeys = new MBBindingList<GameKeyOptionVM>();
+            _gameKeys = new MBBindingList<KeyOptionVM>();
             foreach (GameKey key in keys)
             {
                 Key validInputKey = FindValidInputKey(key);
@@ -76,7 +77,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
         }
 
         [DataSourceProperty]
-        public MBBindingList<GameKeyOptionVM> GameKeys
+        public MBBindingList<KeyOptionVM> GameKeys
         {
             get => _gameKeys;
             set
