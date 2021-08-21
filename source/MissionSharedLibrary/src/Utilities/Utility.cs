@@ -3,6 +3,7 @@ using System;
 using System.Reflection;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
+using TaleWorlds.Engine;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
@@ -16,6 +17,12 @@ namespace MissionSharedLibrary.Utilities
     public static class Utility
     {
         public static string ModuleId;
+
+        public static WorldPosition GetOrderPosition(Formation formation)
+        {
+            return (WorldPosition)(typeof(Formation).GetField("_orderPosition", BindingFlags.Instance | BindingFlags.NonPublic)?
+                .GetValue(formation) ?? WorldPosition.Invalid);
+        }
 
         public static bool ShouldDisplayMessage { get; set; }
         public static void DisplayLocalizedText(string id, string variation = null)
@@ -165,7 +172,7 @@ namespace MissionSharedLibrary.Utilities
                             formation.FacingOrder = originalFormation.FacingOrder;
                             formation.ArrangementOrder = originalFormation.ArrangementOrder;
 
-                            formation.SetPositioning(formation.OrderPosition, formation.Direction, formation.UnitSpacing);
+                            formation.SetPositioning(GetOrderPosition(formation), formation.Direction, formation.UnitSpacing);
                         }
                     }
 
@@ -391,7 +398,7 @@ namespace MissionSharedLibrary.Utilities
             if (agentToFollow.MountAgent != null)
             {
                 var vec3_4 = agentToFollow.MountAgent.GetMovementDirection() * agentToFollow.MountAgent.Monster.RiderBodyCapsuleForwardAdder;
-                cameraTarget += vec3_4;
+                cameraTarget += vec3_4.ToVec3();
             }
             cameraTarget.z += (float)CameraTargetAddedHeight.GetValue(missionScreen);
             cameraTarget += matrixFrame.rotation.f * agentScale * (0.7f * MathF.Pow(MathF.Cos((float)(1.0 / ((num8 / (double)agentScale - 0.200000002980232) * 30.0 + 20.0))), 3500f));
