@@ -1,11 +1,10 @@
-﻿using MissionLibrary.Event;
-using MissionLibrary.HotKey;
-using MissionSharedLibrary.View.ViewModelCollection.HotKey;
+﻿using MissionLibrary.HotKey;
 using TaleWorlds.Engine.GauntletUI;
-using TaleWorlds.Engine.Screens;
 using TaleWorlds.InputSystem;
 using TaleWorlds.MountAndBlade.GauntletUI;
 using TaleWorlds.MountAndBlade.View.Missions;
+using TaleWorlds.ScreenSystem;
+using TaleWorlds.TwoDimension;
 
 namespace MissionSharedLibrary.View.HotKey
 {
@@ -16,13 +15,15 @@ namespace MissionSharedLibrary.View.HotKey
         private KeybindingPopup _keybindingPopup;
         private IHotKeySetter _currentGameKey;
         private bool _enableKeyBindingPopupNextTick;
+        private SpriteCategory _optionsSpriteCategory;
+        private SpriteCategory _fullScreensSpriteCategory;
 
         public const string KeyBindRequestEventId = "KeyBindRequest";
         public const string KeyBindRequestReceiverId = "GameKeyConfigView";
 
         public GameKeyConfigView()
         {
-            ViewOrderPriorty = 1000;
+            ViewOrderPriority = 50;
         }
 
         public override void OnMissionScreenInitialize()
@@ -59,8 +60,12 @@ namespace MissionSharedLibrary.View.HotKey
 
         public void Activate()
         {
+            _optionsSpriteCategory = UIResourceManager.SpriteData.SpriteCategories["ui_options"];
+            _optionsSpriteCategory.Load(UIResourceManager.ResourceContext, UIResourceManager.UIResourceDepot);
+            _fullScreensSpriteCategory = UIResourceManager.SpriteData.SpriteCategories["ui_fullscreens"];
+            _fullScreensSpriteCategory.Load(UIResourceManager.ResourceContext, UIResourceManager.UIResourceDepot);
             _dataSource = new GameKeyConfigVM(AGameKeyCategoryManager.Get(), OnKeyBindRequest, Deactivate);
-            _gauntletLayer = new GauntletLayer(ViewOrderPriorty) {IsFocusLayer = true};
+            _gauntletLayer = new GauntletLayer(ViewOrderPriority);
             _gauntletLayer.LoadMovie("MissionLibraryOptionsGameKeyScreen", _dataSource);
             _gauntletLayer.Input.RegisterHotKeyCategory(HotKeyManager.GetCategory("GenericPanelGameKeyCategory"));
             _gauntletLayer.InputRestrictions.SetInputRestrictions();
@@ -76,6 +81,8 @@ namespace MissionSharedLibrary.View.HotKey
             _gauntletLayer = null;
             _dataSource.OnFinalize();
             _dataSource = null;
+            _optionsSpriteCategory.Unload();
+            _fullScreensSpriteCategory.Unload();
         }
 
         private void OnKeyBindRequest(IHotKeySetter requestedHotKeyToChange)

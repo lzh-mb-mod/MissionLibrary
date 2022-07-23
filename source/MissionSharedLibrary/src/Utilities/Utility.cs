@@ -2,6 +2,7 @@
 using System;
 using System.Reflection;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.AgentOrigins;
 using TaleWorlds.Core;
 using TaleWorlds.Engine;
 using TaleWorlds.InputSystem;
@@ -127,8 +128,9 @@ namespace MissionSharedLibrary.Utilities
                 if (formation.PlayerOwner != null || forced)
                 {
                     bool isAIControlled = formation.IsAIControlled;
+                    bool isSplittableByAI = formation.IsSplittableByAI;
                     formation.PlayerOwner = mission.MainAgent;
-                    formation.IsAIControlled = isAIControlled;
+                    formation.SetControlledByAI(isAIControlled, isSplittableByAI);
                 }
             }
         }
@@ -150,7 +152,10 @@ namespace MissionSharedLibrary.Utilities
                     {
                         // Fix the bug when player is a sergeant of another formation, and the target formation is led by another sergeant, the formation will not be controlled by AI.
                         if (Mission.Current.PlayerTeam.IsPlayerGeneral && formation.IsAIControlled)
-                            formation.IsAIControlled = false;
+                        // TODO
+                        {
+                            formation.SetControlledByAI(false, formation.IsSplittableByAI);
+                        }
                         if (originalFormation == null)
                         {
                             // fix crash when begin a battle and assign player to an empty formation, then give it an shield wall order.
@@ -166,7 +171,7 @@ namespace MissionSharedLibrary.Utilities
                             formation.RidingOrder = originalFormation.RidingOrder;
                             formation.WeaponUsageOrder = originalFormation.WeaponUsageOrder;
                             formation.FiringOrder = originalFormation.FiringOrder;
-                            formation.IsAIControlled = originalFormation.IsAIControlled || !originalFormation.Team.IsPlayerGeneral;
+                            formation.SetControlledByAI(originalFormation.IsAIControlled || !originalFormation.Team.IsPlayerGeneral, originalFormation.IsSplittableByAI);
                             formation.AI.Side = originalFormation.AI.Side;
                             formation.SetMovementOrder(originalFormation.GetReadonlyMovementOrderReference());
                             formation.FacingOrder = originalFormation.FacingOrder;
@@ -207,7 +212,10 @@ namespace MissionSharedLibrary.Utilities
         public static void PlayerControlAgent(Agent agent)
         {
             bool isUsingGameObject = agent.IsUsingGameObject;
+            var formation = agent.Formation;
+            agent.Formation = null;
             agent.Controller = Agent.ControllerType.Player;
+            agent.Formation = formation;
             if (isUsingGameObject)
             {
                 agent.DisableScriptedMovement();
@@ -228,16 +236,34 @@ namespace MissionSharedLibrary.Utilities
             var mission = Mission.Current;
             if (mission?.MainAgent == null)
                 return;
+
             try
             {
-                mission.GetMissionBehaviour<MissionMainAgentController>()?.InteractionComponent.ClearFocus();
+                mission.GetMissionBehavior<MissionMainAgentController>()?.InteractionComponent.ClearFocus();
                 if (mission.MainAgent.Controller == Agent.ControllerType.Player)
                 {
-                    if (mission.MainAgent.Formation != null && mission.MainAgent.IsUsingGameObject && !(mission.MainAgent.CurrentlyUsedGameObject is SpawnedItemEntity))
+                    var formation = mission.MainAgent.Formation;
+                    if (formation != null && mission.MainAgent.IsUsingGameObject && !(mission.MainAgent.CurrentlyUsedGameObject is SpawnedItemEntity))
                     {
                         mission.MainAgent.HandleStopUsingAction();
                     }
+
+                    // TODO: refactor code about formation when changing controller
+                    // If the formation only has the player formation, there may be side effects. For example, if the formation is General formation, then the Bodyguard formation may be disbanded.
+                    //mission.MainAgent.Formation = null;
                     mission.MainAgent.Controller = Agent.ControllerType.AI;
+                    //mission.MainAgent.Formation = formation;
+                    // the Initialize method need to be called manually.
+                    mission.MainAgent.CommonAIComponent?.Initialize();
+                    
+                    // TODO: seems useless.
+                    mission.MainAgent.ResetEnemyCaches();
+                    mission.MainAgent.InvalidateTargetAgent();
+                    mission.MainAgent.InvalidateAIWeaponSelections();
+                    if (mission.MainAgent.Formation != null)
+                    {
+                        mission.MainAgent.SetRidingOrder((int)mission.MainAgent.Formation.RidingOrder.OrderEnum);
+                    }
                     if (changeAlarmed)
                     {
                         if (alarmed)

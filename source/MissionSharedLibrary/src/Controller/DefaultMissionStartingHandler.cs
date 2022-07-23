@@ -26,10 +26,10 @@ namespace MissionSharedLibrary.Controller
 
         private void AddMissionLibraryMissionBehaviors(MissionView entranceView)
         {
-            //MissionStartingManager.AddMissionBehaviour(entranceView,
+            //MissionStartingManager.AddMissionBehavior(entranceView,
             //    Global.GetProvider<AInputControllerFactory>().CreateInputController(entranceView.Mission));
-            MissionStartingManager.AddMissionBehaviour(entranceView, AMenuManager.Get().CreateMenuView());
-            MissionStartingManager.AddMissionBehaviour(entranceView, AMenuManager.Get().CreateGameKeyConfigView());
+            MissionStartingManager.AddMissionBehavior(entranceView, AMenuManager.Get().CreateMenuView());
+            MissionStartingManager.AddMissionBehavior(entranceView, AMenuManager.Get().CreateGameKeyConfigView());
         }
     }
 }

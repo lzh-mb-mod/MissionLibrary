@@ -5,6 +5,8 @@
     <Parameter Name="IsFlatDesign" DefaultValue="false" />
     <Parameter Name="IsCustomWidth" DefaultValue="false" />
     <Parameter Name="CustomWidth" DefaultValue="0" />
+    <Parameter Name="IsEnabled" DefaultValue="true" />
+    <Parameter Name="DisabledHintDataSource" DefaultValue="" />
   </Parameters>
   <Constants>
     <Constant Name="PreviousButtonBrush" BooleanCheck="*IsFlatDesign" OnTrue="SPOptions.Dropdown.Left.Button" OnFalse="SPOptions.Dropdown.Left.Button" />
@@ -37,21 +39,24 @@
         <!--Previous Button-->
         <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="40" SuggestedHeight="43" VerticalAlignment="Center" DoNotAcceptEvents="true" IsVisible="*ShowNextAndPrevious">
           <Children>
-            <ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="60" SuggestedHeight="70" VerticalAlignment="Center" HorizontalAlignment="Center" Command.Click="ExecuteSelectPreviousItem" Brush="!PreviousButtonBrush"/>
+            <ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="60" SuggestedHeight="70" VerticalAlignment="Center" HorizontalAlignment="Center" Command.Click="ExecuteSelectPreviousItem" Brush="!PreviousButtonBrush" IsEnabled="*IsEnabled"/>
           </Children>
         </Widget>
 
         <!--Type Selection-->
-        <OptionsDropdownWidget Id="DropdownParent" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="!DropdownCenter.Width" HorizontalAlignment="Center" VerticalAlignment="Center" DropdownContainerWidget="DropdownClipWidget\DropdownContainerWidget" ListPanel="DropdownClipWidget\DropdownContainerWidget\ScrollablePanel\ClipRect\PrimaryUsageSelectorList" Button="DropdownButton" CurrentSelectedIndex="@SelectedIndex" RichTextWidget="DropdownButton\SelectedTextWidget" DropdownClipWidget="DropdownClipWidget">
+        <OptionsDropdownWidget Id="DropdownParent" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="!DropdownCenter.Width" HorizontalAlignment="Center" VerticalAlignment="Center" DropdownContainerWidget="DropdownClipWidget\DropdownContainerWidget" ListPanel="DropdownClipWidget\DropdownContainerWidget\ScrollablePanel\ClipRect\PrimaryUsageSelectorList" Button="DropdownButtonContainer\DropdownButton" CurrentSelectedIndex="@SelectedIndex" TextWidget="DropdownButtonContainer\DropdownButton\SelectedTextWidget" DropdownClipWidget="DropdownClipWidget" ScrollbarWidget="DropdownClipWidget\DropdownContainerWidget\VerticalScrollbar">
           <Children>
-
-            <ButtonWidget Id="DropdownButton" DoNotPassEventsToChildren="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="!DropdownCenter.Height" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="!DropdownCenterBrush">
+            <Widget Id="DropdownButtonContainer" WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="!DropdownCenter.Height" HorizontalAlignment="Center" VerticalAlignment="Center">
               <Children>
-                <RichTextWidget Id="SelectedTextWidget" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" HorizontalAlignment="Center" VerticalAlignment="Center" PositionYOffset="1" Brush="!DropdownCenterTextBrush"/>
-                <!-- Add HintWidget compared with official dropdown -->
-                <HintWidget DataSource="{..\Description}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+                <ButtonWidget Id="DropdownButton" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" DoNotPassEventsToChildren="true" Brush="!DropdownCenterBrush" IsEnabled="*IsEnabled">
+                  <Children>
+                    <ScrollingRichTextWidget Id="SelectedTextWidget" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" HorizontalAlignment="Center" VerticalAlignment="Center" MarginLeft="7" MarginRight="7" PositionYOffset="1" Brush="!DropdownCenterTextBrush" IsAutoScrolling="false"  ScrollOnHoverWidget="..\..\DropdownButton"/>
+                    <!-- Add HintWidget compared with official dropdown -->
+                    <HintWidget DataSource="{..\Description}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+                  </Children>
+                </ButtonWidget>
               </Children>
-            </ButtonWidget>
+            </Widget>
 
             <!--Dropdown Visual-->
             <Widget Id="DropdownClipWidget" WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" ClipContents="true" WidgetToCopyHeightFrom="DropdownContainerWidget\ScrollablePanel">
@@ -65,12 +70,13 @@
                         <Widget Id="ClipRect" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" ClipContents="true" MaxHeight="355">
                           <Children>
 
-                            <ListPanel Id="PrimaryUsageSelectorList" DataSource="{ItemList}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" LayoutImp.LayoutMethod="VerticalBottomToTop">
+                            <ListPanel Id="PrimaryUsageSelectorList" DataSource="{ItemList}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" StackLayout.LayoutMethod="VerticalBottomToTop">
                               <ItemTemplate>
-                                <ButtonWidget DoNotUseCustomScale="true" DoNotPassEventsToChildren="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="29" MarginLeft="10" MarginRight="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" ButtonType="Radio" UpdateChildrenStates="true" IsEnabled="@CanBeSelected" Brush="Standard.DropdownItem.SoundBrush">
+                                <ButtonWidget Id="DropdownItemButton" DoNotUseCustomScale="true" DoNotPassEventsToChildren="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="29" MarginLeft="10" MarginRight="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" ButtonType="Radio" UpdateChildrenStates="true" IsEnabled="@CanBeSelected" Brush="Standard.DropdownItem.SoundBrush">
                                   <Children>
                                     <ImageWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="5" MarginRight="5" Brush="!ItemBrush" />
-                                    <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="!ItemTextBrush" Text="@StringItem" />
+                                    <ScrollingRichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" HorizontalAlignment="Center" MarginLeft="7" MarginRight="7" VerticalAlignment="Center" Brush="!ItemTextBrush" Text="@StringItem" IsAutoScrolling="false" ScrollOnHoverWidget="..\..\DropdownItemButton" />
+                                    <HintWidget DataSource="{Hint}" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
                                   </Children>
                                 </ButtonWidget>
                               </ItemTemplate>
@@ -99,7 +105,7 @@
         <!--Next Button-->
         <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="40" SuggestedHeight="43" VerticalAlignment="Center" DoNotAcceptEvents="true" IsVisible="*ShowNextAndPrevious">
           <Children>
-            <ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="60" SuggestedHeight="70" VerticalAlignment="Center" HorizontalAlignment="Center" Command.Click="ExecuteSelectNextItem" Brush="!NextButtonBrush"/>
+            <ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="60" SuggestedHeight="70" VerticalAlignment="Center" HorizontalAlignment="Center" Command.Click="ExecuteSelectNextItem" Brush="!NextButtonBrush" IsEnabled="*IsEnabled"/>
           </Children>
         </Widget>
 

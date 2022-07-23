@@ -38,6 +38,10 @@ namespace MissionLibrary.View.Widgets
             if (CurrentOptionImageWidget == null || CurrentOptionImageWidget.Sprite == newGraphicsSprite)
                 return;
             CurrentOptionImageWidget.Sprite = newGraphicsSprite;
+            if (newGraphicsSprite == null)
+                return;
+            float num = this.CurrentOptionImageWidget.SuggestedWidth / (float)newGraphicsSprite.Width;
+            this.CurrentOptionImageWidget.SuggestedHeight = (float)newGraphicsSprite.Height * num;
         }
     }
 }
