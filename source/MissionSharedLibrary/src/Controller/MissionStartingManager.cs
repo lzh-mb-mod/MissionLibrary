@@ -1,11 +1,11 @@
 ﻿using MissionLibrary;
-using System.Collections.Generic;
 using MissionLibrary.Controller;
 using MissionSharedLibrary.Provider;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.MountAndBlade;
-using TaleWorlds.MountAndBlade.View.Missions;
+using TaleWorlds.MountAndBlade.View.MissionViews;
 
 namespace MissionSharedLibrary.Controller
 {

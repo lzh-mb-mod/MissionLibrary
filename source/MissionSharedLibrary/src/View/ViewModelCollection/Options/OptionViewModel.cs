@@ -1,5 +1,5 @@
 ﻿using MissionSharedLibrary.View.ViewModelCollection.Basic;
-using TaleWorlds.Core.ViewModelCollection;
+using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade.ViewModelCollection.GameOptions;
@@ -12,6 +12,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options
         private int _optionTypeId = -1;
         private string[] _imageIDs;
         private HintViewModel _description;
+        private bool _isEnabled;
 
         public TextViewModel Name { get; }
 
@@ -54,10 +55,24 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options
             }
         }
 
+        [DataSourceProperty]
+        public bool IsEnabled
+        {
+            get => _isEnabled;
+            set
+            {
+                if (value == _isEnabled)
+                    return;
+                _isEnabled = value;
+                OnPropertyChangedWithValue(value, nameof(IsEnabled));
+            }
+        }
+
         protected OptionViewModel(
             TextObject name,
             TextObject description,
-            OptionsVM.OptionsDataType typeID)
+            OptionsVM.OptionsDataType typeID,
+            bool isEnabled = true)
         {
             _descriptionText = description;
 
@@ -65,6 +80,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options
             if (_descriptionText != null)
                 Description = new HintViewModel(_descriptionText);
             OptionTypeID = (int)typeID;
+            IsEnabled = isEnabled;
 
             Refresh();
         }

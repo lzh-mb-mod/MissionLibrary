@@ -1,11 +1,10 @@
 ﻿using TaleWorlds.Core;
 using TaleWorlds.Engine.GauntletUI;
-using TaleWorlds.Engine.Screens;
 using TaleWorlds.GauntletUI.Data;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
-using TaleWorlds.MountAndBlade.View.Missions;
+using TaleWorlds.MountAndBlade.View.MissionViews;
 using TaleWorlds.ScreenSystem;
 using TaleWorlds.TwoDimension;
 
@@ -17,7 +16,6 @@ namespace MissionSharedLibrary.View
         protected MissionMenuVMBase DataSource;
         protected GauntletLayer GauntletLayer;
         private IGauntletMovie _movie;
-        private bool _oldGameStatusDisabledStatus;
 
         public bool IsActivated { get; set; }
 
@@ -96,20 +94,19 @@ namespace MissionSharedLibrary.View
         {
             base.OnRemoveBehavior();
 
-            Game.Current.GameStateManager.ActiveStateDisabledByUser = false;
+            UnpauseGame();
         }
 
         private void PauseGame()
         {
+            Game.Current.GameStateManager.RegisterActiveStateDisableRequest(this);
             MBCommon.PauseGameEngine();
-            _oldGameStatusDisabledStatus = Game.Current.GameStateManager.ActiveStateDisabledByUser;
-            Game.Current.GameStateManager.ActiveStateDisabledByUser = true;
         }
 
         private void UnpauseGame()
         {
+            Game.Current.GameStateManager.UnregisterActiveStateDisableRequest(this);
             MBCommon.UnPauseGameEngine();
-            Game.Current.GameStateManager.ActiveStateDisabledByUser = _oldGameStatusDisabledStatus;
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using MissionLibrary.View;
+using System.Collections.Generic;
 using System.Linq;
-using MissionLibrary.View;
 using TaleWorlds.Core;
-using TaleWorlds.Core.ViewModelCollection;
+using TaleWorlds.Core.ViewModelCollection.Selector;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade.ViewModelCollection.GameOptions;

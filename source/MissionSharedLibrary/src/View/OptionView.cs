@@ -1,6 +1,7 @@
 ﻿using System;
 using MissionLibrary.View;
 using MissionSharedLibrary.HotKey.Category;
+using TaleWorlds.InputSystem;
 
 namespace MissionSharedLibrary.View
 {

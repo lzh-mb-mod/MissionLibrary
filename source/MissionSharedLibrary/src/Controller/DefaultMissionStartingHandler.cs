@@ -1,7 +1,7 @@
 ﻿using MissionLibrary;
 using MissionLibrary.Controller;
 using MissionLibrary.View;
-using TaleWorlds.MountAndBlade.View.Missions;
+using TaleWorlds.MountAndBlade.View.MissionViews;
 
 namespace MissionSharedLibrary.Controller
 {
