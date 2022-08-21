@@ -17,6 +17,7 @@ namespace MissionSharedLibrary.View
         protected MissionMenuVMBase DataSource;
         protected GauntletLayer GauntletLayer;
         private IGauntletMovie _movie;
+        private bool _oldGameStatusDisabledStatus;
 
         public bool IsActivated { get; set; }
 
@@ -101,11 +102,14 @@ namespace MissionSharedLibrary.View
         private void PauseGame()
         {
             MBCommon.PauseGameEngine();
+            _oldGameStatusDisabledStatus = Game.Current.GameStateManager.ActiveStateDisabledByUser;
+            Game.Current.GameStateManager.ActiveStateDisabledByUser = true;
         }
 
         private void UnpauseGame()
         {
             MBCommon.UnPauseGameEngine();
+            Game.Current.GameStateManager.ActiveStateDisabledByUser = _oldGameStatusDisabledStatus;
         }
     }
 }

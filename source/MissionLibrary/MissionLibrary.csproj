@@ -5,9 +5,9 @@
   <Import Project="$(MSBuildProjectDirectory)\*.props" />
 
   <PropertyGroup>
-	  <TargetFramework>net472</TargetFramework>
-	  <ProcessorArchitecture>amd64</ProcessorArchitecture>
-	  <LangVersion>8</LangVersion>
+    <TargetFramework>net472</TargetFramework>
+    <ProcessorArchitecture>amd64</ProcessorArchitecture>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

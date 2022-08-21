@@ -117,10 +117,15 @@ namespace MissionSharedLibrary.Utilities
             return IsAgentDead(Mission.Current.MainAgent);
         }
 
+        public static bool IsTeamValid(Team team)
+        {
+            return team?.IsValid ?? false;
+        }
+
         public static void SetPlayerAsCommander(bool forced = false)
         {
             var mission = Mission.Current;
-            if (mission?.PlayerTeam == null)
+            if (!IsTeamValid(mission?.PlayerTeam))
                 return;
             mission.PlayerTeam.PlayerOrderController.Owner = mission.MainAgent;
             foreach (var formation in mission.PlayerTeam.FormationsIncludingEmpty)
@@ -142,7 +147,7 @@ namespace MissionSharedLibrary.Utilities
         public static void SetPlayerFormation(FormationClass formationClass)
         {
             var mission = Mission.Current;
-            if (mission.MainAgent != null && mission.PlayerTeam != null)
+            if (mission.MainAgent != null && IsTeamValid(mission.PlayerTeam))
             {
                 var originalFormation = mission.MainAgent.Formation;
                 if (originalFormation?.FormationIndex != formationClass)
