@@ -35,7 +35,7 @@ namespace MissionLibrary
 
         public static T GetProvider<T>(string key = "") where T : ATag<T>
         {
-            return ProviderManager.GetProvider<T>();
+            return ProviderManager.GetProvider<T>(key);
         }
 
         public static IEnumerable<T> GetProviders<T>() where T : ATag<T>

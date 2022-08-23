@@ -13,9 +13,6 @@ namespace MissionSharedLibrary.Controller
     {
         private readonly List<AMissionStartingHandler> _handlers = new List<AMissionStartingHandler>();
 
-        private readonly Dictionary<string, AMissionStartingHandler> _dictionary =
-            new Dictionary<string, AMissionStartingHandler>();
-
         public static void AddMissionBehavior(MissionView entranceView, MissionBehavior behaviour)
         {
             behaviour.OnAfterMissionCreated();
