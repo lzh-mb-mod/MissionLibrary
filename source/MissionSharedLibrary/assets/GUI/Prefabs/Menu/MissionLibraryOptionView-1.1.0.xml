@@ -40,57 +40,81 @@
                       </ItemTemplate>
                     </ListPanel>
 
+                    <Widget Id="CenterPanel" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="1500" SuggestedHeight="800">
+                      <Children>
 
-                    <ListPanel DataSource="{CurrentOptionClassViewModel\OptionColumns}" LayoutImp.LayoutMethod="HorizontalLeftToRight" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="1500" HorizontalAlignment="Center">
-                      <ItemTemplate>
-
-                        <ListPanel LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="750" HorizontalAlignment="Left" MarginTop="10">
+                        <ScrollablePanel Id="ScrollablePanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" HorizontalAlignment="Center" VerticalAlignment="Center" AutoHideScrollBarHandle="true" AutoHideScrollBars="false" ClipRect="MyClipRect" InnerPanel="MyClipRect\InnerPannel" VerticalScrollbar="..\VerticalScrollbar">
                           <Children>
-                            <ListPanel DataSource="{Categories}" LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="750" HorizontalAlignment="Left" MarginTop="10">
-                              <ItemTemplate>
+                            <Widget Id="MyClipRect" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" HorizontalAlignment="Center" ClipContents="true">
+                              <Children>
 
-                                <ListPanel LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="750" HorizontalAlignment="Left" MarginTop="10">
-                                  <Children>
+                                <ListPanel Id="InnerPannel" DataSource="{CurrentOptionClassViewModel\OptionColumns}" LayoutImp.LayoutMethod="HorizontalLeftToRight" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="1500" HorizontalAlignment="Center">
+                                  <ItemTemplate>
 
-                                    <PartyHeaderToggleWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" SuggestedWidth="750" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left" VerticalAlignment="Center" MarginLeft="10" MarginRight="10" MarginTop="5" CollapseIndicator="Description\CollapseParent\GroupTitle\CollapseIndicator" WidgetToClose="..\ToggledListPanel" ListPanel="..\ToggledListPanel" RenderLate="true" UpdateChildrenStates="true">
+                                    <ListPanel LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="750" HorizontalAlignment="Left" MarginTop="10">
                                       <Children>
+                                        <ListPanel DataSource="{Categories}" LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="750" HorizontalAlignment="Left" MarginTop="10">
+                                          <ItemTemplate>
 
-                                        <ListPanel Id="Description" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" LayoutImp.LayoutMethod="HorizontalLeftToRight" UpdateChildrenStates="true">
-                                          <Children>
-
-                                            <Widget Id="CollapseParent" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" UpdateChildrenStates="true">
+                                            <ListPanel LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="750" HorizontalAlignment="Left" MarginTop="10">
                                               <Children>
-                                                <TextWidget DataSource="{Title}" Text="@Text" Id="GroupTitle" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Right" Brush="SPOptions.GameKeysGroup.Title.Text" ClipContents="false" MarginLeft="30">
+
+                                                <PartyHeaderToggleWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" SuggestedWidth="750" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left" VerticalAlignment="Center" MarginLeft="10" MarginRight="10" MarginTop="5" CollapseIndicator="Description\CollapseParent\GroupTitle\CollapseIndicator" WidgetToClose="..\ToggledListPanel" ListPanel="..\ToggledListPanel" RenderLate="true" UpdateChildrenStates="true">
                                                   <Children>
-                                                    <ImageWidget Id="CollapseIndicator" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="19" SuggestedWidth="19" VerticalAlignment="Center" PositionXOffset="-26" PositionYOffset="-3" Brush="SPOptions.GameKeysgroup.ExpandIndicator" OverrideDefaultStateSwitchingEnabled="true" />
+
+                                                    <ListPanel Id="Description" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" LayoutImp.LayoutMethod="HorizontalLeftToRight" UpdateChildrenStates="true">
+                                                      <Children>
+
+                                                        <Widget Id="CollapseParent" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" UpdateChildrenStates="true">
+                                                          <Children>
+                                                            <TextWidget DataSource="{Title}" Text="@Text" Id="GroupTitle" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Right" Brush="SPOptions.GameKeysGroup.Title.Text" ClipContents="false" MarginLeft="30">
+                                                              <Children>
+                                                                <ImageWidget Id="CollapseIndicator" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="19" SuggestedWidth="19" VerticalAlignment="Center" PositionXOffset="-26" PositionYOffset="-3" Brush="SPOptions.GameKeysgroup.ExpandIndicator" OverrideDefaultStateSwitchingEnabled="true" />
+                                                              </Children>
+                                                            </TextWidget>
+                                                          </Children>
+                                                        </Widget>
+
+                                                        <ImageWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="2" VerticalAlignment="Center" MarginLeft="15" Brush="SPOptions.CollapserLine" />
+                                                      </Children>
+                                                    </ListPanel>
+
                                                   </Children>
-                                                </TextWidget>
+                                                </PartyHeaderToggleWidget>
+
+                                                <ListPanel DataSource="{OptionViewModels}" Id="ToggledListPanel" LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                  <ItemTemplate>
+                                                    <MissionLibraryOptionItemWidget />
+                                                  </ItemTemplate>
+                                                </ListPanel>
+
+
                                               </Children>
-                                            </Widget>
+                                            </ListPanel>
 
-                                            <ImageWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="2" VerticalAlignment="Center" MarginLeft="15" Brush="SPOptions.CollapserLine" />
-                                          </Children>
+                                          </ItemTemplate>
                                         </ListPanel>
-
                                       </Children>
-                                    </PartyHeaderToggleWidget>
-
-                                    <ListPanel DataSource="{OptionViewModels}" Id="ToggledListPanel" LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                      <ItemTemplate>
-                                        <MissionLibraryOptionItemWidget />
-                                      </ItemTemplate>
                                     </ListPanel>
 
-                                  </Children>
+                                  </ItemTemplate>
                                 </ListPanel>
 
-                              </ItemTemplate>
-                            </ListPanel>
-                          </Children>
-                        </ListPanel>
+                              </Children>
+                            </Widget>
+                            <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="150" VerticalAlignment="Bottom" Sprite="StdAssets\Popup\scrollable_field_gradient" IsEnabled="false" />
 
-                      </ItemTemplate>
-                    </ListPanel>
+                          </Children>
+                        </ScrollablePanel>
+
+                        <ScrollbarWidget Id="VerticalScrollbar" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="8" HorizontalAlignment="Right" VerticalAlignment="Center" MarginTop="26" MarginBottom="85" AlignmentAxis="Vertical" Handle="VerticalScrollbarHandle" MaxValue="100" MinValue="0">
+                          <Children>
+                            <Widget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="4" HorizontalAlignment="Center" Sprite="MPLobby\CustomServer\lobby_slider_bed" AlphaFactor="0.4" />
+                            <ImageWidget Id="VerticalScrollbarHandle" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="8" SuggestedHeight="10" HorizontalAlignment="Center" Brush="FaceGen.Scrollbar.Handle" />
+                          </Children>
+                        </ScrollbarWidget>
+                      </Children>
+                    </Widget>
 
                   </Children>
                 </ListPanel>
