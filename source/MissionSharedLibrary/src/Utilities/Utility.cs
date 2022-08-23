@@ -264,7 +264,7 @@ namespace MissionSharedLibrary.Utilities
                     //mission.MainAgent.Formation = formation;
                     // the Initialize method need to be called manually.
                     mission.MainAgent.CommonAIComponent?.Initialize();
-                    
+
                     // TODO: seems useless.
                     mission.MainAgent.ResetEnemyCaches();
                     mission.MainAgent.InvalidateTargetAgent();
@@ -386,25 +386,44 @@ namespace MissionSharedLibrary.Utilities
                     CameraApplySpecialMovementsInstantly?.SetValue(missionScreen, false);
                     if (missionScreen.LastFollowedAgent != spectatingData.AgentToFollow || forceMove)
                     {
-                        var targetFrame =
-                            GetCameraFrameWhenLockedToAgent(missionScreen, spectatingData.AgentToFollow);
-                        CameraSpecialCurrentPositionToAdd?.SetValue(missionScreen,
-                            missionScreen.CombatCamera.Position - targetFrame.origin);
-                    }
-                    if (changeCameraRotation)
-                    {
-                        CameraSpecialCurrentAddedElevation?.SetValue(missionScreen, missionScreen.CameraElevation);
-                        CameraSpecialCurrentAddedBearing?.SetValue(missionScreen,
-                            MBMath.WrapAngle(missionScreen.CameraBearing - spectatingData.AgentToFollow.LookDirectionAsAngle));
-                        SetCameraElevation?.Invoke(missionScreen, new object[] { 0.0f });
-                        SetCameraBearing?.Invoke(missionScreen,
-                            new object[] { spectatingData.AgentToFollow.LookDirectionAsAngle });
+                        var targetFrame = GetCameraFrameWhenLockedToAgent(missionScreen, spectatingData.AgentToFollow);
+                        SmoothMoveToPositionAndDirection(missionScreen, targetFrame.origin, 0,
+                            spectatingData.AgentToFollow.LookDirectionAsAngle, changeCameraRotation, changeCameraRotation);
                     }
 
                     SetLastFollowedAgent.Invoke(missionScreen, new object[] { spectatingData.AgentToFollow });
                 }
                 // Avoid MissionScreen._cameraSpecialCurrentAddedBearing reset to 0.
                 SetIsPlayerAgentAdded(missionScreen, false);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+
+        public static void SmoothMoveToPositionAndDirection(MissionScreen missionScreen, Vec3 position, float elevation,
+            float bearing, bool changeElevation, bool changeBearing)
+        {
+            try
+            {
+                CameraAddSpecialMovement?.SetValue(missionScreen, true);
+                CameraApplySpecialMovementsInstantly?.SetValue(missionScreen, false);
+                CameraSpecialCurrentPositionToAdd?.SetValue(missionScreen,
+                    missionScreen.CombatCamera.Position - position);
+                if (changeElevation)
+                {
+                    CameraSpecialCurrentAddedElevation?.SetValue(missionScreen, missionScreen.CameraElevation);
+                    SetCameraElevation?.Invoke(missionScreen, new object[] { elevation });
+                }
+
+                if (changeBearing)
+                {
+                    CameraSpecialCurrentAddedBearing?.SetValue(missionScreen,
+                        MBMath.WrapAngle(missionScreen.CameraBearing - bearing));
+                    SetCameraBearing?.Invoke(missionScreen,
+                        new object[] { bearing });
+                }
             }
             catch (Exception e)
             {
