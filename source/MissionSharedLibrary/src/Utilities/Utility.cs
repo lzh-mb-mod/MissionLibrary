@@ -216,6 +216,12 @@ namespace MissionSharedLibrary.Utilities
             agent.Formation = null;
             agent.Controller = Agent.ControllerType.Player;
             agent.Formation = formation;
+
+            // Add HumanAIComponent back to agent after player control to avoid crash
+            // when agent dies while climbing ladder
+            // or when trying to control an agent who was using siege weapon
+            agent.AddComponent(new HumanAIComponent(agent));
+
             if (isUsingGameObject)
             {
                 agent.DisableScriptedMovement();
