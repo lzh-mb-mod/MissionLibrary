@@ -211,7 +211,6 @@ namespace MissionSharedLibrary.Utilities
 
         public static void PlayerControlAgent(Agent agent)
         {
-            bool isUsingGameObject = agent.IsUsingGameObject;
             var formation = agent.Formation;
             agent.Formation = null;
             agent.Controller = Agent.ControllerType.Player;
@@ -221,12 +220,6 @@ namespace MissionSharedLibrary.Utilities
             // when agent dies while climbing ladder
             // or when trying to control an agent who was using siege weapon
             agent.AddComponent(new HumanAIComponent(agent));
-
-            if (isUsingGameObject)
-            {
-                agent.DisableScriptedMovement();
-                agent.AIUseGameObjectEnable(false);
-            }
 
             var component = agent.GetComponent<VictoryComponent>();
             if (component != null)
@@ -252,6 +245,11 @@ namespace MissionSharedLibrary.Utilities
                     if (formation != null && mission.MainAgent.IsUsingGameObject && !(mission.MainAgent.CurrentlyUsedGameObject is SpawnedItemEntity))
                     {
                         mission.MainAgent.HandleStopUsingAction();
+                    }
+
+                    if (mission.MainAgent.HumanAIComponent != null)
+                    {
+                        mission.MainAgent.RemoveComponent(mission.MainAgent.HumanAIComponent);
                     }
 
                     // TODO: refactor code about formation when changing controller
