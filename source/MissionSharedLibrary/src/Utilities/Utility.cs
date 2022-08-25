@@ -216,6 +216,11 @@ namespace MissionSharedLibrary.Utilities
 
         public static void PlayerControlAgent(Agent agent)
         {
+            if (Mission.Current?.IsFastForward ?? false)
+            {
+                Mission.Current.SetFastForwardingFromUI(false);
+            }
+            // TODO: If the formation only has the player, there may be side effects. For example, if the formation is General formation, then the Bodyguard formation may be disbanded.
             var formation = agent.Formation;
             agent.Formation = null;
             agent.Controller = Agent.ControllerType.Player;
@@ -258,10 +263,10 @@ namespace MissionSharedLibrary.Utilities
                     }
 
                     // TODO: refactor code about formation when changing controller
-                    // If the formation only has the player formation, there may be side effects. For example, if the formation is General formation, then the Bodyguard formation may be disbanded.
-                    //mission.MainAgent.Formation = null;
+                    // TODO: If the formation only has the player, there may be side effects. For example, if the formation is General formation, then the Bodyguard formation may be disbanded.
+                    mission.MainAgent.Formation = null;
                     mission.MainAgent.Controller = Agent.ControllerType.AI;
-                    //mission.MainAgent.Formation = formation;
+                    mission.MainAgent.Formation = formation;
                     // the Initialize method need to be called manually.
                     mission.MainAgent.CommonAIComponent?.Initialize();
 
