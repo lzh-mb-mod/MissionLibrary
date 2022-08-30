@@ -1,9 +1,9 @@
 ﻿using MissionLibrary.HotKey;
 using TaleWorlds.Engine.GauntletUI;
+using TaleWorlds.Engine.Screens;
 using TaleWorlds.InputSystem;
 using TaleWorlds.MountAndBlade.GauntletUI;
 using TaleWorlds.MountAndBlade.View.Missions;
-using TaleWorlds.ScreenSystem;
 using TaleWorlds.TwoDimension;
 
 namespace MissionSharedLibrary.View.HotKey

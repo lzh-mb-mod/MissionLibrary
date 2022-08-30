@@ -6,7 +6,6 @@ using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.View.Missions;
-using TaleWorlds.ScreenSystem;
 using TaleWorlds.TwoDimension;
 
 namespace MissionSharedLibrary.View
