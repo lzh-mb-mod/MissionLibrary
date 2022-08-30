@@ -157,7 +157,7 @@ namespace MissionSharedLibrary.Utilities
             // agent.Formation = (Formation)null;
             //
             // end code.
-            if (formation == null && IsTeamValid(agent.Team))
+            if (formation == null && agent.Formation != null && IsTeamValid(agent.Team))
             {
                 agent.Team.DetachmentManager?.OnAgentRemoved(agent);
             }
