@@ -144,7 +144,27 @@ namespace MissionSharedLibrary.Utilities
         {
         }
 
-        public static void SetPlayerFormation(FormationClass formationClass)
+        public static void SetAgentFormation(Agent agent, Formation formation)
+        {
+            // If formation is null, prevent agent be added to detachments during DetachmentManager.TickDetachments
+            // Or if agent with no formation is added to a detachment, and later is added to a formation, it will be detached and attached at the same time.
+            // See Mission.OnAgentFleeing for example:
+            // begin code:
+            //
+            // if (agent.Formation == null)
+            //     return;
+            // agent.Formation.Team.DetachmentManager.OnAgentRemoved(agent);
+            // agent.Formation = (Formation)null;
+            //
+            // end code.
+            if (formation == null && IsTeamValid(agent.Team))
+            {
+                agent.Team.DetachmentManager?.OnAgentRemoved(agent);
+            }
+            agent.Formation = formation;
+        }
+
+        public static void SetPlayerFormationClass(FormationClass formationClass)
         {
             var mission = Mission.Current;
             if (mission.MainAgent != null && IsTeamValid(mission.PlayerTeam))
@@ -153,6 +173,8 @@ namespace MissionSharedLibrary.Utilities
                 if (originalFormation?.FormationIndex != formationClass)
                 {
                     var formation = mission.PlayerTeam.GetFormation(formationClass);
+                    if (formation == null)
+                        return;
                     if (formation.CountOfUnits == 0)
                     {
                         // Fix the bug when player is a sergeant of another formation, and the target formation is led by another sergeant, the formation will not be controlled by AI.
@@ -186,14 +208,9 @@ namespace MissionSharedLibrary.Utilities
                         }
                     }
 
-                    if (mission.MainAgent.Formation != null)
-                        SetHasPlayer(mission.MainAgent.Formation, false);
-                    mission.MainAgent.Formation = formation;
-                    // add player's troop card. Disabled because the result is not good.
-                    //mission.MainAgent.Team.MasterOrderController.TransferUnits(
-                    //    originalFormation ?? (mission.MainAgent.Team.FormationsIncludingSpecialAndEmpty[0] == formation
-                    //        ? mission.MainAgent.Team.FormationsIncludingSpecialAndEmpty[1]
-                    //        : mission.MainAgent.Team.FormationsIncludingSpecialAndEmpty[0]), formation, 0);
+                    SetHasPlayer(mission.MainAgent.Formation, false);
+                    SetAgentFormation(mission.MainAgent, formation);
+                    SetHasPlayer(formation, mission.MainAgent.IsPlayerControlled);
                 }
             }
         }
@@ -220,11 +237,11 @@ namespace MissionSharedLibrary.Utilities
             {
                 Mission.Current.SetFastForwardingFromUI(false);
             }
-            // TODO: If the formation only has the player, there may be side effects. For example, if the formation is General formation, then the Bodyguard formation may be disbanded.
             var formation = agent.Formation;
             agent.Formation = null;
             agent.Controller = Agent.ControllerType.Player;
-            agent.Formation = formation;
+            SetAgentFormation(agent, formation);
+            SetHasPlayer(formation, true);
 
             // Add HumanAIComponent back to agent after player control to avoid crash
             // when agent dies while climbing ladder
@@ -262,11 +279,10 @@ namespace MissionSharedLibrary.Utilities
                         mission.MainAgent.RemoveComponent(mission.MainAgent.HumanAIComponent);
                     }
 
-                    // TODO: refactor code about formation when changing controller
-                    // TODO: If the formation only has the player, there may be side effects. For example, if the formation is General formation, then the Bodyguard formation may be disbanded.
                     mission.MainAgent.Formation = null;
                     mission.MainAgent.Controller = Agent.ControllerType.AI;
-                    mission.MainAgent.Formation = formation;
+                    SetAgentFormation(mission.MainAgent, formation);
+                    SetHasPlayer(formation, false);
                     // the Initialize method need to be called manually.
                     mission.MainAgent.CommonAIComponent?.Initialize();
 
@@ -299,11 +315,6 @@ namespace MissionSharedLibrary.Utilities
             {
                 DisplayMessage(e.ToString());
             }
-
-            // avoid crash after victory. After victory, team ai decision won't be made so that current tactics won't be updated.
-            // Update: Removed because it may cause enemy cannot retreat.
-            //if (mission.MissionEnded())
-            //mission.AllowAiTicking = false;
         }
 
         public static void SetMainAgentAlarmed(bool alarmed)
@@ -473,15 +484,22 @@ namespace MissionSharedLibrary.Utilities
         }
 
         private static readonly PropertyInfo HasPlayer =
-            typeof(Formation).GetProperty(nameof(HasPlayer), BindingFlags.Instance | BindingFlags.NonPublic);
+            typeof(Formation).GetProperty(nameof(HasPlayer), BindingFlags.Instance | BindingFlags.Public);
+        private static readonly PropertyInfo IsPlayerInFormation =
+            typeof(Formation).GetProperty(nameof(IsPlayerInFormation), BindingFlags.Instance | BindingFlags.Public);
 
         private static readonly MethodInfo SetHasPlayerMethod = HasPlayer?.GetSetMethod(true);
+        private static readonly MethodInfo SetIsPlayerInFormationMethod = IsPlayerInFormation?.GetSetMethod(true);
 
         public static void SetHasPlayer(Formation formation, bool hasPlayer)
         {
             try
             {
+                if (formation == null)
+                    return;
                 SetHasPlayerMethod?.Invoke(formation, new object[] { hasPlayer });
+                SetIsPlayerInFormationMethod?.Invoke(formation, new object[] { hasPlayer });
+                formation.OnUnitAddedOrRemoved();
             }
             catch (Exception e)
             {

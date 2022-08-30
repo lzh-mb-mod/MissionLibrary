@@ -2,6 +2,7 @@
 
 namespace MissionLibrary.Extension
 {
+    // Legacy
     public class MissionExtensionCollection
     {
         public static List<IMissionExtension> Extensions { get; } = new List<IMissionExtension>();

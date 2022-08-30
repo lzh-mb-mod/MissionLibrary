@@ -3,6 +3,7 @@ using TaleWorlds.MountAndBlade;
 
 namespace MissionLibrary.Extension
 {
+    // Legacy
     public interface IMissionExtension
     {
         void OpenExtensionMenu(Mission mission);
