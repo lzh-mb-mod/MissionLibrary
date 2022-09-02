@@ -476,6 +476,21 @@ namespace MissionSharedLibrary.Utilities
             return result;
         }
 
+        public static Vec3 GetCameraTargetPositionWhenLockedToAgent(MissionScreen missionScreen,
+            Agent agentToFollow)
+        {
+            bool flag5 = agentToFollow.AgentVisuals != null && (uint)agentToFollow.AgentVisuals.GetSkeleton().GetCurrentRagdollState() > 0;
+            var agentVisualPosition = agentToFollow.VisualPosition;
+            var cameraTarget = flag5 ? agentToFollow.AgentVisuals.GetFrame().origin : agentVisualPosition;
+            if (agentToFollow.MountAgent != null)
+            {
+                var vec3_4 = agentToFollow.MountAgent.GetMovementDirection() * agentToFollow.MountAgent.Monster.RiderBodyCapsuleForwardAdder;
+                cameraTarget += vec3_4.ToVec3();
+            }
+            cameraTarget.z += (float)CameraTargetAddedHeight.GetValue(missionScreen);
+            return cameraTarget;
+        }
+
         public static void SetIsPlayerAgentAdded(MissionScreen missionScreen, bool value)
         {
             IsPlayerAgentAdded?.SetValue(missionScreen, value);
