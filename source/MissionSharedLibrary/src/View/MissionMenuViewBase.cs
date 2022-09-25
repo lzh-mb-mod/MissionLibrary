@@ -12,10 +12,10 @@ namespace MissionSharedLibrary.View
 {
     public abstract class MissionMenuViewBase : MissionView
     {
-        private readonly string _movieName;
+        protected readonly string _movieName;
         protected MissionMenuVMBase DataSource;
         protected GauntletLayer GauntletLayer;
-        private IGauntletMovie _movie;
+        protected IGauntletMovie _movie;
 
         public bool IsActivated { get; set; }
 
@@ -44,7 +44,7 @@ namespace MissionSharedLibrary.View
                 ActivateMenu();
         }
 
-        public void ActivateMenu()
+        public virtual void ActivateMenu()
         {
             IsActivated = true;
             DataSource = GetDataSource();
@@ -63,11 +63,12 @@ namespace MissionSharedLibrary.View
             PauseGame();
         }
 
-        public void DeactivateMenu()
+        public virtual void DeactivateMenu()
         {
             DataSource?.CloseMenu();
         }
-        protected void OnCloseMenu()
+
+        protected virtual void OnCloseMenu()
         {
             IsActivated = false;
             GauntletLayer.InputRestrictions.ResetInputRestrictions();
