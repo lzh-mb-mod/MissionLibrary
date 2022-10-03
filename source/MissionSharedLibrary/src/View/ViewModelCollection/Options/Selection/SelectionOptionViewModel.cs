@@ -14,6 +14,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options.Selection
         private readonly SelectionOptionData _selectionOptionData;
         private readonly bool _commitOnlyWhenChange;
         private SelectorVM<SelectorItemVM> _selector;
+        private bool _includeOrdinal;
 
         [DataSourceProperty]
         public SelectorVM<SelectorItemVM> Selector
@@ -28,11 +29,12 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options.Selection
             }
         }
 
-        public SelectionOptionViewModel(TextObject name, TextObject description, SelectionOptionData selectionOptionData, bool commitOnlyWhenChange) 
+        public SelectionOptionViewModel(TextObject name, TextObject description, SelectionOptionData selectionOptionData, bool commitOnlyWhenChange, bool includeOrdinal = false) 
             : base(name, description, OptionsVM.OptionsDataType.MultipleSelectionOption)
         {
             _selectionOptionData = selectionOptionData;
             _commitOnlyWhenChange = commitOnlyWhenChange;
+            _includeOrdinal = includeOrdinal;
             Selector = new SelectorVM<SelectorItemVM>(0, null);
             UpdateData(true);
             Selector.SelectedIndex = _selectionOptionData.GetDefaultValue();
@@ -64,10 +66,12 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options.Selection
             if (selectionItems.Any() && selectionItems.All(n => n.IsLocalizationId))
             {
                 List<TextObject> textObjectList = new List<TextObject>();
-                foreach (SelectionItem selectionData in selectionItems)
+                foreach (var (selectionData, i) in selectionItems.Select((item, i) => (item, i)))
                 {
                     TextObject text = GameTexts.FindText(selectionData.Data, selectionData.Variation);
-                    textObjectList.Add(text);
+                    textObjectList.Add(_includeOrdinal
+                        ? new TextObject($"{i + 1}: " + "{Text}").SetTextVariable("Text", text)
+                        : text);
                 }
                 Selector.Refresh(textObjectList, _selectionOptionData.GetValue(), UpdateValue);
             }
