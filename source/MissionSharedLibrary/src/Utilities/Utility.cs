@@ -177,9 +177,8 @@ namespace MissionSharedLibrary.Utilities
                         return;
                     if (formation.CountOfUnits == 0)
                     {
-                        // Fix the bug when player is a sergeant of another formation, and the target formation is led by another sergeant, the formation will not be controlled by AI.
-                        if (Mission.Current.PlayerTeam.IsPlayerGeneral && formation.IsAIControlled)
-                        // TODO
+                        // If the formation is controlled by AI, the player may be transferred to another formation.
+                        if (Mission.Current.PlayerTeam.IsPlayerGeneral && formation.IsAIControlled && formation.FormationIndex < FormationClass.General)
                         {
                             formation.SetControlledByAI(false, formation.IsSplittableByAI);
                         }
