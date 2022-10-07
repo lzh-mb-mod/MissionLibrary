@@ -13,16 +13,18 @@ namespace MissionSharedLibrary.View
     public abstract class MissionMenuViewBase : MissionView
     {
         protected readonly string _movieName;
+        private readonly bool _pauseGameEngine;
         protected MissionMenuVMBase DataSource;
         protected GauntletLayer GauntletLayer;
         protected IGauntletMovie _movie;
 
         public bool IsActivated { get; set; }
 
-        protected MissionMenuViewBase(int viewOrderPriority, string movieName)
+        protected MissionMenuViewBase(int viewOrderPriority, string movieName, bool pauseGameEngine = true)
         {
             ViewOrderPriority = viewOrderPriority;
             _movieName = movieName;
+            _pauseGameEngine = pauseGameEngine;
         }
 
         protected abstract MissionMenuVMBase GetDataSource();
@@ -68,7 +70,7 @@ namespace MissionSharedLibrary.View
             DataSource?.CloseMenu();
         }
 
-        protected virtual void OnCloseMenu()
+        protected void OnCloseMenu()
         {
             IsActivated = false;
             GauntletLayer.InputRestrictions.ResetInputRestrictions();
@@ -100,14 +102,28 @@ namespace MissionSharedLibrary.View
 
         private void PauseGame()
         {
-            Game.Current.GameStateManager.RegisterActiveStateDisableRequest(this);
-            MBCommon.PauseGameEngine();
+            if (_pauseGameEngine)
+            {
+                Game.Current.GameStateManager.RegisterActiveStateDisableRequest(this);
+                MBCommon.PauseGameEngine();
+            }
+            else
+            {
+                MissionState.Current.Paused = true;
+            }
         }
 
         private void UnpauseGame()
         {
-            Game.Current.GameStateManager.UnregisterActiveStateDisableRequest(this);
-            MBCommon.UnPauseGameEngine();
+            if (_pauseGameEngine)
+            {
+                Game.Current.GameStateManager.UnregisterActiveStateDisableRequest(this);
+                MBCommon.UnPauseGameEngine();
+            }
+            else
+            {
+                MissionState.Current.Paused = false;
+            }
         }
     }
 }

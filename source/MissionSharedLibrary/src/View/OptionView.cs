@@ -1,4 +1,5 @@
 ﻿using System;
+using MissionLibrary.Event;
 using MissionLibrary.View;
 using MissionSharedLibrary.HotKey.Category;
 using TaleWorlds.InputSystem;
@@ -35,6 +36,12 @@ namespace MissionSharedLibrary.View
         protected override MissionMenuVMBase GetDataSource()
         {
             return new OptionVM(AMenuManager.Get().MenuClassCollection, OnCloseMenu);
+        }
+
+        public override void DeactivateMenu()
+        {
+            base.DeactivateMenu();
+            MissionEvent.OnMissionMenuClosed();
         }
     }
 }

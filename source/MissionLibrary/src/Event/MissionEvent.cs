@@ -75,7 +75,7 @@ namespace MissionLibrary.Event
             PostSwitchTeam?.Invoke();
         }
 
-        private static void OnMissionMenuClosed()
+        public static void OnMissionMenuClosed()
         {
             MissionMenuClosed?.Invoke();
         }
