@@ -239,8 +239,12 @@ namespace MissionSharedLibrary.Utilities
             var formation = agent.Formation;
             agent.Formation = null;
             agent.Controller = Agent.ControllerType.Player;
-            SetAgentFormation(agent, formation);
-            SetHasPlayer(formation, true);
+            // Note that the formation may be already set by SwitchFreeCameraLogic
+            if (agent.Formation == null)
+            {
+                SetAgentFormation(agent, formation);
+                SetHasPlayer(formation, false);
+            }
 
             // Add HumanAIComponent back to agent after player control to avoid crash
             // when agent dies while climbing ladder
@@ -280,8 +284,12 @@ namespace MissionSharedLibrary.Utilities
 
                     mission.MainAgent.Formation = null;
                     mission.MainAgent.Controller = Agent.ControllerType.AI;
-                    SetAgentFormation(mission.MainAgent, formation);
-                    SetHasPlayer(formation, false);
+                    // Note that the formation may be already set by SwitchFreeCameraLogic
+                    if (mission.MainAgent.Formation == null)
+                    {
+                        SetAgentFormation(mission.MainAgent, formation);
+                        SetHasPlayer(formation, false);
+                    }
                     // the Initialize method need to be called manually.
                     mission.MainAgent.CommonAIComponent?.Initialize();
 
