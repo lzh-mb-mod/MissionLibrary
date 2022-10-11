@@ -230,6 +230,40 @@ namespace MissionSharedLibrary.Utilities
             return false;
         }
 
+        public static bool? IsHigherInMemberRoster(Agent lhs, Agent rhs)
+        {
+            try
+            {
+                if (Campaign.Current != null)
+                {
+                    var lhsIsInPlayerParty = IsInPlayerParty(lhs);
+                    var rhsIsInPlayerParty = IsInPlayerParty(rhs);
+                    if (lhsIsInPlayerParty && !rhsIsInPlayerParty)
+                        return true;
+                    if (!lhsIsInPlayerParty && rhsIsInPlayerParty)
+                        return false;
+                    if (!lhsIsInPlayerParty) // && !rhsIsInPlayerParty
+                        return null;
+                    // lhsIsInPlayerParty && rhsIsInPlayerParty
+                    if (Campaign.Current.MainParty?.Party?.MemberRoster == null)
+                        return null;
+                    var lhsIndex =
+                        Campaign.Current.MainParty.Party.MemberRoster.FindIndexOfTroop(lhs.Character as CharacterObject);
+                    var rhsIndex =
+                        Campaign.Current.MainParty.Party.MemberRoster.FindIndexOfTroop(rhs.Character as CharacterObject);
+                    if (lhsIndex == -1 && rhsIndex == -1)
+                        return null;
+                    return lhsIndex < rhsIndex;
+                }
+            }
+            catch (Exception e)
+            {
+                DisplayMessage(e.ToString());
+            }
+
+            return null;
+        }
+
         public static void PlayerControlAgent(Agent agent)
         {
             if (Mission.Current?.IsFastForward ?? false)
