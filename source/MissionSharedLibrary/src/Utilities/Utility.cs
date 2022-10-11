@@ -538,13 +538,13 @@ namespace MissionSharedLibrary.Utilities
             if (controllerKey != null)
             {
                 Key defaultControllerKey = gameKey.DefaultControllerKey;
-                controllerKey.ChangeKey((object)defaultControllerKey != null ? defaultControllerKey.InputKey : InputKey.Invalid);
+                controllerKey.ChangeKey(defaultControllerKey?.InputKey ?? InputKey.Invalid);
             }
             Key keyboardKey = gameKey.KeyboardKey;
             if (keyboardKey != null)
             {
                 Key defaultKeyboardKey = gameKey.DefaultKeyboardKey;
-                keyboardKey.ChangeKey((object)defaultKeyboardKey != null ? defaultKeyboardKey.InputKey : InputKey.Invalid);
+                keyboardKey.ChangeKey(defaultKeyboardKey?.InputKey ?? InputKey.Invalid);
             }
         }
     }

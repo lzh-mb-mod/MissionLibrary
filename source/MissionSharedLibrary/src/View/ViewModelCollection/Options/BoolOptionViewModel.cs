@@ -22,7 +22,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options
                 if (_setValue != null)
                 {
                     _setValue(value);
-                    OnPropertyChangedWithValue(value, nameof(OptionValueAsBoolean));
+                    OnPropertyChanged(nameof(OptionValueAsBoolean));
                 }
             }
         }
