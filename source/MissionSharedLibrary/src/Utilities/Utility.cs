@@ -283,6 +283,7 @@ namespace MissionSharedLibrary.Utilities
             // Add HumanAIComponent back to agent after player control to avoid crash
             // when agent dies while climbing ladder
             // or when trying to control an agent who was using siege weapon
+            // TODO: Validate the necessary to add this.
             agent.AddComponent(new HumanAIComponent(agent));
 
             var component = agent.GetComponent<VictoryComponent>();
@@ -313,6 +314,14 @@ namespace MissionSharedLibrary.Utilities
 
                     if (mission.MainAgent.HumanAIComponent != null)
                     {
+                        // HumanAIComponent registered the following action in constructor, but didn't unregister it.
+                        // TODO: Need to check the official code whether this fix affects other behaviors.
+                        if (mission.MainAgent.OnAgentWieldedItemChange != null)
+                            mission.MainAgent.OnAgentWieldedItemChange -=
+                                mission.MainAgent.HumanAIComponent.DisablePickUpForAgentIfNeeded;
+                        if (mission.MainAgent.OnAgentMountedStateChanged != null)
+                            mission.MainAgent.OnAgentMountedStateChanged -=
+                                mission.MainAgent.HumanAIComponent.DisablePickUpForAgentIfNeeded;
                         mission.MainAgent.RemoveComponent(mission.MainAgent.HumanAIComponent);
                     }
 
