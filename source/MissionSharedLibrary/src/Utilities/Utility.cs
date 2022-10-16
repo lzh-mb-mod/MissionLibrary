@@ -284,7 +284,10 @@ namespace MissionSharedLibrary.Utilities
             // when agent dies while climbing ladder
             // or when trying to control an agent who was using siege weapon
             // TODO: Validate the necessary to add this.
-            agent.AddComponent(new HumanAIComponent(agent));
+            if (agent.HumanAIComponent == null)
+            {
+                agent.AddComponent(new HumanAIComponent(agent));
+            }
 
             var component = agent.GetComponent<VictoryComponent>();
             if (component != null)
