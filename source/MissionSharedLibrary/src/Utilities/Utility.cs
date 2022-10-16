@@ -166,6 +166,8 @@ namespace MissionSharedLibrary.Utilities
 
         public static void SetPlayerFormationClass(FormationClass formationClass)
         {
+            if (formationClass < 0 || formationClass >= FormationClass.NumberOfAllFormations)
+                return;
             var mission = Mission.Current;
             if (mission.MainAgent != null && IsTeamValid(mission.PlayerTeam))
             {
