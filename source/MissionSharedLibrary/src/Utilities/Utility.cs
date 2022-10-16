@@ -283,7 +283,11 @@ namespace MissionSharedLibrary.Utilities
             // Add HumanAIComponent back to agent after player control to avoid crash
             // when agent dies while climbing ladder
             // or when trying to control an agent who was using siege weapon
-            agent.AddComponent(new HumanAIComponent(agent));
+            // TODO: Validate the necessary to add this.
+            if (agent.HumanAIComponent == null)
+            {
+                agent.AddComponent(new HumanAIComponent(agent));
+            }
 
             var component = agent.GetComponent<VictoryComponent>();
             if (component != null)
