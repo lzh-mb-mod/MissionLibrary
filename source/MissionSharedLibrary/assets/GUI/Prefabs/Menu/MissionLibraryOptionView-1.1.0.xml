@@ -32,7 +32,7 @@
                     <ListPanel DataSource="{OptionClassViewModels}" LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="250" HorizontalAlignment="Left">
                       <ItemTemplate>
 
-                        <ButtonWidget IsSelected="@IsSelected" Command.Click="ExecuteSelection" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="250" SuggestedHeight="50" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="SaveLoad.Tuple">
+                        <ButtonWidget IsSelected="@IsSelected" Command.Click="ExecuteSelection" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="250" SuggestedHeight="50" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="Header.Tab.Center">
                           <Children>
                             <TextWidget DataSource="{Name}" Text="@Text" HeightSizePolicy="CoverChildren" WidthSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="Popup.Button.Text" MarginLeft="40" MarginRight="40" />
                           </Children>

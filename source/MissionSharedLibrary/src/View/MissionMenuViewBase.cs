@@ -20,7 +20,7 @@ namespace MissionSharedLibrary.View
 
         public bool IsActivated { get; set; }
 
-        protected MissionMenuViewBase(int viewOrderPriority, string movieName, bool pauseGameEngine = true)
+        protected MissionMenuViewBase(int viewOrderPriority, string movieName, bool pauseGameEngine = false)
         {
             ViewOrderPriority = viewOrderPriority;
             _movieName = movieName;
@@ -50,7 +50,7 @@ namespace MissionSharedLibrary.View
         {
             IsActivated = true;
             DataSource = GetDataSource();
-            if (DataSource == null)
+            if (DataSource == null || Mission.Current.GetMissionBehavior<MissionMenuViewBase>() != this)
                 return;
             GauntletLayer = new GauntletLayer(ViewOrderPriority) { IsFocusLayer = true };
             GauntletLayer.InputRestrictions.SetInputRestrictions();
@@ -59,7 +59,7 @@ namespace MissionSharedLibrary.View
             SpriteData spriteData = UIResourceManager.SpriteData;
             TwoDimensionEngineResourceContext resourceContext = UIResourceManager.ResourceContext;
             ResourceDepot uiResourceDepot = UIResourceManager.UIResourceDepot;
-            spriteData.SpriteCategories["ui_saveload"]?.Load(resourceContext, uiResourceDepot);
+            spriteData.SpriteCategories["ui_loading"]?.Load(resourceContext, uiResourceDepot);
             MissionScreen.AddLayer(GauntletLayer);
             ScreenManager.TrySetFocus(GauntletLayer);
             PauseGame();
@@ -107,10 +107,10 @@ namespace MissionSharedLibrary.View
                 Game.Current.GameStateManager.RegisterActiveStateDisableRequest(this);
                 MBCommon.PauseGameEngine();
             }
-            else
+            /*else
             {
                 MissionState.Current.Paused = true;
-            }
+            }*/
         }
 
         private void UnpauseGame()
@@ -120,10 +120,10 @@ namespace MissionSharedLibrary.View
                 Game.Current.GameStateManager.UnregisterActiveStateDisableRequest(this);
                 MBCommon.UnPauseGameEngine();
             }
-            else
+            /*else
             {
                 MissionState.Current.Paused = false;
-            }
+            }*/
         }
     }
 }
