@@ -1,10 +1,12 @@
-﻿using TaleWorlds.Core;
+﻿using System.Linq;
+using TaleWorlds.Core;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.GauntletUI.Data;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.View.MissionViews;
+using TaleWorlds.ObjectSystem;
 using TaleWorlds.ScreenSystem;
 using TaleWorlds.TwoDimension;
 
@@ -48,10 +50,13 @@ namespace MissionSharedLibrary.View
 
         public virtual void ActivateMenu()
         {
-            IsActivated = true;
-            DataSource = GetDataSource();
-            if (DataSource == null || Mission.Current.GetMissionBehavior<MissionMenuViewBase>() != this)
+            int test = Mission.Current.MissionBehaviors.Where(x => x.BehaviorType == this.BehaviorType).Count();
+            if (Mission.Current.MissionBehaviors.Where(x => x.BehaviorType == this.BehaviorType).Count() > 1)
                 return;
+            IsActivated = true;            
+            DataSource = GetDataSource();
+            if (DataSource == null)
+                return;            
             GauntletLayer = new GauntletLayer(ViewOrderPriority) { IsFocusLayer = true };
             GauntletLayer.InputRestrictions.SetInputRestrictions();
             GauntletLayer.Input.RegisterHotKeyCategory(HotKeyManager.GetCategory("GenericPanelGameKeyCategory"));
