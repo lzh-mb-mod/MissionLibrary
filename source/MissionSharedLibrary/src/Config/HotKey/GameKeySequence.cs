@@ -1,4 +1,5 @@
-﻿using MissionLibrary.HotKey;
+﻿using System;
+using MissionLibrary.HotKey;
 using MissionSharedLibrary.Utilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -150,6 +151,10 @@ namespace MissionSharedLibrary.Config.HotKey
 
         public string ToSequenceString()
         {
+            if (Keys.Count == 0)
+            {
+                return "[No key]";
+            }
             string result = "";
             for (int i = 0; i < Keys.Count - 1; ++i)
             {
