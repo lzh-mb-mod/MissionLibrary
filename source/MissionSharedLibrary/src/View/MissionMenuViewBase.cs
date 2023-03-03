@@ -1,12 +1,10 @@
-﻿using System.Linq;
-using TaleWorlds.Core;
+﻿using TaleWorlds.Core;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.GauntletUI.Data;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.View.MissionViews;
-using TaleWorlds.ObjectSystem;
 using TaleWorlds.ScreenSystem;
 using TaleWorlds.TwoDimension;
 
@@ -19,6 +17,8 @@ namespace MissionSharedLibrary.View
         protected MissionMenuVMBase DataSource;
         protected GauntletLayer GauntletLayer;
         protected IGauntletMovie _movie;
+
+        public static bool enable = true;
 
         public bool IsActivated { get; set; }
 
@@ -50,8 +50,7 @@ namespace MissionSharedLibrary.View
 
         public virtual void ActivateMenu()
         {
-            int test = Mission.Current.MissionBehaviors.Where(x => x.BehaviorType == this.BehaviorType).Count();
-            if (Mission.Current.MissionBehaviors.Where(x => x.BehaviorType == this.BehaviorType).Count() > 1)
+            if (!enable)
                 return;
             IsActivated = true;            
             DataSource = GetDataSource();

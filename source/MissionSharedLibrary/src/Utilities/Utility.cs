@@ -266,10 +266,10 @@ namespace MissionSharedLibrary.Utilities
 
         public static void PlayerControlAgent(Agent agent)
         {
-            if (Mission.Current?.IsFastForward ?? false)
-            {
-                Mission.Current.SetFastForwardingFromUI(false);
-            }
+            //if (Mission.Current?.IsFastForward ?? false)
+            //{
+            //    Mission.Current.SetFastForwardingFromUI(false);
+            //}
             var formation = agent.Formation;
             agent.Formation = null;
             agent.Controller = Agent.ControllerType.Player;
@@ -283,7 +283,7 @@ namespace MissionSharedLibrary.Utilities
             // Add HumanAIComponent back to agent after player control to avoid crash
             // when agent dies while climbing ladder
             // or when trying to control an agent who was using siege weapon
-            agent.AddComponent(new HumanAIComponent(agent));
+            //agent.AddComponent(new HumanAIComponent(agent));
 
             var component = agent.GetComponent<VictoryComponent>();
             if (component != null)
@@ -294,7 +294,7 @@ namespace MissionSharedLibrary.Utilities
             }
         }
 
-        public static void AIControlMainAgent(bool changeAlarmed, bool alarmed = false)
+        /*public static void AIControlMainAgent(bool changeAlarmed, bool alarmed = false)
         {
             var mission = Mission.Current;
             if (mission?.MainAgent == null)
@@ -316,7 +316,7 @@ namespace MissionSharedLibrary.Utilities
                         mission.MainAgent.RemoveComponent(mission.MainAgent.HumanAIComponent);
                     }
 
-                    mission.MainAgent.Formation = null;
+                    //mission.MainAgent.Formation = null;
                     mission.MainAgent.Controller = Agent.ControllerType.AI;
                     // Note that the formation may be already set by SwitchFreeCameraLogic
                     if (mission.MainAgent.Formation == null)
@@ -356,7 +356,7 @@ namespace MissionSharedLibrary.Utilities
             {
                 DisplayMessage(e.ToString());
             }
-        }
+        }*/
 
         public static void SetMainAgentAlarmed(bool alarmed)
         {
