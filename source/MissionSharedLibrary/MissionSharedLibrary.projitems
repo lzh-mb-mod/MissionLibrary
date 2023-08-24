@@ -60,6 +60,17 @@
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)src\Utilities\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)assets\GUI\Brushes\MissionLibraryBrushes.xml" />
+    <Content Include="$(MSBuildThisFileDirectory)assets\GUI\Prefabs\Menu\MissionLibraryDropdownWithHorizontalControl.xml" />
+    <Content Include="$(MSBuildThisFileDirectory)assets\GUI\Prefabs\Menu\MissionLibraryOptionItemWidget.xml" />
+    <Content Include="$(MSBuildThisFileDirectory)assets\GUI\Prefabs\Menu\MissionLibraryOptionsGameKeyPage.xml" />
+    <Content Include="$(MSBuildThisFileDirectory)assets\GUI\Prefabs\Menu\MissionLibraryOptionsGameKeyScreen.xml" />
+    <Content Include="$(MSBuildThisFileDirectory)assets\GUI\Prefabs\Menu\MissionLibraryOptionView-1.1.0.xml" />
+    <Content Include="$(MSBuildThisFileDirectory)assets\ModuleData\Languages\CNs\std_MissionLibrary-zho-CN.xml" />
+    <Content Include="$(MSBuildThisFileDirectory)assets\ModuleData\Languages\std_MissionLibrary.xml" />
+    <Content Include="$(MSBuildThisFileDirectory)assets\ModuleData\MissionLibrary.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildThisFileDirectory)CopyAssets.targets" />
   <Import Project="$(MSBuildThisFileDirectory)\*.props" />
 </Project>
