@@ -44,7 +44,7 @@
         </Widget>
 
         <!--Type Selection-->
-        <OptionsDropdownWidget Id="DropdownParent" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="!DropdownCenter.Width" HorizontalAlignment="Center" VerticalAlignment="Center" DropdownContainerWidget="DropdownClipWidget\DropdownContainerWidget" ListPanel="DropdownClipWidget\DropdownContainerWidget\ScrollablePanel\ClipRect\PrimaryUsageSelectorList" Button="DropdownButtonContainer\DropdownButton" CurrentSelectedIndex="@SelectedIndex" TextWidget="DropdownButtonContainer\DropdownButton\SelectedTextWidget" DropdownClipWidget="DropdownClipWidget" ScrollbarWidget="DropdownClipWidget\DropdownContainerWidget\VerticalScrollbar">
+        <AnimatedDropdownWidget Id="DropdownParent" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="!DropdownCenter.Width" HorizontalAlignment="Center" VerticalAlignment="Center" DropdownContainerWidget="DropdownClipWidget\DropdownContainerWidget" ListPanel="DropdownClipWidget\DropdownContainerWidget\ScrollablePanel\ClipRect\PrimaryUsageSelectorList" Button="DropdownButtonContainer\DropdownButton" CurrentSelectedIndex="@SelectedIndex" TextWidget="DropdownButtonContainer\DropdownButton\SelectedTextWidget" DropdownClipWidget="DropdownClipWidget" ScrollbarWidget="DropdownClipWidget\DropdownContainerWidget\VerticalScrollbar">
           <Children>
             <Widget Id="DropdownButtonContainer" WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="!DropdownCenter.Height" HorizontalAlignment="Center" VerticalAlignment="Center">
               <Children>
@@ -100,7 +100,7 @@
             </Widget>
 
           </Children>
-        </OptionsDropdownWidget>
+        </AnimatedDropdownWidget>
 
         <!--Next Button-->
         <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="40" SuggestedHeight="43" VerticalAlignment="Center" DoNotAcceptEvents="true" IsVisible="*ShowNextAndPrevious">

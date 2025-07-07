@@ -27,6 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)src\Initializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Provider\ConcreteIdProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Provider\ConcreteVersionProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\QuerySystem\UiQueryData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Utilities\Utility.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\View\HotKey\GameKeyConfigView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\View\HotKey\GameKeyConfigVM.cs" />

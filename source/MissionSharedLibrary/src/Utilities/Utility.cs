@@ -25,7 +25,7 @@ namespace MissionSharedLibrary.Utilities
                 .GetValue(formation) ?? WorldPosition.Invalid);
         }
 
-        public static bool ShouldDisplayMessage { get; set; }
+        public static bool ShouldDisplayMessage { get; set; } = true;
         public static void DisplayLocalizedText(string id, string variation = null)
         {
             try
@@ -197,15 +197,19 @@ namespace MissionSharedLibrary.Utilities
                             formation.FormOrder = originalFormation.FormOrder;
                             formation.SetPositioning(unitSpacing: originalFormation.UnitSpacing);
                             formation.RidingOrder = originalFormation.RidingOrder;
-                            formation.WeaponUsageOrder = originalFormation.WeaponUsageOrder;
                             formation.FiringOrder = originalFormation.FiringOrder;
                             formation.SetControlledByAI(originalFormation.IsAIControlled || !originalFormation.Team.IsPlayerGeneral, originalFormation.IsSplittableByAI);
-                            formation.AI.Side = originalFormation.AI.Side;
+                            if (originalFormation.AI.Side != FormationAI.BehaviorSide.BehaviorSideNotSet)
+                            {
+                                formation.AI.Side = originalFormation.AI.Side;
+
+                            }
                             formation.SetMovementOrder(originalFormation.GetReadonlyMovementOrderReference());
+                            formation.SetTargetFormation(originalFormation.TargetFormation);
                             formation.FacingOrder = originalFormation.FacingOrder;
                             formation.ArrangementOrder = originalFormation.ArrangementOrder;
 
-                            formation.SetPositioning(GetOrderPosition(formation), formation.Direction, formation.UnitSpacing);
+                            //formation.SetPositioning(GetOrderPosition(formation), formation.Direction, formation.UnitSpacing);
                         }
                     }
 
@@ -282,14 +286,17 @@ namespace MissionSharedLibrary.Utilities
                 SetHasPlayer(formation, false);
             }
 
-            // Add HumanAIComponent back to agent after player control to avoid crash
-            // when agent dies while climbing ladder
-            // or when trying to control an agent who was using siege weapon
-            // TODO: Validate the necessary to add this.
-            if (agent.HumanAIComponent == null)
-            {
-                agent.AddComponent(new HumanAIComponent(agent));
-            }
+            // TODO: Remove the following code
+            // // Add HumanAIComponent back to agent after player control to avoid crash
+            // // when agent dies while climbing ladder
+            // // or when trying to control an agent who was using siege weapon
+            // // TODO: Validate the necessary to add this.
+            // // TODO: Confirmed that adding HumanAIComponent to player controlled agent
+            // // will cause crash in training field when player tries to mount a horse
+            // if (agent.HumanAIComponent == null)
+            // {
+            //     //agent.AddComponent(new HumanAIComponent(agent));
+            // }
 
             var component = agent.GetComponent<VictoryComponent>();
             if (component != null)
@@ -341,13 +348,13 @@ namespace MissionSharedLibrary.Utilities
                     // the Initialize method need to be called manually.
                     mission.MainAgent.CommonAIComponent?.Initialize();
 
-                    // TODO: seems useless.
+                    // TODO: Need to check whether the following is needed.
                     mission.MainAgent.ResetEnemyCaches();
                     mission.MainAgent.InvalidateTargetAgent();
                     mission.MainAgent.InvalidateAIWeaponSelections();
                     if (mission.MainAgent.Formation != null)
                     {
-                        mission.MainAgent.SetRidingOrder((int)mission.MainAgent.Formation.RidingOrder.OrderEnum);
+                        mission.MainAgent.SetRidingOrder(mission.MainAgent.Formation.RidingOrder.OrderEnum);
                     }
                     if (changeAlarmed)
                     {
