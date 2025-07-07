@@ -286,18 +286,6 @@ namespace MissionSharedLibrary.Utilities
                 SetHasPlayer(formation, false);
             }
 
-            // TODO: Remove the following code
-            // // Add HumanAIComponent back to agent after player control to avoid crash
-            // // when agent dies while climbing ladder
-            // // or when trying to control an agent who was using siege weapon
-            // // TODO: Validate the necessary to add this.
-            // // TODO: Confirmed that adding HumanAIComponent to player controlled agent
-            // // will cause crash in training field when player tries to mount a horse
-            // if (agent.HumanAIComponent == null)
-            // {
-            //     //agent.AddComponent(new HumanAIComponent(agent));
-            // }
-
             var component = agent.GetComponent<VictoryComponent>();
             if (component != null)
             {
