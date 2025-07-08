@@ -1,11 +1,11 @@
 ﻿using MissionLibrary.HotKey;
 using MissionSharedLibrary.Config.HotKey;
+using MissionSharedLibrary.Utilities;
 using MissionSharedLibrary.View.ViewModelCollection.HotKey;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.InputSystem;
-using TaleWorlds.Library;
 
 namespace MissionSharedLibrary.HotKey.Category
 {
@@ -44,7 +44,7 @@ namespace MissionSharedLibrary.HotKey.Category
         public void FromSerializedGameKeyCategory(SerializedGameKeyCategory category)
         {
             var dictionary = category.GameKeySequences.ToDictionary(serializedGameKey => serializedGameKey.StringId);
-            for (var i = 0; i < category.GameKeySequences.Count; i++)
+            for (var i = 0; i < GameKeySequences.Count; i++)
             {
                 var gameKeySequence = GameKeySequences[i];
                 if (dictionary.TryGetValue(gameKeySequence.StringId, out SerializedGameKeySequence serializedGameKeySequence))
