@@ -1,5 +1,6 @@
 ﻿using MissionLibrary.Provider;
 using MissionLibrary.View;
+using MissionSharedLibrary.Config;
 using MissionSharedLibrary.Utilities;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace MissionSharedLibrary.View
     {
         private readonly List<IIdProvider<AOptionClass>> _optionClasses = new List<IIdProvider<AOptionClass>>();
         private MenuClassCollectionViewModel _viewModel;
-        private string _previouslySelectedOptionClassId = "";
+        private GeneralConfig _config = GeneralConfig.Get();
 
         public void AddOptionClass(IIdProvider<AOptionClass> provider)
         {
@@ -25,8 +26,9 @@ namespace MissionSharedLibrary.View
 
         public void OnOptionClassSelected(AOptionClass optionClass)
         {
-            _previouslySelectedOptionClassId = optionClass.Id;
+            _config.PreviouslySelectedOptionClassId = optionClass.Id;
             _viewModel?.OnOptionClassSelected(optionClass);
+            _config.Serialize();
         }
 
         public void Clear()
@@ -40,7 +42,7 @@ namespace MissionSharedLibrary.View
 
         public ViewModel GetViewModel()
         {
-            return _viewModel ??= new MenuClassCollectionViewModel(_optionClasses, _previouslySelectedOptionClassId);
+            return _viewModel ??= new MenuClassCollectionViewModel(_optionClasses, _config.PreviouslySelectedOptionClassId);
         }
     }
 

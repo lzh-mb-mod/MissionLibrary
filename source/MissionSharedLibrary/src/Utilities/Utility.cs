@@ -558,13 +558,13 @@ namespace MissionSharedLibrary.Utilities
                 CameraSpecialCurrentPositionToAdd?.SetValue(missionScreen, Vec3.Zero);
         }
 
-        private static readonly PropertyInfo HasPlayer =
-            typeof(Formation).GetProperty(nameof(HasPlayer), BindingFlags.Instance | BindingFlags.Public);
-        private static readonly PropertyInfo IsPlayerInFormation =
-            typeof(Formation).GetProperty(nameof(IsPlayerInFormation), BindingFlags.Instance | BindingFlags.Public);
+        private static readonly PropertyInfo HasPlayerControlledTroop =
+            typeof(Formation).GetProperty(nameof(HasPlayerControlledTroop), BindingFlags.Instance | BindingFlags.Public);
+        private static readonly PropertyInfo IsPlayerTroopInFormation =
+            typeof(Formation).GetProperty(nameof(IsPlayerTroopInFormation), BindingFlags.Instance | BindingFlags.Public);
 
-        private static readonly MethodInfo SetHasPlayerMethod = HasPlayer?.GetSetMethod(true);
-        private static readonly MethodInfo SetIsPlayerInFormationMethod = IsPlayerInFormation?.GetSetMethod(true);
+        private static readonly MethodInfo SetHasPlayerControlledTroopMethod = HasPlayerControlledTroop?.GetSetMethod(true);
+        private static readonly MethodInfo SetIsPlayerTroopInFormationMethod = IsPlayerTroopInFormation?.GetSetMethod(true);
 
         public static void SetHasPlayer(Formation formation, bool hasPlayer)
         {
@@ -572,8 +572,8 @@ namespace MissionSharedLibrary.Utilities
             {
                 if (formation == null)
                     return;
-                SetHasPlayerMethod?.Invoke(formation, new object[] { hasPlayer });
-                SetIsPlayerInFormationMethod?.Invoke(formation, new object[] { hasPlayer });
+                //SetHasPlayerControlledTroopMethod?.Invoke(formation, new object[] { hasPlayer });
+                //SetIsPlayerTroopInFormationMethod?.Invoke(formation, new object[] { hasPlayer });
                 formation.OnUnitAddedOrRemoved();
             }
             catch (Exception e)

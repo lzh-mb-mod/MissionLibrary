@@ -9,6 +9,7 @@
     <Import_RootNamespace>MissionSharedLibrary</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)src\config\GeneralConfig.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Config\HotKey\GameKeySequence.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Controller\DefaultMissionStartingHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Controller\InputControllerFactory.cs" />

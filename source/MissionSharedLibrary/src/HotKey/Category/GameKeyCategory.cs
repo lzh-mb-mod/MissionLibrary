@@ -1,6 +1,5 @@
 ﻿using MissionLibrary.HotKey;
 using MissionSharedLibrary.Config.HotKey;
-using MissionSharedLibrary.Utilities;
 using MissionSharedLibrary.View.ViewModelCollection.HotKey;
 using System;
 using System.Collections.Generic;
