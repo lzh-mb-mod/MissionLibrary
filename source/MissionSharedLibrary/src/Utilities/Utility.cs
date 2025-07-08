@@ -144,7 +144,7 @@ namespace MissionSharedLibrary.Utilities
         {
         }
 
-        public static void SetAgentFormation(Agent agent, Formation formation)
+        public static void SetMainAgentFormation(Agent agent, Formation formation)
         {
             // If formation is null, prevent agent be added to detachments during DetachmentManager.TickDetachments
             // Or if agent with no formation is added to a detachment, and later is added to a formation, it will be detached and attached at the same time.
@@ -161,7 +161,20 @@ namespace MissionSharedLibrary.Utilities
             {
                 agent.Team.DetachmentManager?.OnAgentRemoved(agent);
             }
+            //SetHasPlayerControlledTroop(mission.MainAgent.Formation, false);
+            //SetIsPlayerTroopInFormation(mission.MainAgent.Formation, false);
+            // setting HasPlayerControlledTroop after setting formation is too late:
+            // see Patch_Formation.Prefix_Arrangement_OnShapeChanged, we use HasPlayerControlledTroop to break the infinite recusion,
+            // which happens before Formation set HasPlayerControlledTroop to true.
+            // so we have to set HasPlayerControlledTroop and IsPlayerTroopInFormation before setting formation.
+            SetHasPlayerControlledTroop(formation, agent.IsPlayerControlled);
+            if (agent.IsPlayerTroop)
+            {
+                SetIsPlayerTroopInFormation(formation, true);
+            }
             agent.Formation = formation;
+            //SetHasPlayerControlledTroop(mission.MainAgent.Formation, mission.MainAgent.IsPlayerControlled);
+            //SetIsPlayerTroopInFormation(mission.MainAgent.Formation, mission.MainAgent.IsPlayerTroop);
         }
 
         public static void SetPlayerFormationClass(FormationClass formationClass)
@@ -213,9 +226,7 @@ namespace MissionSharedLibrary.Utilities
                         }
                     }
 
-                    SetHasPlayer(mission.MainAgent.Formation, false);
-                    SetAgentFormation(mission.MainAgent, formation);
-                    SetHasPlayer(formation, mission.MainAgent.IsPlayerControlled);
+                    SetMainAgentFormation(mission.MainAgent, formation);
                 }
             }
         }
@@ -282,8 +293,7 @@ namespace MissionSharedLibrary.Utilities
             // Note that the formation may be already set by SwitchFreeCameraLogic
             if (agent.Formation == null)
             {
-                SetAgentFormation(agent, formation);
-                SetHasPlayer(formation, false);
+                SetMainAgentFormation(agent, formation);
             }
 
             var component = agent.GetComponent<VictoryComponent>();
@@ -312,26 +322,25 @@ namespace MissionSharedLibrary.Utilities
                         mission.MainAgent.HandleStopUsingAction();
                     }
 
-                    if (mission.MainAgent.HumanAIComponent != null)
-                    {
-                        // HumanAIComponent registered the following action in constructor, but didn't unregister it.
-                        // TODO: Need to check the official code whether this fix affects other behaviors.
-                        if (mission.MainAgent.OnAgentWieldedItemChange != null)
-                            mission.MainAgent.OnAgentWieldedItemChange -=
-                                mission.MainAgent.HumanAIComponent.DisablePickUpForAgentIfNeeded;
-                        if (mission.MainAgent.OnAgentMountedStateChanged != null)
-                            mission.MainAgent.OnAgentMountedStateChanged -=
-                                mission.MainAgent.HumanAIComponent.DisablePickUpForAgentIfNeeded;
-                        mission.MainAgent.RemoveComponent(mission.MainAgent.HumanAIComponent);
-                    }
+                    // if (mission.MainAgent.HumanAIComponent != null)
+                    // {
+                    //     // HumanAIComponent registered the following action in constructor, but didn't unregister it.
+                    //     // TODO: Need to check the official code whether this fix affects other behaviors.
+                    //     if (mission.MainAgent.OnAgentWieldedItemChange != null)
+                    //         mission.MainAgent.OnAgentWieldedItemChange -=
+                    //             mission.MainAgent.HumanAIComponent.DisablePickUpForAgentIfNeeded;
+                    //     if (mission.MainAgent.OnAgentMountedStateChanged != null)
+                    //         mission.MainAgent.OnAgentMountedStateChanged -=
+                    //             mission.MainAgent.HumanAIComponent.DisablePickUpForAgentIfNeeded;
+                    //     mission.MainAgent.RemoveComponent(mission.MainAgent.HumanAIComponent);
+                    // }
 
                     mission.MainAgent.Formation = null;
                     mission.MainAgent.Controller = Agent.ControllerType.AI;
                     // Note that the formation may be already set by SwitchFreeCameraLogic
                     if (mission.MainAgent.Formation == null)
                     {
-                        SetAgentFormation(mission.MainAgent, formation);
-                        SetHasPlayer(formation, false);
+                        SetMainAgentFormation(mission.MainAgent, formation);
                     }
                     // the Initialize method need to be called manually.
                     mission.MainAgent.CommonAIComponent?.Initialize();
@@ -566,14 +575,27 @@ namespace MissionSharedLibrary.Utilities
         private static readonly MethodInfo SetHasPlayerControlledTroopMethod = HasPlayerControlledTroop?.GetSetMethod(true);
         private static readonly MethodInfo SetIsPlayerTroopInFormationMethod = IsPlayerTroopInFormation?.GetSetMethod(true);
 
-        public static void SetHasPlayer(Formation formation, bool hasPlayer)
+        public static void SetIsPlayerTroopInFormation(Formation formation, bool hasPlayer)
         {
             try
             {
                 if (formation == null)
                     return;
-                //SetHasPlayerControlledTroopMethod?.Invoke(formation, new object[] { hasPlayer });
-                //SetIsPlayerTroopInFormationMethod?.Invoke(formation, new object[] { hasPlayer });
+                SetIsPlayerTroopInFormationMethod?.Invoke(formation, new object[] { hasPlayer });
+                formation.OnUnitAddedOrRemoved();
+            }
+            catch (Exception e)
+            {
+                DisplayMessage(e.ToString());
+            }
+        }
+        public static void SetHasPlayerControlledTroop(Formation formation, bool hasPlayer)
+        {
+            try
+            {
+                if (formation == null)
+                    return;
+                SetHasPlayerControlledTroopMethod?.Invoke(formation, new object[] { hasPlayer });
                 formation.OnUnitAddedOrRemoved();
             }
             catch (Exception e)
@@ -597,6 +619,59 @@ namespace MissionSharedLibrary.Utilities
                 Key defaultKeyboardKey = gameKey.DefaultKeyboardKey;
                 keyboardKey.ChangeKey(defaultKeyboardKey?.InputKey ?? InputKey.Invalid);
             }
+        }
+
+        //For debug purpose
+
+        public static bool CheckAllFormationArrangementIntegrity()
+        {
+            if (Mission.Current == null || Mission.Current.PlayerTeam == null)
+                return true;
+            bool result = true;
+            foreach (var team in Mission.Current.Teams)
+            {
+                if (!CheckAllFormationInTeamArrangementIntegrity(team))
+                {
+                    result = false;
+                }
+            }
+            return result;
+        }
+        public static bool CheckAllFormationInTeamArrangementIntegrity(Team team)
+        {
+            bool result = true;
+            foreach (var formation in team.FormationsIncludingEmpty)
+            {
+                if (!CheckFormationArrangementIntegrity(formation))
+                {
+                    result = false;
+                }
+            }
+            return result;
+        }
+
+        public static bool CheckFormationArrangementIntegrity(Formation formation)
+        {
+            var lineFormation = formation.Arrangement as LineFormation;
+            if (lineFormation == null)
+                return true;
+            MBList2D<IFormationUnit> units2D = (MBList2D<IFormationUnit>)typeof(LineFormation).GetField("_units2D", BindingFlags.Instance | BindingFlags.NonPublic)?.GetValue(lineFormation);
+            if (units2D == null)
+                return true;
+            for (int i = 0; i < units2D.Count1; i++)
+            {
+                for (int j = 0; j < units2D.Count2; j++)
+                {
+                    IFormationUnit unit = units2D[i, j];
+                    if (unit != null &&(unit.FormationFileIndex != i || unit.FormationRankIndex != j))
+                    {
+                        DisplayMessage($"Formation integrity check failed: Agent {((Agent)unit).Name} is in formation {((Agent)unit).Formation?.FormationIndex} has wrong file/rank index");
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
     }
 }
