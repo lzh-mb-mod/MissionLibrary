@@ -164,7 +164,7 @@ namespace MissionSharedLibrary.Utilities
             //SetHasPlayerControlledTroop(mission.MainAgent.Formation, false);
             //SetIsPlayerTroopInFormation(mission.MainAgent.Formation, false);
             // setting HasPlayerControlledTroop after setting formation is too late:
-            // see Patch_Formation.Prefix_Arrangement_OnShapeChanged, we use HasPlayerControlledTroop to break the infinite recusion,
+            // see Patch_Formation.Prefix_Arrangement_OnShapeChanged, we use HasPlayerControlledTroop and IsPlayerTroopInFormation to break the infinite recusion,
             // which happens before Formation set HasPlayerControlledTroop to true.
             // so we have to set HasPlayerControlledTroop and IsPlayerTroopInFormation before setting formation.
             SetHasPlayerControlledTroop(formation, agent.IsPlayerControlled);
