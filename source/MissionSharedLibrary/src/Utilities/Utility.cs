@@ -9,8 +9,10 @@ using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade;
+using TaleWorlds.MountAndBlade.GauntletUI.Mission.Singleplayer;
 using TaleWorlds.MountAndBlade.View.MissionViews;
 using TaleWorlds.MountAndBlade.View.Screens;
+using TaleWorlds.MountAndBlade.ViewModelCollection.Order;
 using Module = TaleWorlds.MountAndBlade.Module;
 
 namespace MissionSharedLibrary.Utilities
@@ -672,6 +674,17 @@ namespace MissionSharedLibrary.Utilities
             }
 
             return true;
+        }
+
+        public static MissionOrderVM GetMissionOrderVM(Mission mission)
+        {
+            var ui = mission.GetMissionBehavior<MissionGauntletSingleplayerOrderUIHandler>();
+            if (ui != null)
+            {
+                var dataSource = typeof(MissionGauntletSingleplayerOrderUIHandler).GetField("_dataSource", BindingFlags.Instance | BindingFlags.NonPublic)?.GetValue(ui) as MissionOrderVM;
+                return dataSource;
+            }
+            return null;
         }
     }
 }

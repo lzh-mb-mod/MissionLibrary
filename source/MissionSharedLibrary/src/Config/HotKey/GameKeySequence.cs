@@ -154,11 +154,11 @@ namespace MissionSharedLibrary.Config.HotKey
             if (Keys.Count == 0)
             {
                 return "[No key]";
-            }
+            } 
             string result = "";
             for (int i = 0; i < Keys.Count - 1; ++i)
             {
-                result += Utility.TextForKey(Keys[i].InputKey) + " ";
+                result += Utility.TextForKey(Keys[i].InputKey) + "+";
             }
 
             result += Utility.TextForKey(Keys[Keys.Count - 1].InputKey);
