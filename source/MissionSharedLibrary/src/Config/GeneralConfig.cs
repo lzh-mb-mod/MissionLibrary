@@ -40,6 +40,6 @@ namespace MissionSharedLibrary.Config
         }
 
         [XmlIgnore]
-        protected override string SaveName => Path.Combine(ConfigPath.ConfigDir, "RTSCamera", nameof(GeneralConfig) + ".xml");
+        protected override string SaveName => Path.Combine(ConfigPath.ConfigDir, nameof(MissionLibrary), nameof(GeneralConfig) + ".xml");
     }
 }
