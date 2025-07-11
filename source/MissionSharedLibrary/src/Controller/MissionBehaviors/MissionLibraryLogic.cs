@@ -42,11 +42,6 @@ namespace MissionSharedLibrary.Controller.MissionBehaviors
                     _timerForShowingUsageHint = 0f;
                 }
             }
-
-            if (GeneralGameKeyCategory.GetKey(GeneralGameKey.OpenMenu).IsKeyPressed(Mission.InputManager))
-            {
-                Utility.DisplayMessage("L pressed.");
-            }
         }
     }
 }
