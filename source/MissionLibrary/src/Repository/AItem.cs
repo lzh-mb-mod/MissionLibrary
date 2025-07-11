@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MissionLibrary.Category
+namespace MissionLibrary.Repository
 {
     public abstract class AItem<T> : ATag<T> where T: AItem<T>
     {

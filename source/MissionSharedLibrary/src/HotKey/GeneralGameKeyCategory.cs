@@ -5,6 +5,7 @@ using MissionLibrary.HotKey;
 using MissionSharedLibrary.Config.HotKey;
 using System.Collections.Generic;
 using TaleWorlds.InputSystem;
+using MissionSharedLibrary.Usage;
 
 namespace MissionSharedLibrary.HotKey
 {
@@ -14,11 +15,11 @@ namespace MissionSharedLibrary.HotKey
         NumberOfGameKeyEnums
     }
 
-    public class GeneralGameKeyCategories
+    public class GeneralGameKeyCategory
     {
         public const string CategoryId = nameof(MissionLibrary) + nameof(GeneralGameKey);
 
-        public static AGameKeyCategory GeneralGameKeyCategory => AGameKeyCategoryManager.Get()?.GetItem(CategoryId);
+        public static AGameKeyCategory Category => AGameKeyCategoryManager.Get()?.GetItem(CategoryId);
 
         [NotNull]
         public static AGameKeyCategory CreateGeneralGameKeyCategory()
@@ -37,12 +38,12 @@ namespace MissionSharedLibrary.HotKey
 
         public static void RegisterGameKeyCategory()
         {
-            AGameKeyCategoryManager.Get()?.RegisterCategory(CreateGeneralGameKeyCategory, CategoryId, new Version(1, 0));
+            AGameKeyCategoryManager.Get()?.RegisterItem(CreateGeneralGameKeyCategory, CategoryId, new Version(1, 0));
         }
 
         public static IGameKeySequence GetKey(GeneralGameKey key)
         {
-            return GeneralGameKeyCategory.GetGameKeySequence((int) key);
+            return Category.GetGameKeySequence((int) key);
         }
     }
 }

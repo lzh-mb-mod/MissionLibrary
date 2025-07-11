@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.Library;
 
-namespace MissionSharedLibrary.View
+namespace MissionSharedLibrary.View.ViewModelCollection
 {
     public class MenuClassCollection : AMenuClassCollection
     {

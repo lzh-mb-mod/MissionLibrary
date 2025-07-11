@@ -1,4 +1,4 @@
-﻿using MissionLibrary.Category;
+﻿using MissionLibrary.Repository;
 using MissionLibrary.HotKey;
 using MissionSharedLibrary.Config.HotKey;
 using MissionSharedLibrary.View.ViewModelCollection.HotKey;

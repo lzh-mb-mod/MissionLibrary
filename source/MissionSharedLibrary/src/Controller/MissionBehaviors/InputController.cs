@@ -10,7 +10,7 @@ namespace MissionSharedLibrary.Controller.MissionBehaviors
         {
             base.OnMissionTick(dt);
 
-            if (GeneralGameKeyCategories.GetKey(GeneralGameKey.OpenMenu).IsKeyPressed(Mission.InputManager))
+            if (GeneralGameKeyCategory.GetKey(GeneralGameKey.OpenMenu).IsKeyPressed(Mission.InputManager))
             {
                 Utility.DisplayMessage("L pressed.");
             }

@@ -6,6 +6,7 @@ using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
+using TaleWorlds.MountAndBlade.View.Screens;
 
 namespace MissionSharedLibrary.View
 {
@@ -26,6 +27,8 @@ namespace MissionSharedLibrary.View
 
             ConfigKeyTitle.RefreshValues();
             ConfigKeyHint.RefreshValues();
+            ShowUsageTitle.RefreshValues();
+            ShowUsageHint.RefreshValues();
             OptionClassCollection.RefreshValues();
         }
 
@@ -56,9 +59,9 @@ namespace MissionSharedLibrary.View
         public HintViewModel ShowUsageHint { get; set; } =
             new HintViewModel(GameTexts.FindText("str_mission_library_show_usage_hint"));
 
-        public void ShowUsageManual()
+        public void ShowUsageView()
         {
-
+            Mission.Current?.GetMissionBehavior<UsageView>()?.ActivateMenu();
         }
 
         public ViewModel OptionClassCollection { get; }

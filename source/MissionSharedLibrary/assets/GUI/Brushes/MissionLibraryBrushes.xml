@@ -23,4 +23,9 @@
       </Style>
     </Styles>
   </Brush>
+  <Brush Name="MissionLibrary.Text.Usage" Font="FiraSansExtraCondensed-Regular" TextHorizontalAlignment="Left" TextVerticalAlignment="Center">
+    <Styles>
+      <Style Name="Default" FontColor="#E1E1E1FF" TextGlowColor="#000000FF" TextOutlineColor="#FFFFFF00" TextOutlineAmount="0" TextGlowRadius="0" TextBlur="0" FontSize="16" />
+    </Styles>
+  </Brush>
 </Brushes>

@@ -93,7 +93,7 @@ namespace MissionSharedLibrary.Utilities
 
         public static void PrintUsageHint()
         {
-            var keyName = GeneralGameKeyCategories.GetKey(GeneralGameKey.OpenMenu).ToSequenceString();
+            var keyName = GeneralGameKeyCategory.GetKey(GeneralGameKey.OpenMenu).ToSequenceString();
             var hint = Module.CurrentModule.GlobalTextManager.FindText("str_rts_camera_open_menu_hint").SetTextVariable("KeyName", keyName).ToString();
             DisplayMessageForced(hint);
         }

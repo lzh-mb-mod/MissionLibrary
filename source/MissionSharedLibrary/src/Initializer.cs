@@ -4,8 +4,10 @@ using MissionSharedLibrary.Controller;
 using MissionSharedLibrary.Controller.Camera;
 using MissionSharedLibrary.HotKey;
 using MissionSharedLibrary.Provider;
+using MissionSharedLibrary.Usage;
 using MissionSharedLibrary.Utilities;
 using MissionSharedLibrary.View;
+using MissionSharedLibrary.View.ViewModelCollection.Usage;
 using System;
 
 namespace MissionSharedLibrary
@@ -34,7 +36,7 @@ namespace MissionSharedLibrary
 
             IsSecondInitialized = true;
             Global.SecondInitialize();
-            GeneralGameKeyCategories.RegisterGameKeyCategory();
+            GeneralGameKeyCategory.RegisterGameKeyCategory();
             return true;
         }
 
@@ -48,9 +50,10 @@ namespace MissionSharedLibrary
             RegisterProvider(() => new GameKeyCategoryManager(), new Version(1, 0));
             RegisterProvider(() => new CameraControllerManager(), new Version(1, 0));
             RegisterProvider(() => new InputControllerFactory(), new Version(1, 0));
-            RegisterProvider(() => new MissionStartingManager(), new Version(1, 1));
+            RegisterProvider(() => new MissionStartingManager(), new Version(1, 2));
             RegisterProvider(() => new DefaultMissionStartingHandlerAdder(), new Version(1, 0));
             RegisterProvider(() => new MenuManager(), new Version(1, 1));
+            RegisterProvider(() => new UsageCategoryManager(), new Version(1, 0));
         }
 
         public static void RegisterProvider<T>(Func<ATag<T>> creator, Version providerVersion, string key = "") where T : ATag<T>

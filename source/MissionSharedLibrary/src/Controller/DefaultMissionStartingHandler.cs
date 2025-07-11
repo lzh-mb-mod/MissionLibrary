@@ -1,6 +1,7 @@
 ﻿using MissionLibrary;
 using MissionLibrary.Controller;
 using MissionLibrary.View;
+using MissionSharedLibrary.View;
 using TaleWorlds.MountAndBlade.View.MissionViews;
 
 namespace MissionSharedLibrary.Controller
@@ -30,6 +31,7 @@ namespace MissionSharedLibrary.Controller
             //    Global.GetProvider<AInputControllerFactory>().CreateInputController(entranceView.Mission));
             MissionStartingManager.AddMissionBehavior(entranceView, AMenuManager.Get().CreateMenuView());
             MissionStartingManager.AddMissionBehavior(entranceView, AMenuManager.Get().CreateGameKeyConfigView());
+            MissionStartingManager.AddMissionBehavior(entranceView, new UsageView(26, new System.Version(1, 0, 0)));
         }
     }
 }

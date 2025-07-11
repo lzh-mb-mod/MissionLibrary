@@ -9,7 +9,7 @@
     <Import_RootNamespace>MissionSharedLibrary</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)src\Category\RepositoryImplementation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\Repository\RepositoryImplementation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\provider\ConcreteProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\config\GeneralConfig.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Config\HotKey\GameKeySequence.cs" />
@@ -17,7 +17,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)src\Controller\InputControllerFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Controller\MissionBehaviors\InputController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Controller\MissionStartingManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)src\HotKey\AGameKeyCategoryManagerExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\view\UsageView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\view\UsageVM.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\view\viewmodelcollection\usage\UsageCategoryViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\Repository\ARespositoryExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\HotKey\GameKeyCategory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Config\HotKey\GameKeyConfigBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Config\HotKey\IGameKeyConfig.cs" />
@@ -25,12 +28,15 @@
     <Compile Include="$(MSBuildThisFileDirectory)src\Config\HotKey\SerializedGameKeyCategory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Config\MissionConfigBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Controller\Camera\CameraControllerManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)src\HotKey\GeneralGameKeyCategories.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\HotKey\GeneralGameKeyCategory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\HotKey\GameKeyCategoryManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Initializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Provider\ConcreteIdProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Provider\ConcreteVersionProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\QuerySystem\UiQueryData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\Usage\UsageCategory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\Usage\UsageCategoryData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\Usage\UsageCategoryManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Utilities\Utility.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\View\HotKey\GameKeyConfigView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\View\HotKey\GameKeyConfigVM.cs" />
@@ -57,12 +63,15 @@
     <Compile Include="$(MSBuildThisFileDirectory)src\View\ViewModelCollection\Options\Selection\SelectionOptionData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\View\ViewModelCollection\Options\Selection\SelectionOptionViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\View\ViewModelCollection\Options\OptionViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\view\viewmodelcollection\usage\UsageCollectionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)CopyAssets.targets" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)src\Utilities\" />
+    <Folder Include="$(MSBuildThisFileDirectory)src\Usage\" />
+    <Folder Include="$(MSBuildThisFileDirectory)src\View\ViewModelCollection\Usage\" />
   </ItemGroup>
   <Import Project="$(MSBuildThisFileDirectory)CopyAssets.targets" />
   <Import Project="$(MSBuildThisFileDirectory)\*.props" />

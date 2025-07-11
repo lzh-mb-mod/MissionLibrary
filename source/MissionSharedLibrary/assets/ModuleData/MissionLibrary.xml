@@ -9,5 +9,6 @@
 
   <string id="str_mission_library_show_usage" text="{=MissionLibrary_show_usage}Show Usage" />
   <string id="str_mission_library_show_usage_hint" text="{=MissionLibrary_show_usage_hint}Show Usage about this mod" />
+  <string id="str_mission_library_usages" text="{=MissionLibrary_usages}Usages" />
 
 </strings>

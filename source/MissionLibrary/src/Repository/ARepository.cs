@@ -1,7 +1,7 @@
 ﻿using MissionLibrary.Provider;
 using System.Collections.Generic;
 
-namespace MissionLibrary.Category
+namespace MissionLibrary.Repository
 {
     public abstract class ARepository<TSelf, TItem> : ATag<TSelf> where TSelf : ARepository<TSelf, TItem> where TItem :  AItem<TItem>
     {
