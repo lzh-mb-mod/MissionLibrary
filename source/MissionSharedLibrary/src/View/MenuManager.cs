@@ -29,5 +29,10 @@ namespace MissionSharedLibrary.View
         {
             Mission.Current.GetMissionBehavior<OptionView>()?.DeactivateMenu();
         }
+
+        public override void RequestToOpenUsageView()
+        {
+            Mission.Current.GetMissionBehavior<UsageView>()?.ActivateMenu();
+        }
     }
 }

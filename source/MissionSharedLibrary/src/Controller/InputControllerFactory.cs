@@ -6,9 +6,9 @@ namespace MissionSharedLibrary.Controller
 {
     public class InputControllerFactory : AInputControllerFactory
     {
-        public override MissionLogic CreateInputController(Mission mission)
+        public override MissionLogic CreateMissionBehaviors(Mission mission)
         {
-            return new InputController();
+            return new MissionLibraryLogic();
         }
     }
 }

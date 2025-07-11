@@ -49,9 +49,9 @@ namespace MissionSharedLibrary
         {
             RegisterProvider(() => new GameKeyCategoryManager(), new Version(1, 0));
             RegisterProvider(() => new CameraControllerManager(), new Version(1, 0));
-            RegisterProvider(() => new InputControllerFactory(), new Version(1, 0));
+            RegisterProvider(() => new MissionLibraryMissionLogicFactory(), new Version(1, 0));
             RegisterProvider(() => new MissionStartingManager(), new Version(1, 2));
-            RegisterProvider(() => new DefaultMissionStartingHandlerAdder(), new Version(1, 0));
+            RegisterProvider(() => new DefaultMissionStartingHandlerAdder(), new Version(1, 1));
             RegisterProvider(() => new MenuManager(), new Version(1, 1));
             RegisterProvider(() => new UsageCategoryManager(), new Version(1, 0));
         }

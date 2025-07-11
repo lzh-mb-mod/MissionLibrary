@@ -14,8 +14,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)src\config\GeneralConfig.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Config\HotKey\GameKeySequence.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Controller\DefaultMissionStartingHandler.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)src\Controller\InputControllerFactory.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)src\Controller\MissionBehaviors\InputController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\Controller\MissionLibraryMissionLogicFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\Controller\MissionBehaviors\MissionLibraryLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Controller\MissionStartingManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\view\UsageView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\view\UsageVM.cs" />

@@ -23,5 +23,7 @@ namespace MissionLibrary.View
         public abstract MissionView CreateGameKeyConfigView();
         public abstract void RequestToOpenMenu();
         public abstract void RequestToCloseMenu();
+
+        public abstract void RequestToOpenUsageView();
     }
 }

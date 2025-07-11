@@ -11,6 +11,7 @@ namespace MissionSharedLibrary.Config
         public string ConfigVersion { get; set; } = BinaryVersion.ToString();
 
         public string PreviouslySelectedOptionClassId = "RTSCamera";
+        public bool HasUsageShown { get; set; }
 
         public static void OnMenuClosed()
         {
@@ -21,6 +22,7 @@ namespace MissionSharedLibrary.Config
         {
             ConfigVersion = other.ConfigVersion;
             PreviouslySelectedOptionClassId = other.PreviouslySelectedOptionClassId;
+            HasUsageShown = other.HasUsageShown;
         }
 
         protected override void UpgradeToCurrentVersion()

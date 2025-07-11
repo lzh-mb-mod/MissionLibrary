@@ -27,8 +27,11 @@ namespace MissionSharedLibrary.Controller
 
         private void AddMissionLibraryMissionBehaviors(MissionView entranceView)
         {
-            //MissionStartingManager.AddMissionBehavior(entranceView,
-            //    Global.GetProvider<AInputControllerFactory>().CreateInputController(entranceView.Mission));
+            var missionLogics = Global.GetInstance<AMissionLogicFactory>().CreateMissionLogics(entranceView.Mission);
+            foreach (var missionLogic in missionLogics)
+            {
+                MissionStartingManager.AddMissionBehavior(entranceView, missionLogic);
+            }
             MissionStartingManager.AddMissionBehavior(entranceView, AMenuManager.Get().CreateMenuView());
             MissionStartingManager.AddMissionBehavior(entranceView, AMenuManager.Get().CreateGameKeyConfigView());
             MissionStartingManager.AddMissionBehavior(entranceView, new UsageView(26, new System.Version(1, 0, 0)));
