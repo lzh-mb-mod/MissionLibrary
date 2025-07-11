@@ -8,7 +8,7 @@ namespace MissionSharedLibrary.View
 {
     public class MenuManager : AMenuManager
     {
-        public override IMenuClassCollection MenuClassCollection { get; } = new MenuClassCollection();
+        public override AMenuClassCollection MenuClassCollection { get; } = new MenuClassCollection();
         public override MissionView CreateMenuView()
         {
             return new OptionView(24, new Version(1, 1, 0));

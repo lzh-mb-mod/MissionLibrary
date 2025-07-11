@@ -1,5 +1,6 @@
 ﻿using MissionLibrary.Provider;
 using MissionLibrary.View;
+using MissionSharedLibrary.Category;
 using MissionSharedLibrary.Config;
 using MissionSharedLibrary.Utilities;
 using System;
@@ -9,40 +10,48 @@ using TaleWorlds.Library;
 
 namespace MissionSharedLibrary.View
 {
-    public class MenuClassCollection : IMenuClassCollection
+    public class MenuClassCollection : AMenuClassCollection
     {
-        private readonly List<IIdProvider<AOptionClass>> _optionClasses = new List<IIdProvider<AOptionClass>>();
+        private RepositoryImplementation<AOptionClass> _repositoryImplementation = new RepositoryImplementation<AOptionClass>();
         private MenuClassCollectionViewModel _viewModel;
         private GeneralConfig _config = GeneralConfig.Get();
 
-        public void AddOptionClass(IIdProvider<AOptionClass> provider)
+        public override Dictionary<string, IProvider<AOptionClass>> Items => _repositoryImplementation.Items;
+
+        public override void RegisterItem(IProvider<AOptionClass> category, bool addOnlyWhenMissing = true)
         {
-            var index = _optionClasses.FindIndex(o => o.Id == provider.Id);
-            if (index < 0)
-                _optionClasses.Add(provider);
-            else
-                _optionClasses[index] = provider;
+            _repositoryImplementation.RegisterItem(category, addOnlyWhenMissing);
         }
 
-        public void OnOptionClassSelected(AOptionClass optionClass)
+        public override AOptionClass GetItem(string categoryId)
         {
-            _config.PreviouslySelectedOptionClassId = optionClass.Id;
+            return _repositoryImplementation.GetItem(categoryId);
+        }
+
+        public override T GetItem<T>(string categoryId)
+        {
+            return _repositoryImplementation.GetItem<T>(categoryId);
+        }
+
+        public override void OnOptionClassSelected(AOptionClass optionClass)
+        {
+            _config.PreviouslySelectedOptionClassId = optionClass.ItemId;
             _viewModel?.OnOptionClassSelected(optionClass);
             _config.Serialize();
         }
 
-        public void Clear()
+        public override void Clear()
         {
             _viewModel = null;
-            foreach (var optionClass in _optionClasses)
+            foreach (var optionClass in Items)
             {
-                optionClass.Clear();
+                optionClass.Value.Clear();
             }
         }
 
-        public ViewModel GetViewModel()
+        public override ViewModel GetViewModel()
         {
-            return _viewModel ??= new MenuClassCollectionViewModel(_optionClasses, _config.PreviouslySelectedOptionClassId);
+            return _viewModel ??= new MenuClassCollectionViewModel(Items.Select(p => p.Value).ToList(), _config.PreviouslySelectedOptionClassId);
         }
     }
 
@@ -99,7 +108,7 @@ namespace MissionSharedLibrary.View
             CurrentSelectedOptionClass?.UpdateSelection(true);
         }
 
-        public MenuClassCollectionViewModel(List<IIdProvider<AOptionClass>> optionClasses, string selectedOptionClassId)
+        public MenuClassCollectionViewModel(List<IProvider<AOptionClass>> optionClasses, string selectedOptionClassId)
         {
             var optionClassViewModels = new MBBindingList<ViewModel>();
             foreach (var optionClass in optionClasses)
@@ -118,7 +127,7 @@ namespace MissionSharedLibrary.View
             try
             {
                 OnOptionClassSelected(
-                    (optionClasses.FirstOrDefault(optionClass => optionClass.Value.Id == selectedOptionClassId) ??
+                    (optionClasses.FirstOrDefault(optionClass => optionClass.Value.ItemId == selectedOptionClassId) ??
                      optionClasses.FirstOrDefault())?.Value);
             }
             catch (Exception e)

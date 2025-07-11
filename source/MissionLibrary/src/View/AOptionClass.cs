@@ -1,11 +1,11 @@
-﻿using MissionLibrary.Provider;
+﻿using MissionLibrary.Category;
+using MissionLibrary.Provider;
 using TaleWorlds.Library;
 
 namespace MissionLibrary.View
 {
-    public abstract class AOptionClass : ATag<AOptionClass>, IViewModelProvider<ViewModel>
+    public abstract class AOptionClass : AItem<AOptionClass>, IViewModelProvider<ViewModel>
     {
-        public virtual string Id => "";
         public abstract ViewModel GetViewModel();
 
         public abstract void UpdateSelection(bool isSelected);

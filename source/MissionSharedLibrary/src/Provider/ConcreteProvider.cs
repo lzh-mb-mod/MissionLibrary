@@ -1,18 +1,21 @@
-﻿using System;
+using System;
 using MissionLibrary.Provider;
 
 namespace MissionSharedLibrary.Provider
 {
-    public class ConcreteVersionProvider<T> : IVersionProvider<T> where T : ATag<T>
+    public class ConcreteProvider<T> : IProvider<T> where T : ATag<T>
     {
         private readonly Func<ATag<T>> _creator;
+        public string Id { get; }
+
         private T _value;
         public Version ProviderVersion { get; }
 
         public T Value => _value ??= Create();
 
-        public ConcreteVersionProvider(Func<ATag<T>> creator, Version providerVersion)
+        public ConcreteProvider(Func<ATag<T>> creator, string id, Version providerVersion)
         {
+            Id = id;
             ProviderVersion = providerVersion;
             _creator = creator;
         }
@@ -32,11 +35,11 @@ namespace MissionSharedLibrary.Provider
         }
     }
 
-    public class VersionProviderCreator
+    public class ProviderCreator
     {
-        public static ConcreteVersionProvider<T> Create<T>(Func<ATag<T>> creator, Version providerVersion) where T : ATag<T>
+        public static ConcreteProvider<T> Create<T>(Func<ATag<T>> creator, string id, Version providerVersion) where T : ATag<T>
         {
-            return new ConcreteVersionProvider<T>(creator, providerVersion);
+            return new ConcreteProvider<T>(creator, id, providerVersion);
         }
     }
 }

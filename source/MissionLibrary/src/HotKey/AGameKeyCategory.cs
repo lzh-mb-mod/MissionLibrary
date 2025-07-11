@@ -3,7 +3,7 @@ using System;
 
 namespace MissionLibrary.HotKey
 {
-    public abstract class AGameKeyCategory : ACategory<AGameKeyCategory>
+    public abstract class AGameKeyCategory : AItem<AGameKeyCategory>
     {
         public abstract IGameKeySequence GetGameKeySequence(int i);
 

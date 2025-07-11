@@ -7,22 +7,22 @@ namespace MissionSharedLibrary.HotKey
 {
     public class GameKeyCategoryManager : AGameKeyCategoryManager
     {
-        private readonly CategoryManager<AGameKeyCategory> _categoryManagerImplementation = new CategoryManager<AGameKeyCategory>();
-        public override Dictionary<string, IVersionProvider<AGameKeyCategory>> Categories => _categoryManagerImplementation.Categories;
+        private readonly RepositoryImplementation<AGameKeyCategory> _repositoryImplementation = new RepositoryImplementation<AGameKeyCategory>();
+        public override Dictionary<string, IProvider<AGameKeyCategory>> Items => _repositoryImplementation.Items;
 
-        public override AGameKeyCategory GetCategory(string categoryId)
+        public override AGameKeyCategory GetItem(string categoryId)
         {
-            return _categoryManagerImplementation.GetCategory(categoryId);
+            return _repositoryImplementation.GetItem(categoryId);
         }
 
-        public override T GetCategory<T>(string categoryId)
+        public override T GetItem<T>(string categoryId)
         {
-           return  _categoryManagerImplementation.GetCategory<T>(categoryId);
+           return  _repositoryImplementation.GetItem<T>(categoryId);
         }
 
-        public override void RegisterCategory(IVersionProvider<AGameKeyCategory> provider, bool addOnlyWhenMissing = true)
+        public override void RegisterItem(IProvider<AGameKeyCategory> provider, bool addOnlyWhenMissing = true)
         {
-            _categoryManagerImplementation.RegisterCategory(provider, addOnlyWhenMissing);
+            _repositoryImplementation.RegisterItem(provider, addOnlyWhenMissing);
 
             provider.Value.Load();
             provider.Value.Save();
@@ -30,7 +30,7 @@ namespace MissionSharedLibrary.HotKey
 
         public override void Save()
         {
-            foreach(var pair in Categories)
+            foreach(var pair in Items)
             {
                 pair.Value.Value.Save();
             }

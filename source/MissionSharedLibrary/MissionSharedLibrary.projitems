@@ -9,7 +9,8 @@
     <Import_RootNamespace>MissionSharedLibrary</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)src\Category\CategoryManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\Category\RepositoryImplementation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\provider\ConcreteProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\config\GeneralConfig.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Config\HotKey\GameKeySequence.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Controller\DefaultMissionStartingHandler.cs" />
@@ -62,7 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)src\Utilities\" />
-    <Folder Include="$(MSBuildThisFileDirectory)src\Category\" />
   </ItemGroup>
   <Import Project="$(MSBuildThisFileDirectory)CopyAssets.targets" />
   <Import Project="$(MSBuildThisFileDirectory)\*.props" />

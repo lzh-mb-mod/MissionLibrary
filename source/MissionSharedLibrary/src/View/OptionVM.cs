@@ -11,9 +11,9 @@ namespace MissionSharedLibrary.View
 {
     public class OptionVM : MissionMenuVMBase
     {
-        private readonly IMenuClassCollection _menuClassCollection;
+        private readonly AMenuClassCollection _menuClassCollection;
 
-        public OptionVM(IMenuClassCollection menuClassCollection, Action closeMenu)
+        public OptionVM(AMenuClassCollection menuClassCollection, Action closeMenu)
             : base(closeMenu)
         {
             _menuClassCollection = menuClassCollection;

@@ -9,11 +9,11 @@ namespace MissionSharedLibrary.View.ViewModelCollection
     public class OptionClass : AOptionClass
     {
         private readonly OptionClassViewModel _viewModel;
-        private readonly IMenuClassCollection _menuClassCollection;
+        private readonly AMenuClassCollection _menuClassCollection;
 
-        public OptionClass(string id, TextObject name, IMenuClassCollection menuClassCollection)
+        public OptionClass(string id, TextObject name, AMenuClassCollection menuClassCollection)
         {
-            Id = id;
+            ItemId = id;
             _viewModel = new OptionClassViewModel(id, name, OnSelect);
             _menuClassCollection = menuClassCollection;
         }
@@ -23,7 +23,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection
             _viewModel.AddOptionCategory(column, optionCategory);
         }
 
-        public override string Id { get; }
+        public override string ItemId { get; }
 
         public override ViewModel GetViewModel()
         {

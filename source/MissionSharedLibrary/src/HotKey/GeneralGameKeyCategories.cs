@@ -18,7 +18,7 @@ namespace MissionSharedLibrary.HotKey
     {
         public const string CategoryId = nameof(MissionLibrary) + nameof(GeneralGameKey);
 
-        public static AGameKeyCategory GeneralGameKeyCategory => AGameKeyCategoryManager.Get()?.GetCategory(CategoryId);
+        public static AGameKeyCategory GeneralGameKeyCategory => AGameKeyCategoryManager.Get()?.GetItem(CategoryId);
 
         [NotNull]
         public static AGameKeyCategory CreateGeneralGameKeyCategory()
@@ -37,7 +37,7 @@ namespace MissionSharedLibrary.HotKey
 
         public static void RegisterGameKeyCategory()
         {
-            AGameKeyCategoryManager.Get()?.RegisterCategory(CreateGeneralGameKeyCategory, new Version(1, 0));
+            AGameKeyCategoryManager.Get()?.RegisterCategory(CreateGeneralGameKeyCategory, CategoryId, new Version(1, 0));
         }
 
         public static IGameKeySequence GetKey(GeneralGameKey key)

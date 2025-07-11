@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace MissionLibrary.Category
 {
-    public abstract class ACategory<T> : ATag<T> where T: ACategory<T>
+    public abstract class AItem<T> : ATag<T> where T: AItem<T>
     {
-        public abstract string CategoryId { get; }
+        public abstract string ItemId { get; }
     }
 }

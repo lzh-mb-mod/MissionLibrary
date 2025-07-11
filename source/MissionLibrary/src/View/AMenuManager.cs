@@ -18,7 +18,7 @@ namespace MissionLibrary.View
             OnMenuClosedEvent?.Invoke();
         }
         
-        public abstract IMenuClassCollection MenuClassCollection { get; }
+        public abstract AMenuClassCollection MenuClassCollection { get; }
         public abstract MissionView CreateMenuView();
         public abstract MissionView CreateGameKeyConfigView();
         public abstract void RequestToOpenMenu();

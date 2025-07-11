@@ -13,7 +13,7 @@ namespace MissionSharedLibrary.HotKey
     {
         public List<GameKeySequence> GameKeySequences { get; }
 
-        public override string CategoryId { get; }
+        public override string ItemId { get; }
 
         private readonly IGameKeyConfig _config;
 
@@ -36,7 +36,7 @@ namespace MissionSharedLibrary.HotKey
         {
             return new SerializedGameKeyCategory
             {
-                CategoryId = CategoryId,
+                CategoryId = ItemId,
                 GameKeySequences = GameKeySequences.Select(sequence => sequence.ToSerializedGameKeySequence()).ToList()
             };
         }
@@ -68,7 +68,7 @@ namespace MissionSharedLibrary.HotKey
 
         public GameKeyCategory(string categoryId, int gameKeysCount, IGameKeyConfig config)
         {
-            CategoryId = categoryId;
+            ItemId = categoryId;
             _config = config;
 
             GameKeySequences = new List<GameKeySequence>(gameKeysCount);
@@ -86,7 +86,7 @@ namespace MissionSharedLibrary.HotKey
 
         public override AHotKeyConfigVM CreateViewModel(Action<IHotKeySetter> onKeyBindRequest)
         {
-            return new MissionLibraryGameKeySequenceGroupVM(CategoryId, GameKeySequences, onKeyBindRequest,
+            return new MissionLibraryGameKeySequenceGroupVM(ItemId, GameKeySequences, onKeyBindRequest,
                 null);
         }
     }

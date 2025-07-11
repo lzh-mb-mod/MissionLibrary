@@ -23,7 +23,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
         {
             _gameKeyCategoryManager = gameKeyCategoryManager;
             _onKeyBindRequest = onKeyBindRequest;
-            _categories = _gameKeyCategoryManager.Categories.ToDictionary(pair => pair.Key, pair => pair.Value.Value);
+            _categories = _gameKeyCategoryManager.Items.ToDictionary(pair => pair.Key, pair => pair.Value.Value);
             Groups = new MBBindingList<AHotKeyConfigVM>();
             foreach (KeyValuePair<string, AGameKeyCategory> category in _categories)
             {
