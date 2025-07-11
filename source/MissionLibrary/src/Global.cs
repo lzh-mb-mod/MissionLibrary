@@ -33,14 +33,14 @@ namespace MissionLibrary
             ProviderManager.RegisterProvider(newProvider, key);
         }
 
-        public static T GetProvider<T>(string key = "") where T : ATag<T>
+        public static T GetInstance<T>(string key = "") where T : ATag<T>
         {
-            return ProviderManager.GetProvider<T>(key);
+            return ProviderManager.GetInstance<T>(key);
         }
 
         public static IEnumerable<T> GetProviders<T>() where T : ATag<T>
         {
-            return ProviderManager.GetProviders<T>();
+            return ProviderManager.GetInstances<T>();
         }
 
         public static void Clear()

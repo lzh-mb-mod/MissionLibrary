@@ -50,6 +50,17 @@ namespace MissionSharedLibrary.View
             _gameKeyConfigView?.Activate();
         }
 
+        public TextViewModel ShowUsageTitle { get; set; } =
+            new TextViewModel(GameTexts.FindText("str_mission_library_show_usage"));
+
+        public HintViewModel ShowUsageHint { get; set; } =
+            new HintViewModel(GameTexts.FindText("str_mission_library_show_usage_hint"));
+
+        public void ShowUsageManual()
+        {
+
+        }
+
         public ViewModel OptionClassCollection { get; }
     }
 }

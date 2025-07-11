@@ -8,7 +8,7 @@ namespace MissionLibrary.View
     {
         public static AMenuManager Get()
         {
-            return Global.GetProvider<AMenuManager>();
+            return Global.GetInstance<AMenuManager>();
         }
 
         public event Action OnMenuClosedEvent;

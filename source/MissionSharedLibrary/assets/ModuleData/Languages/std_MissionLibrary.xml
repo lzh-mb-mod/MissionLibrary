@@ -10,5 +10,8 @@
     <string id="MissionLibrary_general_game_key" text="General Hot Key" />
     <string id="MissionLibrary_openmenukey" text="Open Menu" />
     <string id="MissionLibrary_openmenukey_description" text="Open or close menu." />
+
+    <string id="MissionLibrary_show_usage" text="Show Usage" />
+    <string id="MissionLibrary_show_usage_hint" text="Show Usage about this mod" />
   </strings>
 </base>

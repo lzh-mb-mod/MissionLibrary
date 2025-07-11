@@ -1,8 +1,7 @@
-﻿using System;
-using MissionLibrary.Event;
+﻿using MissionLibrary.Event;
 using MissionLibrary.View;
-using MissionSharedLibrary.HotKey.Category;
-using TaleWorlds.InputSystem;
+using MissionSharedLibrary.HotKey;
+using System;
 
 namespace MissionSharedLibrary.View
 {

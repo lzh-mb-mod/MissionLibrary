@@ -1,10 +1,8 @@
-﻿using System;
+﻿using MissionLibrary.HotKey;
+using MissionSharedLibrary.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using MissionLibrary.HotKey;
-using MissionLibrary.View;
-using MissionSharedLibrary.Utilities;
-using TaleWorlds.Core;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;

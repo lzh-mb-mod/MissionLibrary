@@ -25,7 +25,7 @@ namespace MissionLibrary.Provider
             }
         }
 
-        public T GetProvider<T>(string key = "") where T : ATag<T>
+        public T GetInstance<T>(string key = "") where T : ATag<T>
         {
             if (!_providersWithKey.TryGetValue(typeof(T), out var dictionary) || !dictionary.TryGetValue(key, out IVersionProvider provider) || !(provider is IVersionProvider<T> tProvider))
             {
@@ -35,7 +35,7 @@ namespace MissionLibrary.Provider
             return tProvider.Value;
         }
 
-        public IEnumerable<T> GetProviders<T>() where T : ATag<T>
+        public IEnumerable<T> GetInstances<T>() where T : ATag<T>
         {
             if (!_providersWithKey.TryGetValue(typeof(T), out var dictionary))
             {

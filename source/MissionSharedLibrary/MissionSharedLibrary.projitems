@@ -9,21 +9,22 @@
     <Import_RootNamespace>MissionSharedLibrary</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)src\Category\CategoryManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\config\GeneralConfig.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Config\HotKey\GameKeySequence.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Controller\DefaultMissionStartingHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Controller\InputControllerFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Controller\MissionBehaviors\InputController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Controller\MissionStartingManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)src\HotKey\Category\AGameKeyCategoryManagerExtension.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)src\HotKey\Category\GameKeyCategory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\HotKey\AGameKeyCategoryManagerExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\HotKey\GameKeyCategory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Config\HotKey\GameKeyConfigBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Config\HotKey\IGameKeyConfig.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Config\HotKey\GeneralGameKeyConfig.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Config\HotKey\SerializedGameKeyCategory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Config\MissionConfigBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Controller\Camera\CameraControllerManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)src\HotKey\Category\GeneralGameKeyCategories.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\HotKey\GeneralGameKeyCategories.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\HotKey\GameKeyCategoryManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Initializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Provider\ConcreteIdProvider.cs" />
@@ -61,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)src\Utilities\" />
+    <Folder Include="$(MSBuildThisFileDirectory)src\Category\" />
   </ItemGroup>
   <Import Project="$(MSBuildThisFileDirectory)CopyAssets.targets" />
   <Import Project="$(MSBuildThisFileDirectory)\*.props" />

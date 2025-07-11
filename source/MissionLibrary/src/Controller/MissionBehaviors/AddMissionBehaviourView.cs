@@ -10,14 +10,14 @@ namespace MissionLibrary.Controller.MissionBehaviors
         {
             base.OnCreated();
 
-            Global.GetProvider<AMissionStartingManager>().OnCreated(this);
+            Global.GetInstance<AMissionStartingManager>().OnCreated(this);
         }
 
         public override void OnPreMissionTick(float dt)
         {
             base.OnPreMissionTick(dt);
 
-            Global.GetProvider<AMissionStartingManager>().OnPreMissionTick(this, dt);
+            Global.GetInstance<AMissionStartingManager>().OnPreMissionTick(this, dt);
 
             var self = Mission.GetMissionBehavior<AddMissionBehaviourView>();
             if (self == this)

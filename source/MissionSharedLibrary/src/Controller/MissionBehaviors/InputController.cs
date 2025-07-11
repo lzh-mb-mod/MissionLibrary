@@ -1,6 +1,5 @@
-﻿using MissionSharedLibrary.HotKey.Category;
+﻿using MissionSharedLibrary.HotKey;
 using MissionSharedLibrary.Utilities;
-using TaleWorlds.InputSystem;
 using TaleWorlds.MountAndBlade;
 
 namespace MissionSharedLibrary.Controller.MissionBehaviors

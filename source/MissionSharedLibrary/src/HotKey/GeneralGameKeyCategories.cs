@@ -6,7 +6,7 @@ using MissionSharedLibrary.Config.HotKey;
 using System.Collections.Generic;
 using TaleWorlds.InputSystem;
 
-namespace MissionSharedLibrary.HotKey.Category
+namespace MissionSharedLibrary.HotKey
 {
     public enum GeneralGameKey
     {
@@ -37,7 +37,7 @@ namespace MissionSharedLibrary.HotKey.Category
 
         public static void RegisterGameKeyCategory()
         {
-            AGameKeyCategoryManager.Get()?.AddCategory(CreateGeneralGameKeyCategory, new Version(1, 0));
+            AGameKeyCategoryManager.Get()?.RegisterCategory(CreateGeneralGameKeyCategory, new Version(1, 0));
         }
 
         public static IGameKeySequence GetKey(GeneralGameKey key)

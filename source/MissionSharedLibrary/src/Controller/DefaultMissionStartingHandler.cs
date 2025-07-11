@@ -9,7 +9,7 @@ namespace MissionSharedLibrary.Controller
     {
         public DefaultMissionStartingHandlerAdder()
         {
-            Global.GetProvider<AMissionStartingManager>().AddHandler(new DefaultMissionStartingHandler());
+            Global.GetInstance<AMissionStartingManager>().AddHandler(new DefaultMissionStartingHandler());
         }
     }
 

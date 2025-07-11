@@ -40,7 +40,7 @@ namespace MissionSharedLibrary.Controller
             _handlers.Add(handler);
         }
 
-        public override void AddHandler(string key, AMissionStartingHandler handler, Version version)
+        public override void AddSingletonHandler(string key, AMissionStartingHandler handler, Version version)
         {
             Global.RegisterProvider(VersionProviderCreator.Create(() => handler, version), key);
         }

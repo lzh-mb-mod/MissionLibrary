@@ -1,4 +1,5 @@
-﻿using MissionLibrary.HotKey;
+﻿using MissionLibrary.Category;
+using MissionLibrary.HotKey;
 using MissionSharedLibrary.Config.HotKey;
 using MissionSharedLibrary.View.ViewModelCollection.HotKey;
 using System;
@@ -6,13 +7,13 @@ using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.InputSystem;
 
-namespace MissionSharedLibrary.HotKey.Category
+namespace MissionSharedLibrary.HotKey
 {
     public class GameKeyCategory : AGameKeyCategory
     {
         public List<GameKeySequence> GameKeySequences { get; }
 
-        public override string GameKeyCategoryId { get; }
+        public override string CategoryId { get; }
 
         private readonly IGameKeyConfig _config;
 
@@ -35,7 +36,7 @@ namespace MissionSharedLibrary.HotKey.Category
         {
             return new SerializedGameKeyCategory
             {
-                CategoryId = GameKeyCategoryId,
+                CategoryId = CategoryId,
                 GameKeySequences = GameKeySequences.Select(sequence => sequence.ToSerializedGameKeySequence()).ToList()
             };
         }
@@ -67,7 +68,7 @@ namespace MissionSharedLibrary.HotKey.Category
 
         public GameKeyCategory(string categoryId, int gameKeysCount, IGameKeyConfig config)
         {
-            GameKeyCategoryId = categoryId;
+            CategoryId = categoryId;
             _config = config;
 
             GameKeySequences = new List<GameKeySequence>(gameKeysCount);
@@ -85,7 +86,7 @@ namespace MissionSharedLibrary.HotKey.Category
 
         public override AHotKeyConfigVM CreateViewModel(Action<IHotKeySetter> onKeyBindRequest)
         {
-            return new MissionLibraryGameKeySequenceGroupVM(GameKeyCategoryId, GameKeySequences, onKeyBindRequest,
+            return new MissionLibraryGameKeySequenceGroupVM(CategoryId, GameKeySequences, onKeyBindRequest,
                 null);
         }
     }

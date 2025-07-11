@@ -10,5 +10,8 @@
     <string id="MissionLibrary_general_game_key" text="通用按键" />
     <string id="MissionLibrary_openmenukey" text="打开菜单" />
     <string id="MissionLibrary_openmenukey_description" text="打开或关闭菜单" />
+
+    <string id="MissionLibrary_show_usage" text="使用方法" />
+    <string id="MissionLibrary_show_usage_hint" text="显示mod的使用方法" />
   </strings>
 </base>

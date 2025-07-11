@@ -6,7 +6,7 @@ namespace MissionLibrary.Controller.Camera
     {
         public static ACameraControllerManager Get()
         {
-            return Global.GetProvider<ACameraControllerManager>();
+            return Global.GetInstance<ACameraControllerManager>();
         }
 
         public abstract ICameraController Instance { get; set; }

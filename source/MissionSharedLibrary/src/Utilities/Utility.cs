@@ -1,4 +1,4 @@
-﻿using MissionSharedLibrary.HotKey.Category;
+﻿using MissionSharedLibrary.HotKey;
 using System;
 using System.Reflection;
 using TaleWorlds.CampaignSystem;
