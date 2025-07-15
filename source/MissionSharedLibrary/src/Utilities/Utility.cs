@@ -146,7 +146,7 @@ namespace MissionSharedLibrary.Utilities
         {
         }
 
-        public static void SetMainAgentFormation(Agent agent, Formation formation)
+        public static void SetMainAgentFormation(Formation formation)
         {
             // If formation is null, prevent agent be added to detachments during DetachmentManager.TickDetachments
             // Or if agent with no formation is added to a detachment, and later is added to a formation, it will be detached and attached at the same time.
@@ -159,6 +159,11 @@ namespace MissionSharedLibrary.Utilities
             // agent.Formation = (Formation)null;
             //
             // end code.
+            var agent = Mission.Current?.MainAgent;
+            if (agent == null)
+            {
+                return;
+            }
             if (formation == null && agent.Formation != null && IsTeamValid(agent.Team))
             {
                 agent.Team.DetachmentManager?.OnAgentRemoved(agent);
@@ -175,8 +180,8 @@ namespace MissionSharedLibrary.Utilities
                 SetIsPlayerTroopInFormation(formation, true);
             }
             agent.Formation = formation;
-            //SetHasPlayerControlledTroop(mission.MainAgent.Formation, mission.MainAgent.IsPlayerControlled);
-            //SetIsPlayerTroopInFormation(mission.MainAgent.Formation, mission.MainAgent.IsPlayerTroop);
+            //SetHasPlayerControlledTroop(agent.Formation, false);
+            //SetIsPlayerTroopInFormation(agent.Formation, false);
         }
 
         public static void SetPlayerFormationClass(FormationClass formationClass)
@@ -228,7 +233,7 @@ namespace MissionSharedLibrary.Utilities
                         }
                     }
 
-                    SetMainAgentFormation(mission.MainAgent, formation);
+                    SetMainAgentFormation(formation);
                 }
             }
         }
@@ -289,14 +294,14 @@ namespace MissionSharedLibrary.Utilities
             {
                 Mission.Current.SetFastForwardingFromUI(false);
             }
-            var formation = agent.Formation;
-            agent.Formation = null;
+            //var formation = agent.Formation;
+            //agent.Formation = null;
             agent.Controller = Agent.ControllerType.Player;
             // Note that the formation may be already set by SwitchFreeCameraLogic
-            if (agent.Formation == null)
-            {
-                SetMainAgentFormation(agent, formation);
-            }
+            //if (agent.Formation == null)
+            //{
+            //    SetMainAgentFormation(formation);
+            //}
 
             var component = agent.GetComponent<VictoryComponent>();
             if (component != null)
@@ -337,13 +342,13 @@ namespace MissionSharedLibrary.Utilities
                     //     mission.MainAgent.RemoveComponent(mission.MainAgent.HumanAIComponent);
                     // }
 
-                    mission.MainAgent.Formation = null;
+                    //mission.MainAgent.Formation = null;
                     mission.MainAgent.Controller = Agent.ControllerType.AI;
                     // Note that the formation may be already set by SwitchFreeCameraLogic
-                    if (mission.MainAgent.Formation == null)
-                    {
-                        SetMainAgentFormation(mission.MainAgent, formation);
-                    }
+                    //if (mission.MainAgent.Formation == null)
+                    //{
+                    //    SetMainAgentFormation(formation);
+                    //}
                     // the Initialize method need to be called manually.
                     mission.MainAgent.CommonAIComponent?.Initialize();
 
