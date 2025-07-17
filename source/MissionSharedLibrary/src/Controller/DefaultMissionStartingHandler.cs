@@ -34,7 +34,7 @@ namespace MissionSharedLibrary.Controller
             }
             MissionStartingManager.AddMissionBehavior(entranceView, AMenuManager.Get().CreateMenuView());
             MissionStartingManager.AddMissionBehavior(entranceView, AMenuManager.Get().CreateGameKeyConfigView());
-            MissionStartingManager.AddMissionBehavior(entranceView, new UsageView(26, new System.Version(1, 0, 0)));
+            MissionStartingManager.AddMissionBehavior(entranceView, new UsageView(26, new System.Version(1, 1, 0)));
         }
     }
 }

@@ -48,6 +48,8 @@ namespace MissionSharedLibrary.View
 
         public virtual void ActivateMenu()
         {
+            if (IsActivated)
+                return;
             IsActivated = true;
             DataSource = GetDataSource();
             if (DataSource == null)
@@ -67,6 +69,8 @@ namespace MissionSharedLibrary.View
 
         public virtual void DeactivateMenu()
         {
+            if (!IsActivated)
+                return;
             DataSource?.CloseMenu();
         }
 

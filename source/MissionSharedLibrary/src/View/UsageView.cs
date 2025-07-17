@@ -1,8 +1,8 @@
-using MissionLibrary.Event;
-using MissionLibrary.View;
+using MissionLibrary.Usage;
 using MissionSharedLibrary.HotKey;
-using MissionSharedLibrary.Usage;
+using MissionSharedLibrary.View.ViewModelCollection.Usage;
 using System;
+using TaleWorlds.Core;
 
 namespace MissionSharedLibrary.View
 {
@@ -26,12 +26,12 @@ namespace MissionSharedLibrary.View
         public override void OnMissionScreenFinalize()
         {
             base.OnMissionScreenFinalize();
-            UsageCategoryManager.Get()?.Clear();
+            AUsageCategoryManager.Get()?.Clear();
         }
 
         protected override MissionMenuVMBase GetDataSource()
         {
-            return new UsageVM(UsageCategoryManager.Get().GetViewModel(), OnCloseMenu);
+            return new UsageVM(new UsageCollectionViewModel(GameTexts.FindText("str_mission_library_usages"), AUsageCategoryManager.Get(), OnCloseMenu), OnCloseMenu);
         }
     }
 }

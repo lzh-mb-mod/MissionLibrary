@@ -49,10 +49,13 @@ namespace MissionSharedLibrary
         {
             RegisterProvider(() => new GameKeyCategoryManager(), new Version(1, 0));
             RegisterProvider(() => new CameraControllerManager(), new Version(1, 0));
-            RegisterProvider(() => new MissionLibraryMissionLogicFactory(), new Version(1, 0));
+            RegisterProvider(() => new MissionLibraryMissionLogicFactory(), new Version(1, 1));
             RegisterProvider(() => new MissionStartingManager(), new Version(1, 2));
-            RegisterProvider(() => new DefaultMissionStartingHandlerAdder(), new Version(1, 1));
-            RegisterProvider(() => new MenuManager(), new Version(1, 1));
+            // version of DefaultMissionStartingHandlerAdder and MenuManager should be consistent.
+            // to ensure that the view MenuManager accessed is the view that DefaultMissionStartingHandlerAdder added.
+            RegisterProvider(() => new DefaultMissionStartingHandlerAdder(), new Version(1, 2));
+            RegisterProvider(() => new MenuManager(), new Version(1, 2));
+
             RegisterProvider(() => new UsageCategoryManager(), new Version(1, 0));
         }
 

@@ -1,6 +1,7 @@
 using MissionLibrary.Usage;
 using MissionLibrary.View;
 using MissionSharedLibrary.View.ViewModelCollection.Basic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.Library;
@@ -12,15 +13,21 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Usage
     {
         private AUsageCategory _currentSelectedUsageCategory;
         private ViewModel _currentUsageCategoryViewModel;
-        public UsageCollectionViewModel(TextObject title, List<AUsageCategory> usageCategories)
+        private AUsageCategoryManager _usageCategoryManager;
+        private readonly Action _onClose;
+        private List<AUsageCategory> _usageCategories;
+        public UsageCollectionViewModel(TextObject title, AUsageCategoryManager usageCategoryManager, Action onClose)
         {
             Title = new TextViewModel(title);
-            foreach (var usageCategory in usageCategories)
+            _usageCategoryManager = usageCategoryManager;
+            _onClose = onClose;
+            _usageCategories = _usageCategoryManager.Items.Values.Select(v => v.Value).ToList();
+            foreach (var usageCategory in _usageCategories)
             {
-                UsageCategories.Add(usageCategory.ViewModel);
+                UsageCategoriesViewModel.Add(usageCategory.ViewModel);
             }
             OnUsageCategorySelected(
-                 usageCategories.FirstOrDefault());
+                 _usageCategories.FirstOrDefault());
         }
 
         public void OnUsageCategorySelected(AUsageCategory UsageCategory)
@@ -37,7 +44,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Usage
             base.RefreshValues();
 
             Title.RefreshValues();
-            foreach (var viewModel in UsageCategories)
+            foreach (var viewModel in UsageCategoriesViewModel)
             {
                 viewModel.RefreshValues();
             }
@@ -45,11 +52,29 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Usage
             CurrentUsageCategoryViewModel?.RefreshValues();
         }
 
+        public void OnNext()
+        {
+            var index = _usageCategories.FindIndex(category => category == CurrentSelectedUsageCategory);
+            if (index == -1)
+            {
+                OnUsageCategorySelected(
+                     _usageCategories.FirstOrDefault());
+            }
+            else if (index == _usageCategories.Count - 1)
+            {
+                _onClose?.Invoke();
+            }
+            else
+            {
+                OnUsageCategorySelected(_usageCategories[index + 1]);
+            }
+        }
+
         [DataSourceProperty]
         public TextViewModel Title { get; }
 
         [DataSourceProperty]
-        public MBBindingList<ViewModel> UsageCategories { get; } = new MBBindingList<ViewModel>();
+        public MBBindingList<ViewModel> UsageCategoriesViewModel { get; } = new MBBindingList<ViewModel>();
         public AUsageCategory CurrentSelectedUsageCategory
         {
             get => _currentSelectedUsageCategory;

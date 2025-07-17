@@ -39,6 +39,8 @@ namespace MissionSharedLibrary.View
 
         public override void DeactivateMenu()
         {
+            if (!IsActivated)
+                return;
             base.DeactivateMenu();
             MissionEvent.OnMissionMenuClosed();
         }

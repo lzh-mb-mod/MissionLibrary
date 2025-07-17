@@ -1,11 +1,10 @@
 using MissionLibrary.Provider;
 using MissionLibrary.Usage;
-using System.Collections.Generic;
 using MissionSharedLibrary.Category;
-using TaleWorlds.Library;
 using MissionSharedLibrary.View.ViewModelCollection.Usage;
+using System.Collections.Generic;
 using TaleWorlds.Core;
-using System.Linq;
+using TaleWorlds.Library;
 
 namespace MissionSharedLibrary.Usage
 {
@@ -32,9 +31,10 @@ namespace MissionSharedLibrary.Usage
             _repositoryImplementation.RegisterItem(category, addOnlyWhenMissing);
         }
 
+        // legacy
         public override ViewModel GetViewModel()
         {
-            return _viewModel ??= new UsageCollectionViewModel(GameTexts.FindText("str_mission_library_usages"), _repositoryImplementation.Items.Values.Select(category => category.Value).ToList());
+            return _viewModel ??= new UsageCollectionViewModel(GameTexts.FindText("str_mission_library_usages"), this, null);
         }
 
         public override void OnUsageCategorySelected(AUsageCategory usageCategory)

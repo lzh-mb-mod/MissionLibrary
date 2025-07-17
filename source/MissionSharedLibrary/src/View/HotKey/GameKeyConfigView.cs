@@ -76,6 +76,8 @@ namespace MissionSharedLibrary.View.HotKey
 
         public void Deactivate()
         {
+            if (_gauntletLayer == null)
+                return;
             _gauntletLayer.InputRestrictions.ResetInputRestrictions();
             MissionScreen.RemoveLayer(_gauntletLayer);
             _gauntletLayer = null;
