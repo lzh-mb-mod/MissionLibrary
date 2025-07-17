@@ -168,20 +168,7 @@ namespace MissionSharedLibrary.Utilities
             {
                 agent.Team.DetachmentManager?.OnAgentRemoved(agent);
             }
-            //SetHasPlayerControlledTroop(mission.MainAgent.Formation, false);
-            //SetIsPlayerTroopInFormation(mission.MainAgent.Formation, false);
-            // setting HasPlayerControlledTroop after setting formation is too late:
-            // see Patch_Formation.Prefix_Arrangement_OnShapeChanged, we use HasPlayerControlledTroop and IsPlayerTroopInFormation to break the infinite recusion,
-            // which happens before Formation set HasPlayerControlledTroop to true.
-            // so we have to set HasPlayerControlledTroop and IsPlayerTroopInFormation before setting formation.
-            SetHasPlayerControlledTroop(formation, agent.IsPlayerControlled);
-            if (agent.IsPlayerTroop)
-            {
-                SetIsPlayerTroopInFormation(formation, true);
-            }
             agent.Formation = formation;
-            //SetHasPlayerControlledTroop(agent.Formation, false);
-            //SetIsPlayerTroopInFormation(agent.Formation, false);
         }
 
         public static void SetPlayerFormationClass(FormationClass formationClass)
@@ -204,7 +191,7 @@ namespace MissionSharedLibrary.Utilities
                         {
                             formation.SetControlledByAI(false, formation.IsSplittableByAI);
                         }
-                        if (originalFormation == null)
+                        if (originalFormation == null || originalFormation.FormationIndex == FormationClass.General)
                         {
                             // fix crash when begin a battle and assign player to an empty formation, then give it an shield wall order.
                             formation.SetMovementOrder(
@@ -222,7 +209,6 @@ namespace MissionSharedLibrary.Utilities
                             if (originalFormation.AI.Side != FormationAI.BehaviorSide.BehaviorSideNotSet)
                             {
                                 formation.AI.Side = originalFormation.AI.Side;
-
                             }
                             formation.SetMovementOrder(originalFormation.GetReadonlyMovementOrderReference());
                             formation.SetTargetFormation(originalFormation.TargetFormation);
@@ -294,14 +280,15 @@ namespace MissionSharedLibrary.Utilities
             {
                 Mission.Current.SetFastForwardingFromUI(false);
             }
-            //var formation = agent.Formation;
-            //agent.Formation = null;
-            agent.Controller = Agent.ControllerType.Player;
-            // Note that the formation may be already set by SwitchFreeCameraLogic
-            //if (agent.Formation == null)
+            // If agent is detached from formation, we need to set HasPlayerControlledTroop
+            // Because if IsPlayerTroopInFormation is true, formation's TryRelocatePlayerUnit may result in stack overflow.
+            // We need to set HasPlayerControlledTroop before setting agent.Controller to make our patch effective.
+            // See Patch_Formation.
+            //if (agent.Formation != null && agent.IsDetachedFromFormation)
             //{
-            //    SetMainAgentFormation(formation);
+            //    SetHasPlayerControlledTroop(agent.Formation, true);
             //}
+            agent.Controller = Agent.ControllerType.Player;
 
             var component = agent.GetComponent<VictoryComponent>();
             if (component != null)
