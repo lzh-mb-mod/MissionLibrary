@@ -1,5 +1,6 @@
 ﻿using MissionLibrary;
 using MissionLibrary.Controller;
+using MissionLibrary2;
 using MissionSharedLibrary.Provider;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace MissionSharedLibrary.Controller
     public class MissionStartingManager : AMissionStartingManager
     {
         private readonly List<AMissionStartingHandler> _handlers = new List<AMissionStartingHandler>();
+
 
         public static void AddMissionBehavior(MissionView entranceView, MissionBehavior behaviour)
         {
@@ -47,7 +49,7 @@ namespace MissionSharedLibrary.Controller
 
         private IEnumerable<AMissionStartingHandler> GetHandlers()
         {
-            return _handlers.Concat(Global.GetProviders<AMissionStartingHandler>());
+            return _handlers.Concat(Global2.GetInstances<AMissionStartingHandler>());
         }
     }
 }

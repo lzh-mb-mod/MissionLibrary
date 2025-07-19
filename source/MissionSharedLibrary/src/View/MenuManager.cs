@@ -10,11 +10,14 @@ namespace MissionSharedLibrary.View
     public class MenuManager : AMenuManager
     {
         public override AMenuClassCollection MenuClassCollection { get; } = new MenuClassCollection();
+
+        // deprecated
         public override MissionView CreateMenuView()
         {
             return new OptionView(24, new Version(1, 2, 0));
         }
 
+        // deprecated
         public override MissionView CreateGameKeyConfigView()
         {
             return new GameKeyConfigView();

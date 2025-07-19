@@ -24,12 +24,16 @@
                 <ListPanel LayoutImp.LayoutMethod="HorizontalLeftToRight" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="1000" HorizontalAlignment="Center">
                   <Children>
 
-                    <ListPanel DataSource="{UsageCategoriesViewModel}" LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="250" HorizontalAlignment="Left">
+                    <ListPanel DataSource="{UsageCategoryContainerViewModels}" LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="250" HorizontalAlignment="Left">
                       <ItemTemplate>
 
-                        <ButtonWidget IsSelected="@IsSelected" Command.Click="ExecuteSelection" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="250" SuggestedHeight="50" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="SaveLoad.Tuple">
+                        <ButtonWidget DataSource="{CurrentUsageCategoryContainerViewModel}" IsSelected="@IsSelected" Command.Click="ExecuteSelection" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="250" SuggestedHeight="50" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="SaveLoad.Tuple">
                           <Children>
-                            <TextWidget DataSource="{Name}" Text="@Text" HeightSizePolicy="CoverChildren" WidthSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="Popup.Button.Text" MarginLeft="40" MarginRight="40" />
+                            <Widget DataSource="{UsageCategoryViewModel}"  HeightSizePolicy="CoverChildren" WidthSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center"  >
+                              <Children>
+                                <TextWidget DataSource="{Name}" Text="@Text" HeightSizePolicy="CoverChildren" WidthSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="Popup.Button.Text" MarginLeft="40" MarginRight="40" />
+                              </Children>
+                            </Widget>
                           </Children>
                         </ButtonWidget>
                       </ItemTemplate>
@@ -40,11 +44,11 @@
                         <ButtonWidget Command.Click="OnNext" DoNotPassEventsToChildren="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="MissionLibrary.TransparentBrush">
                           <Children>
 
-                            <ScrollablePanel Id="ScrollablePanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" HorizontalAlignment="Left" VerticalAlignment="Center" AutoHideScrollBarHandle="true" AutoHideScrollBars="false" ClipRect="MyClipRect" InnerPanel="MyClipRect\InnerPannel" VerticalScrollbar="..\..\VerticalScrollbar">
+                            <ScrollablePanel Id="ScrollablePanel" DataSource="{CurrentUsageCategoryContainerViewModel}"  WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" HorizontalAlignment="Left" VerticalAlignment="Center" AutoHideScrollBarHandle="true" AutoHideScrollBars="false" ClipRect="MyClipRect" InnerPanel="MyClipRect\InnerPannel" VerticalScrollbar="..\..\VerticalScrollbar">
                               <Children>
                                 <Widget Id="MyClipRect" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" HorizontalAlignment="Left" ClipContents="true">
                                   <Children>
-                                    <ListPanel Id="InnerPannel" DataSource="{CurrentUsageCategoryViewModel}" LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="750" HorizontalAlignment="Left" >
+                                    <ListPanel Id="InnerPannel" DataSource="{UsageCategoryViewModel}" LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="750" HorizontalAlignment="Left" >
                                       <Children>
                                         <ListPanel DataSource="{UsageList}" LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="750" HorizontalAlignment="Left" >
                                           <ItemTemplate>

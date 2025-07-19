@@ -1,6 +1,5 @@
 using MissionLibrary.Usage;
 using MissionSharedLibrary.View.ViewModelCollection.Usage;
-using System;
 using TaleWorlds.Library;
 
 namespace MissionSharedLibrary.Usage
@@ -15,17 +14,12 @@ namespace MissionSharedLibrary.Usage
         public UsageCategory(string itemId, UsageCategoryData usageCategoryData)
         {
             ItemId = itemId;
-            _viewModel = new UsageCategoryViewModel(usageCategoryData, OnSelect);
+            _viewModel = new UsageCategoryViewModel(usageCategoryData);
         }
 
         public override void UpdateSelection(bool isSelected)
         {
-            _viewModel.IsSelected = isSelected;
-        }
-
-        private void OnSelect()
-        {
-            AUsageCategoryManager.Get()?.OnUsageCategorySelected(this);
+            _viewModel.UpdateSelection(isSelected);
         }
     }
 }

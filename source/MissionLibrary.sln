@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30503.244
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36301.6 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MissionLibrary", "MissionLibrary\MissionLibrary.csproj", "{52F1FF82-ABCD-4725-9E0D-37EA5A1D7EF6}"
 EndProject
@@ -9,12 +9,9 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "MissionSharedLibrary", "Mis
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "BasicSharedLibrary", "BasicSharedLibrary\BasicSharedLibrary.shproj", "{035A7C54-5161-4057-BB0D-20D39A607B50}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MissionLibrary2", "MissionLibrary2\MissionLibrary2.csproj", "{80AE7150-F02B-102F-7559-5F51268F299C}"
+EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		BasicSharedLibrary\BasicSharedLibrary.projitems*{035a7c54-5161-4057-bb0d-20d39a607b50}*SharedItemsImports = 13
-		BasicSharedLibrary\BasicSharedLibrary.projitems*{52f1ff82-abcd-4725-9e0d-37ea5a1d7ef6}*SharedItemsImports = 5
-		MissionSharedLibrary\MissionSharedLibrary.projitems*{bb80a10d-e971-4c13-8ea6-f31ef29ba86d}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -24,11 +21,21 @@ Global
 		{52F1FF82-ABCD-4725-9E0D-37EA5A1D7EF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52F1FF82-ABCD-4725-9E0D-37EA5A1D7EF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52F1FF82-ABCD-4725-9E0D-37EA5A1D7EF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80AE7150-F02B-102F-7559-5F51268F299C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80AE7150-F02B-102F-7559-5F51268F299C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80AE7150-F02B-102F-7559-5F51268F299C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80AE7150-F02B-102F-7559-5F51268F299C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FB44ECE2-F7B3-4B3C-8BCD-F0FA02070C5A}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		BasicSharedLibrary\BasicSharedLibrary.projitems*{035a7c54-5161-4057-bb0d-20d39a607b50}*SharedItemsImports = 13
+		BasicSharedLibrary\BasicSharedLibrary.projitems*{52f1ff82-abcd-4725-9e0d-37ea5a1d7ef6}*SharedItemsImports = 5
+		BasicSharedLibrary\BasicSharedLibrary.projitems*{80ae7150-f02b-102f-7559-5f51268f299c}*SharedItemsImports = 5
+		MissionSharedLibrary\MissionSharedLibrary.projitems*{bb80a10d-e971-4c13-8ea6-f31ef29ba86d}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

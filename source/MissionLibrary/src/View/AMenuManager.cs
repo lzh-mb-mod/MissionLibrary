@@ -19,7 +19,11 @@ namespace MissionLibrary.View
         }
         
         public abstract AMenuClassCollection MenuClassCollection { get; }
+
+        // deprecated
         public abstract MissionView CreateMenuView();
+
+        // deprecated
         public abstract MissionView CreateGameKeyConfigView();
         public abstract void RequestToOpenMenu();
         public abstract void RequestToCloseMenu();

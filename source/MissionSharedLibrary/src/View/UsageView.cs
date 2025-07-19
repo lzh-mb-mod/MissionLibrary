@@ -9,7 +9,7 @@ namespace MissionSharedLibrary.View
     public class UsageView : MissionMenuViewBase
     {
         public UsageView(int viewOrderPriority, Version version)
-            : base(viewOrderPriority, "MissionLibrary" + nameof(UsageView) + "-" + version)
+            : base(viewOrderPriority, "MissionLibrary" + nameof(UsageView) + "-" + version, false)
         {
         }
 

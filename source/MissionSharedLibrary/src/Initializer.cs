@@ -1,13 +1,9 @@
 ﻿using MissionLibrary;
 using MissionLibrary.Provider;
-using MissionSharedLibrary.Controller;
-using MissionSharedLibrary.Controller.Camera;
+using MissionLibrary2;
 using MissionSharedLibrary.HotKey;
 using MissionSharedLibrary.Provider;
-using MissionSharedLibrary.Usage;
 using MissionSharedLibrary.Utilities;
-using MissionSharedLibrary.View;
-using MissionSharedLibrary.View.ViewModelCollection.Usage;
 using System;
 
 namespace MissionSharedLibrary
@@ -15,6 +11,7 @@ namespace MissionSharedLibrary
     public class Initializer
     {
         public static bool IsInitialized { get; private set; }
+        public static bool IsBeforeSecondInitialized { get; private set; }
         public static bool IsSecondInitialized { get; private set; }
 
         public static bool Initialize(string moduleId)
@@ -24,9 +21,21 @@ namespace MissionSharedLibrary
 
             IsInitialized = true;
             Utility.ModuleId = moduleId;
-            Global.Initialize();
+            Global2.Initialize();
             RegisterProviders();
             return true;
+        }
+
+        public static void OnApplicationTick(float dt)
+        {
+            if (!IsInitialized || IsBeforeSecondInitialized)
+                return;
+
+            IsBeforeSecondInitialized = true;
+            // This should be called after all calls to Initialize and before all calls to SecondInitialize
+            // This is the only point I found.
+            RegisterInstancesFromVersionManager();
+            return;
         }
 
         public static bool SecondInitialize()
@@ -35,33 +44,30 @@ namespace MissionSharedLibrary
                 return false;
 
             IsSecondInitialized = true;
-            Global.SecondInitialize();
+
+            Global2.SecondInitialize();
             GeneralGameKeyCategory.RegisterGameKeyCategory();
             return true;
         }
 
         public static void Clear()
         {
-            Global.Clear();
+            Global2.Clear();
         }
 
         private static void RegisterProviders()
         {
-            RegisterProvider(() => new GameKeyCategoryManager(), new Version(1, 0));
-            RegisterProvider(() => new CameraControllerManager(), new Version(1, 0));
-            RegisterProvider(() => new MissionLibraryMissionLogicFactory(), new Version(1, 1));
-            RegisterProvider(() => new MissionStartingManager(), new Version(1, 2));
-            // version of DefaultMissionStartingHandlerAdder and MenuManager should be consistent.
-            // to ensure that the view MenuManager accessed is the view that DefaultMissionStartingHandlerAdder added.
-            RegisterProvider(() => new DefaultMissionStartingHandlerAdder(), new Version(1, 2));
-            RegisterProvider(() => new MenuManager(), new Version(1, 2));
+            RegisterProvider(() => new MissionLibraryVersionManager(), new Version(1, 0));
+        }
 
-            RegisterProvider(() => new UsageCategoryManager(), new Version(1, 0));
+        private static void RegisterInstancesFromVersionManager()
+        {
+            AMissionLibraryVersionManager.Get()?.RegisterInstances();
         }
 
         public static void RegisterProvider<T>(Func<ATag<T>> creator, Version providerVersion, string key = "") where T : ATag<T>
         {
-            Global.RegisterProvider(VersionProviderCreator.Create(creator, providerVersion), key);
+            Global2.RegisterProvider(VersionProviderCreator.Create(creator, providerVersion), key);
         }
 
     }

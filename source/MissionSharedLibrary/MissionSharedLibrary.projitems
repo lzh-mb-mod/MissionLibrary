@@ -9,6 +9,7 @@
     <Import_RootNamespace>MissionSharedLibrary</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)src\MissionLibraryVersionManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Repository\RepositoryImplementation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\provider\ConcreteProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\config\GeneralConfig.cs" />
@@ -19,6 +20,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)src\Controller\MissionStartingManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\view\UsageView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\view\UsageVM.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\view\viewmodelcollection\usage\UsageCategoryContainerViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\view\viewmodelcollection\usage\UsageCategoryViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Repository\ARespositoryExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\HotKey\GameKeyCategory.cs" />

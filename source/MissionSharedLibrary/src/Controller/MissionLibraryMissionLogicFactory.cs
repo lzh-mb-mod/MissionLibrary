@@ -5,13 +5,13 @@ using TaleWorlds.MountAndBlade;
 
 namespace MissionSharedLibrary.Controller
 {
+    // Deprecated
     public class MissionLibraryMissionLogicFactory : AMissionLogicFactory
     {
         public override List<MissionLogic> CreateMissionLogics(Mission mission)
         {
             return new List<MissionLogic>
             {
-                new MissionLibraryLogic()
             };
         }
     }

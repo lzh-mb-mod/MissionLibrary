@@ -1,7 +1,5 @@
 ﻿using MissionLibrary.View;
 using MissionSharedLibrary.Config;
-using MissionSharedLibrary.HotKey;
-using MissionSharedLibrary.Utilities;
 using TaleWorlds.MountAndBlade;
 
 namespace MissionSharedLibrary.Controller.MissionBehaviors
@@ -23,8 +21,9 @@ namespace MissionSharedLibrary.Controller.MissionBehaviors
                 {
                     _config.HasUsageShown = true;
                     _config.Serialize();
-                    _showUsageHintAfterTimeUp = true;
-                    _timerForShowingUsageHint = 1f;
+                    //_showUsageHintAfterTimeUp = true;
+                    //_timerForShowingUsageHint = 2f;
+                    AMenuManager.Get()?.RequestToOpenUsageView();
                 }
             }
         }

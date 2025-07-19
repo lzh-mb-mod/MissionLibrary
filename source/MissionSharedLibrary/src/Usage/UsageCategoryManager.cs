@@ -2,6 +2,7 @@ using MissionLibrary.Provider;
 using MissionLibrary.Usage;
 using MissionSharedLibrary.Category;
 using MissionSharedLibrary.View.ViewModelCollection.Usage;
+using System;
 using System.Collections.Generic;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
@@ -31,7 +32,7 @@ namespace MissionSharedLibrary.Usage
             _repositoryImplementation.RegisterItem(category, addOnlyWhenMissing);
         }
 
-        // legacy
+        // deprecated
         public override ViewModel GetViewModel()
         {
             return _viewModel ??= new UsageCollectionViewModel(GameTexts.FindText("str_mission_library_usages"), this, null);
@@ -39,7 +40,7 @@ namespace MissionSharedLibrary.Usage
 
         public override void OnUsageCategorySelected(AUsageCategory usageCategory)
         {
-            _viewModel?.OnUsageCategorySelected(usageCategory);
+            // deprecated
         }
 
         public override void Clear()
