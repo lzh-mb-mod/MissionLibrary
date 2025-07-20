@@ -9,6 +9,7 @@
     <Import_RootNamespace>MissionSharedLibrary</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)src\Global2.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\MissionLibraryVersionManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Repository\RepositoryImplementation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\provider\ConcreteProvider.cs" />

@@ -1,6 +1,4 @@
-﻿using MissionLibrary;
-using MissionLibrary.Provider;
-using MissionLibrary2;
+﻿using MissionLibrary.Provider;
 using MissionSharedLibrary.HotKey;
 using MissionSharedLibrary.Provider;
 using MissionSharedLibrary.Utilities;
@@ -22,7 +20,7 @@ namespace MissionSharedLibrary
             IsInitialized = true;
             Utility.ModuleId = moduleId;
             Global2.Initialize();
-            RegisterProviders();
+            RegisterVersionManager();
             return true;
         }
 
@@ -55,14 +53,14 @@ namespace MissionSharedLibrary
             Global2.Clear();
         }
 
-        private static void RegisterProviders()
+        private static void RegisterVersionManager()
         {
-            RegisterProvider(() => new MissionLibraryVersionManager(), new Version(1, 0));
+            MissionLibraryVersionManager.RegisterSelf();
         }
 
         private static void RegisterInstancesFromVersionManager()
         {
-            AMissionLibraryVersionManager.Get()?.RegisterInstances();
+            MissionLibraryVersionManager.RegisterInstances();
         }
 
         public static void RegisterProvider<T>(Func<ATag<T>> creator, Version providerVersion, string key = "") where T : ATag<T>

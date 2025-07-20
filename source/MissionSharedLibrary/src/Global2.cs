@@ -2,7 +2,7 @@
 using MissionLibrary.Provider;
 using System.Collections.Generic;
 
-namespace MissionLibrary2
+namespace MissionSharedLibrary
 {
     public static class Global2
     {
