@@ -9,7 +9,7 @@ namespace MissionSharedLibrary
     public class Initializer
     {
         public static bool IsInitialized { get; private set; }
-        public static bool IsBeforeSecondInitialized { get; private set; }
+        public static bool IsInstancesRegisteredFromVersionManager { get; private set; }
         public static bool IsSecondInitialized { get; private set; }
 
         public static bool Initialize(string moduleId)
@@ -26,10 +26,10 @@ namespace MissionSharedLibrary
 
         public static void OnApplicationTick(float dt)
         {
-            if (!IsInitialized || IsBeforeSecondInitialized)
+            if (!IsInitialized || IsInstancesRegisteredFromVersionManager)
                 return;
 
-            IsBeforeSecondInitialized = true;
+            IsInstancesRegisteredFromVersionManager = true;
             // This should be called after all calls to Initialize and before all calls to SecondInitialize
             // This is the only point I found.
             RegisterInstancesFromVersionManager();

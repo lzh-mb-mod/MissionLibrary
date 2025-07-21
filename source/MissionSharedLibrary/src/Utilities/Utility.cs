@@ -480,11 +480,17 @@ namespace MissionSharedLibrary.Utilities
                 CameraApplySpecialMovementsInstantly?.SetValue(missionScreen, false);
                 CameraSpecialCurrentPositionToAdd?.SetValue(missionScreen,
                     missionScreen.CombatCamera.Position - position);
+                var cameraAddedElevation = (float)(CameraAddedElevation?.GetValue(missionScreen) ?? 0);
                 if (changeElevation)
                 {
-                    CameraSpecialCurrentAddedElevation?.SetValue(missionScreen, missionScreen.CameraElevation - elevation);
+                    CameraSpecialCurrentAddedElevation?.SetValue(missionScreen, missionScreen.CameraElevation - cameraAddedElevation - elevation);
                     SetCameraElevation?.Invoke(missionScreen, new object[] { elevation });
                 }
+                else
+                {
+                    SetCameraElevation?.Invoke(missionScreen, new object[] { missionScreen.CameraElevation - cameraAddedElevation });
+                }
+                
 
                 if (changeBearing)
                 {

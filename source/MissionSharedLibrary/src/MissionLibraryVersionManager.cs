@@ -23,6 +23,9 @@ namespace MissionSharedLibrary
 
         public static void RegisterSelf()
         {
+            // Multiple mods may register MissionLibraryVersionManager, but
+            // only the one with the highest version will be selected.
+            // MissionLibraryVersionManager with lower version registered by old mods will be ignored.
             RegisterProvider(() => new MissionLibraryVersionManager(), new Version(1, 0), nameof(MissionLibraryVersionManager));
         }
 
@@ -33,6 +36,10 @@ namespace MissionSharedLibrary
 
         private void RegisterProviders()
         {
+            // old mods that don't use MissionLibraryVersionManager may register the followings with version 1.x
+            // and MissionLibraryVersionManager will overwrite them because the versions are 2.x above.
+            // If we increment any of below versions, we should also increment version of MissionLibraryVersionManager.
+            // so that the mod with the highest version of MissionLibraryVersionManager will register all the below instances.
             RegisterProvider(() => new GameKeyCategoryManager(), new Version(2, 0));
             RegisterProvider(() => new CameraControllerManager(), new Version(2, 0));
             RegisterProvider(() => new DefaultMissionStartingHandlerAdder(), new Version(2, 0));
