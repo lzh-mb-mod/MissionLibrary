@@ -11,4 +11,14 @@
   <string id="str_mission_library_show_usage_hint" text="{=MissionLibrary_show_usage_hint}Show Usage about this mod" />
   <string id="str_mission_library_usages" text="{=MissionLibrary_usages}Usages" />
 
+  <string id="str_mission_library_game_key_or" text="{=MissionLibrary_game_key_or} or " />
+
+  <string id="str_mission_library_config_incompatible" text="{=MissionLibrary_configincompatible}Configuation incompatible. Reset config." />
+  <string id="str_mission_library_hotkey_config_incompatible" text="{=MissionLibrary_hotkey_config_incompatible}Hotkey incompatible. Reset to default." />
+
+  <string id="str_mission_library_hotkey_add_shortcut" text="{=MissionLibrary_hotkey_add_shortcut}Add Shortcut" />
+  <string id="str_mission_library_hotkey_remove_shortcut" text="{=MissionLibrary_hotkey_remove_shortcut}Remove Shortcut" />
+  <string id="str_mission_library_hotkey_add_key" text="{=MissionLibrary_hotkey_add_key}Extend Key Combo" />
+  <string id="str_mission_library_hotkey_remove_key" text="{=MissionLibrary_hotkey_remove_key}Trim Key Combo" />
+
 </strings>

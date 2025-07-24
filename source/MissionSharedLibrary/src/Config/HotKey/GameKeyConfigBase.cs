@@ -11,9 +11,5 @@
             Category = other.Category;
             ConfigVersion = other.ConfigVersion;
         }
-
-        protected override void UpgradeToCurrentVersion()
-        {
-        }
     }
 }

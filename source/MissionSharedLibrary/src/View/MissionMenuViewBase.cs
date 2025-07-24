@@ -95,7 +95,7 @@ namespace MissionSharedLibrary.View
             if (IsActivated)
             {
                 if (GauntletLayer.Input.IsKeyReleased(InputKey.RightMouseButton) ||
-                    GauntletLayer.Input.IsHotKeyReleased("Exit"))
+                    GauntletLayer.Input.IsHotKeyReleased("Exit") || GauntletLayer.Input.IsHotKeyReleased("ToggleEscapeMenu"))
                     DeactivateMenu();
             }
         }

@@ -9,7 +9,6 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
     public class MissionLibraryGameKeyOptionVM : ViewModel, IHotKeySetter
     {
         private readonly Action<MissionLibraryGameKeyOptionVM> _onKeybindRequest;
-        private readonly Action<MissionLibraryGameKeyOptionVM, InputKey> _onKeySet;
         private string _optionValueText;
 
         public Key CurrentKey { get; private set; }
@@ -18,11 +17,9 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
 
         public MissionLibraryGameKeyOptionVM(
           Key key,
-          Action<MissionLibraryGameKeyOptionVM> onKeybindRequest,
-          Action<MissionLibraryGameKeyOptionVM, InputKey> onKeySet)
+          Action<MissionLibraryGameKeyOptionVM> onKeybindRequest)
         {
             _onKeybindRequest = onKeybindRequest;
-            _onKeySet = onKeySet;
             Key = key;
             CurrentKey = new Key(Key.InputKey);
             RefreshValues();
@@ -36,7 +33,14 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
 
         private void ExecuteKeybindRequest() => _onKeybindRequest(this);
 
-        public void Set(InputKey newKey) => _onKeySet(this, newKey);
+        public void Set(InputKey newKey) => OnKeySet(newKey);
+
+        private void OnKeySet(InputKey key)
+        {
+            CurrentKey.ChangeKey(key);
+            OptionValueText = Module.CurrentModule.GlobalTextManager
+                .FindText("str_game_key_text", CurrentKey.ToString().ToLower()).ToString();
+        }
 
         public void Update()
         {

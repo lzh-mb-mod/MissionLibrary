@@ -84,17 +84,25 @@ namespace MissionSharedLibrary.Config
 
         protected void SyncWithSave()
         {
-            if (File.Exists(SaveName) && Deserialize())
+            try
             {
-                RemoveOldConfig();
-                return;
-            }
+                if (File.Exists(SaveName) && Deserialize())
+                {
+                    RemoveOldConfig();
+                    return;
+                }
 
-            MoveOldConfig();
-            if (File.Exists(SaveName) && Deserialize())
-                return;
-            ResetToDefault();
-            Serialize();
+                MoveOldConfig();
+                if (File.Exists(SaveName) && Deserialize())
+                    return;
+                ResetToDefault();
+                Serialize();
+            }
+            catch (Exception e)
+            {
+                Utility.DisplayMessage(e.ToString());
+                Console.WriteLine(e);
+            }
         }
 
         public void ResetToDefault()

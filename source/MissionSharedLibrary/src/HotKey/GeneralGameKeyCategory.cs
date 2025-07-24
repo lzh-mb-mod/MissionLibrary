@@ -29,16 +29,21 @@ namespace MissionSharedLibrary.HotKey
 
             result.AddGameKeySequence(new GameKeySequence((int) GeneralGameKey.OpenMenu,
                 nameof(GeneralGameKey.OpenMenu),
-                CategoryId, new List<InputKey>()
+                CategoryId, new List<GameKeySequenceAlternative>()
                 {
-                    InputKey.L
+                    new GameKeySequenceAlternative
+                    (
+                         new List<InputKey> () {
+                            InputKey.L
+                        }
+                    )
                 }, true));
             return result;
         }
 
         public static void RegisterGameKeyCategory()
         {
-            AGameKeyCategoryManager.Get()?.RegisterItem(CreateGeneralGameKeyCategory, CategoryId, new Version(1, 0));
+            AGameKeyCategoryManager.Get()?.RegisterItem(CreateGeneralGameKeyCategory, CategoryId, new Version(1, 1));
         }
 
         public static IGameKeySequence GetKey(GeneralGameKey key)

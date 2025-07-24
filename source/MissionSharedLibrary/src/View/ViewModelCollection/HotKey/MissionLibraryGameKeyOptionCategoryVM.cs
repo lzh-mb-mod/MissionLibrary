@@ -27,7 +27,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
             Groups = new MBBindingList<AHotKeyConfigVM>();
             foreach (KeyValuePair<string, AGameKeyCategory> category in _categories)
             {
-                    Groups.Add(category.Value.CreateViewModel(onKeyBindRequest));
+                Groups.Add(category.Value.CreateViewModel(onKeyBindRequest));
             }
             RefreshValues();
         }
@@ -38,6 +38,14 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
             Name = new TextObject("{=Met1U45t}Mouse and Keyboard").ToString();
             Groups.ApplyActionOnAllItems(x => x.RefreshValues());
             ResetText = new TextObject("{=RVIKFCno}Reset to Defaults").ToString();
+        }
+
+        public void Update()
+        {
+            foreach (var group in Groups)
+            {
+                group.Update();
+            }
         }
 
         public void OnReset()

@@ -1,8 +1,11 @@
 ﻿using MissionLibrary.HotKey;
 using MissionSharedLibrary.Config.HotKey;
 using MissionSharedLibrary.Utilities;
+using MissionSharedLibrary.View.ViewModelCollection.Basic;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using TaleWorlds.Core;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
@@ -12,12 +15,11 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
     public class MissionLibraryGameKeySequenceOptionVM : AHotKeyConfigVM
     {
         private readonly Action<MissionLibraryGameKeyOptionVM> _onKeybindRequest;
-        private readonly Action<MissionLibraryGameKeySequenceOptionVM, InputKey> _onKeySet;
         private readonly string _groupId;
         private readonly string _id;
         private string _name;
         private string _description;
-        private MBBindingList<MissionLibraryGameKeyOptionVM> _options;
+        private MBBindingList<MissionLibraryGameKeySequenceAlternativeOptionVM> _alternatives;
         private bool _pushEnabled;
         private bool _popEnabled;
 
@@ -25,15 +27,13 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
 
         public MissionLibraryGameKeySequenceOptionVM(
           GameKeySequence gameKeySequence,
-          Action<MissionLibraryGameKeyOptionVM> onKeybindRequest,
-          Action<MissionLibraryGameKeySequenceOptionVM, InputKey> onKeySet)
+          Action<MissionLibraryGameKeyOptionVM> onKeybindRequest)
         {
             _onKeybindRequest = onKeybindRequest;
-            _onKeySet = onKeySet;
             GameKeySequence = gameKeySequence;
             _groupId = GameKeySequence.CategoryId;
             _id = ((GameKeyDefinition)GameKeySequence.Id).ToString();
-            UpdateOptions();
+            UpdateAlternatives();
             RefreshValues();
         }
 
@@ -46,27 +46,35 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
 
         public override void Update()
         {
-            foreach (var option in _options)
+            foreach (var alternative in _alternatives)
             {
-                option.Update();
+                alternative.Update();
             }
+
+            // remove alternatives that was just added but canceled binding.
+            var alternativesToRemove = _alternatives.Where(alternative => alternative.Options.Count == 0).ToList();
+            foreach (var alternative in alternativesToRemove)
+            {
+                Alternatives.Remove(alternative);
+            }
+            UpdateButtons();
         }
 
         public override void OnDone()
         {
-            foreach (var option in _options)
+            foreach (var alternative in _alternatives)
             {
-                option.OnDone();
+                alternative.OnDone();
             }
 
-            GameKeySequence.SetGameKeys(Options.Select(vm => vm.Key.InputKey).ToList());
+            GameKeySequence.SetGameKeys(Alternatives.Select(vm => vm.GameKeySequenceAlternative).ToList());
         }
 
         public override void OnReset()
         {
             GameKeySequence.ResetToDefault();
             
-            UpdateOptions();
+            UpdateAlternatives();
         }
 
         [DataSourceProperty]
@@ -80,10 +88,15 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
             }
         }
 
-        public void PushGameKey()
+        public void PushAlternative()
         {
-            Options.Add(new MissionLibraryGameKeyOptionVM(new Key(InputKey.Invalid), _onKeybindRequest, OnKeySet));
+            var alternative = new GameKeySequenceAlternative(new List<InputKey> { InputKey.Invalid});
+            var newVM = new MissionLibraryGameKeySequenceAlternativeOptionVM(alternative, _onKeybindRequest);
+            Alternatives.Add(newVM);
             UpdateButtons();
+            if (newVM.Options.Count < 1)
+                return;
+            _onKeybindRequest?.Invoke(newVM.Options.First());
         }
 
         [DataSourceProperty]
@@ -97,37 +110,29 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
             }
         }
 
-        public void PopGameKey()
+        public void PopAlternative()
         {
-            Options.RemoveAt(Options.Count - 1);
+            Alternatives.RemoveAt(Alternatives.Count - 1);
             UpdateButtons();
         }
 
         public bool IsChanged()
         {
-            return _options.Any(option => option.IsChanged());
-        }
-
-        private void OnKeySet(MissionLibraryGameKeyOptionVM option, InputKey key)
-        {
-            option.CurrentKey.ChangeKey(key);
-            option.OptionValueText = Module.CurrentModule.GlobalTextManager
-                .FindText("str_game_key_text", option.CurrentKey.ToString().ToLower()).ToString();
-            _onKeySet?.Invoke(this, key);
+            return _alternatives.Any(option => option.IsChanged());
         }
 
         private void UpdateButtons()
         {
-            PopEnabled = Options.Count > (GameKeySequence.Mandatory ? 1 : 0);
-            PushEnabled = Options.Count < 4;
+            PopEnabled = Alternatives.Count > (GameKeySequence.Mandatory ? 1 : 0);
+            PushEnabled = Alternatives.Count < 4;
         }
 
-        private void UpdateOptions()
+        private void UpdateAlternatives()
         {
-            Options = new MBBindingList<MissionLibraryGameKeyOptionVM>();
-            foreach (var key in GameKeySequence.Keys)
+            Alternatives = new MBBindingList<MissionLibraryGameKeySequenceAlternativeOptionVM>();
+            foreach (var key in GameKeySequence.KeyAlternatives)
             {
-                Options.Add(new MissionLibraryGameKeyOptionVM(key, _onKeybindRequest, OnKeySet));
+                Alternatives.Add(new MissionLibraryGameKeySequenceAlternativeOptionVM(key, _onKeybindRequest));
             }
             UpdateButtons();
         }
@@ -159,16 +164,22 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
         }
 
         [DataSourceProperty]
-        public MBBindingList<MissionLibraryGameKeyOptionVM> Options
+        public MBBindingList<MissionLibraryGameKeySequenceAlternativeOptionVM> Alternatives
         {
-            get => _options;
+            get => _alternatives;
             set
             {
-                if (_options == value)
+                if (_alternatives == value)
                     return;
-                _options = value;
-                OnPropertyChanged(nameof(Options));
+                _alternatives = value;
+                OnPropertyChanged(nameof(Alternatives));
             }
         }
+
+        [DataSourceProperty]
+        public string GameKeySequenceOptionVMVersion { get; private set; } = "v2";
+
+        public TextViewModel AddShortcut { get; } = new TextViewModel(GameTexts.FindText("str_mission_library_hotkey_add_shortcut"));
+        public TextViewModel RemoveShortcut { get; } = new TextViewModel(GameTexts.FindText("str_mission_library_hotkey_remove_shortcut"));
     }
 }

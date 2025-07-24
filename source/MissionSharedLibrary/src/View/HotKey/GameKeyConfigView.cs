@@ -66,7 +66,7 @@ namespace MissionSharedLibrary.View.HotKey
             _fullScreensSpriteCategory.Load(UIResourceManager.ResourceContext, UIResourceManager.UIResourceDepot);
             _dataSource = new GameKeyConfigVM(AGameKeyCategoryManager.Get(), OnKeyBindRequest, Deactivate);
             _gauntletLayer = new GauntletLayer(ViewOrderPriority);
-            _gauntletLayer.LoadMovie("MissionLibraryOptionsGameKeyScreen", _dataSource);
+            _gauntletLayer.LoadMovie("MissionLibraryOptionsGameKeyScreen-2", _dataSource);
             _gauntletLayer.Input.RegisterHotKeyCategory(HotKeyManager.GetCategory("GenericPanelGameKeyCategory"));
             _gauntletLayer.InputRestrictions.SetInputRestrictions();
             _gauntletLayer.IsFocusLayer = true;
@@ -101,6 +101,7 @@ namespace MissionSharedLibrary.View.HotKey
             {
                 _currentGameKey = null;
                 _keybindingPopup.OnToggle(false);
+                _dataSource.Update();
             }
             else
             {

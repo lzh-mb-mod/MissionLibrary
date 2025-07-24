@@ -21,6 +21,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)src\Controller\MissionStartingManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\view\UsageView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\view\UsageVM.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\view\viewmodelcollection\hotkey\MissionLibraryGameKeySequenceAlternativeOptionVM.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\view\viewmodelcollection\usage\UsageCategoryContainerViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\view\viewmodelcollection\usage\UsageCategoryViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Repository\ARespositoryExtension.cs" />
@@ -67,6 +68,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)src\View\ViewModelCollection\Options\Selection\SelectionOptionViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\View\ViewModelCollection\Options\OptionViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\view\viewmodelcollection\usage\UsageCollectionViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\View\Widgets\MissionLibraryGameKeyConfigItemWidget2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\View\Widgets\MissionLibraryGameKeyConfigWidget2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\view\widgets\MissionLibraryGameKeyGroupWidget.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)CopyAssets.targets" />

@@ -18,6 +18,7 @@ namespace MissionSharedLibrary.Category
                     return;
 
                 Items[provider.Id] = provider;
+                return;
             }
 
             Items.Add(provider.Id, provider);

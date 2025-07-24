@@ -10,7 +10,6 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
 {
     public class MissionLibraryGameKeySequenceGroupVM : AHotKeyConfigVM
     {
-        private readonly Action<string, int, InputKey> _setAllKeysOfId;
         private readonly string _categoryId;
         private string _description;
         private MBBindingList<MissionLibraryGameKeySequenceOptionVM> _gameKeySequenceOptions;
@@ -18,15 +17,13 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
         public MissionLibraryGameKeySequenceGroupVM(
             string categoryId,
             IEnumerable<GameKeySequence> keys,
-            Action<MissionLibraryGameKeyOptionVM> onKeyBindRequest,
-            Action<string, int, InputKey> setAllKeysOfId)
+            Action<MissionLibraryGameKeyOptionVM> onKeyBindRequest)
         {
-            _setAllKeysOfId = setAllKeysOfId;
             _categoryId = categoryId;
             _gameKeySequenceOptions = new MBBindingList<MissionLibraryGameKeySequenceOptionVM>();
             foreach (GameKeySequence key in keys)
             {
-                _gameKeySequenceOptions.Add(new MissionLibraryGameKeySequenceOptionVM(key, onKeyBindRequest, SetGameKey));
+                _gameKeySequenceOptions.Add(new MissionLibraryGameKeySequenceOptionVM(key, onKeyBindRequest));
             }
 
             RefreshValues();
@@ -45,15 +42,10 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
             return gameKey.KeyboardKey;
         }
 
-        private void SetGameKey(MissionLibraryGameKeySequenceOptionVM option, InputKey newKey)
-        {
-            _setAllKeysOfId?.Invoke(_categoryId, option.GameKeySequence.Id, newKey);
-        }
-
         public override void Update()
         {
-            foreach (MissionLibraryGameKeySequenceOptionVM gameKey in this.GameKeySequenceOptions)
-                gameKey.Update();
+            foreach (MissionLibraryGameKeySequenceOptionVM gameKeySequence in this.GameKeySequenceOptions)
+                gameKeySequence.Update();
         }
 
         public override void OnReset()

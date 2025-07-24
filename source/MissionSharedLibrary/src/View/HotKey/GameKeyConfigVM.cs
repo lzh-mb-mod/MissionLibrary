@@ -71,6 +71,12 @@ namespace MissionSharedLibrary.View.HotKey
                 OnPropertyChangedWithValue(value, nameof(ResetLbl));
             }
         }
+
+        public void Update()
+        {
+            GameKeyOptions.Update();
+        }
+
         protected void ExecuteDone()
         {
             GameKeyOptions.OnDone();

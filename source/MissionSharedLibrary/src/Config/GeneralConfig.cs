@@ -2,6 +2,7 @@ using MissionSharedLibrary.Utilities;
 using System;
 using System.IO;
 using System.Xml.Serialization;
+using TaleWorlds.MountAndBlade;
 
 namespace MissionSharedLibrary.Config
 {
@@ -30,7 +31,7 @@ namespace MissionSharedLibrary.Config
             switch (ConfigVersion)
             {
                 default:
-                    Utility.DisplayLocalizedText("str_rts_camera_config_incompatible");
+                    Utility.DisplayMessage(Module.CurrentModule.GlobalTextManager.FindText("str_mission_library_config_incompatible").ToString(), new TaleWorlds.Library.Color(1, 0, 0));
                     ResetToDefault();
                     Serialize();
                     goto case "1.0";

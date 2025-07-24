@@ -1,11 +1,9 @@
-﻿using MissionLibrary.Repository;
-using MissionLibrary.HotKey;
+﻿using MissionLibrary.HotKey;
 using MissionSharedLibrary.Config.HotKey;
 using MissionSharedLibrary.View.ViewModelCollection.HotKey;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TaleWorlds.InputSystem;
 
 namespace MissionSharedLibrary.HotKey
 {
@@ -21,7 +19,7 @@ namespace MissionSharedLibrary.HotKey
         {
             if (GameKeySequences == null || i < 0 || i >= GameKeySequences.Count)
             {
-                return new GameKeySequence(0, "", "", new List<InputKey>());
+                return new GameKeySequence(0, "", "", new List<GameKeySequenceAlternative>());
             }
 
             return GameKeySequences[i];
@@ -49,7 +47,7 @@ namespace MissionSharedLibrary.HotKey
                 var gameKeySequence = GameKeySequences[i];
                 if (dictionary.TryGetValue(gameKeySequence.StringId, out SerializedGameKeySequence serializedGameKeySequence))
                 {
-                    GameKeySequences[i].SetGameKeys(serializedGameKeySequence.KeyboardKeys);
+                    GameKeySequences[i].SetGameKeys(serializedGameKeySequence.GameKeyAlternatives.Select(sa => new GameKeySequenceAlternative(sa.KeyboardKeys)).ToList());
                 }
             }
         }
@@ -62,7 +60,7 @@ namespace MissionSharedLibrary.HotKey
 
         public override void Load()
         {
-            _config.Deserialize();
+            //_config.Deserialize();
             FromSerializedGameKeyCategory(_config.Category);
         }
 
@@ -86,8 +84,7 @@ namespace MissionSharedLibrary.HotKey
 
         public override AHotKeyConfigVM CreateViewModel(Action<IHotKeySetter> onKeyBindRequest)
         {
-            return new MissionLibraryGameKeySequenceGroupVM(ItemId, GameKeySequences, onKeyBindRequest,
-                null);
+            return new MissionLibraryGameKeySequenceGroupVM(ItemId, GameKeySequences, onKeyBindRequest);
         }
     }
 }

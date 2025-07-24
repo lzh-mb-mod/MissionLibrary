@@ -3,11 +3,15 @@ using TaleWorlds.InputSystem;
 
 namespace MissionSharedLibrary.Config.HotKey
 {
+    public class SerializedGameKeySequenceAlternative
+    {
+        public List<InputKey> KeyboardKeys { get; set; }
+    }
     public class SerializedGameKeySequence
     {
         public string StringId { get; set; }
 
-        public List<InputKey> KeyboardKeys { get; set; }
+        public List<SerializedGameKeySequenceAlternative> GameKeyAlternatives { get; set; }
     }
 
     public class SerializedGameKeyCategory

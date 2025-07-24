@@ -14,5 +14,15 @@
     <string id="MissionLibrary_show_usage" text="使用说明" />
     <string id="MissionLibrary_show_usage_hint" text="显示mod的使用方法" />
     <string id="MissionLibrary_usages" text="使用说明" />
+
+    <string id="MissionLibrary_game_key_or" text="或" />
+
+    <string id="MissionLibrary_configincompatible" text="配置文件不兼容。重设为默认设置。" />
+    <string id="MissionLibrary_hotkey_config_incompatible" text="按键配置不兼容，恢复为默认按键。" />
+
+    <string id="MissionLibrary_hotkey_add_shortcut" text="添加快捷键" />
+    <string id="MissionLibrary_hotkey_remove_shortcut" text="移除快捷键" />
+    <string id="MissionLibrary_hotkey_add_key" text="扩展组合键" />
+    <string id="MissionLibrary_hotkey_remove_key" text="缩减组合键" />
   </strings>
 </base>

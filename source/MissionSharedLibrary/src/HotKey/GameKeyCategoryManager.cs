@@ -1,6 +1,8 @@
 ﻿using MissionLibrary.HotKey;
 using MissionLibrary.Provider;
 using MissionSharedLibrary.Category;
+using MissionSharedLibrary.Utilities;
+using System;
 using System.Collections.Generic;
 
 namespace MissionSharedLibrary.HotKey
@@ -22,10 +24,15 @@ namespace MissionSharedLibrary.HotKey
 
         public override void RegisterItem(IProvider<AGameKeyCategory> provider, bool addOnlyWhenMissing = true)
         {
-            _repositoryImplementation.RegisterItem(provider, addOnlyWhenMissing);
-
-            provider.Value.Load();
-            provider.Value.Save();
+            try
+            {
+                _repositoryImplementation.RegisterItem(provider, addOnlyWhenMissing);
+            }
+            catch(Exception e)
+            {
+                Utility.DisplayMessage(e.ToString());
+                Console.WriteLine(e);
+            }
         }
 
         public override void Save()
