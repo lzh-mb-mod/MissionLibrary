@@ -32,7 +32,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
             _onKeybindRequest = onKeybindRequest;
             GameKeySequence = gameKeySequence;
             _groupId = GameKeySequence.CategoryId;
-            _id = ((GameKeyDefinition)GameKeySequence.Id).ToString();
+            _id = GameKeySequence.StringId;
             UpdateAlternatives();
             RefreshValues();
         }

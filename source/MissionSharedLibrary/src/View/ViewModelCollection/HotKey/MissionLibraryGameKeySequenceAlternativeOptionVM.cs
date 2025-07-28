@@ -6,7 +6,6 @@ using System.Linq;
 using TaleWorlds.Core;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
-using TaleWorlds.MountAndBlade;
 
 namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
 {

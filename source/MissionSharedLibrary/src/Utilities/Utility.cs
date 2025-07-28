@@ -684,5 +684,10 @@ namespace MissionSharedLibrary.Utilities
             }
             return null;
         }
+
+        public static MissionScreen GetMissionScreen()
+        {
+            return MissionState.Current.GetListenerOfType<MissionScreen>();
+        }
     }
 }

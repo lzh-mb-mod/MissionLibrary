@@ -43,7 +43,7 @@ namespace MissionSharedLibrary.HotKey
 
         public static void RegisterGameKeyCategory()
         {
-            AGameKeyCategoryManager.Get()?.RegisterItem(CreateGeneralGameKeyCategory, CategoryId, new Version(1, 1));
+            AGameKeyCategoryManager.Get()?.RegisterItem(CreateGeneralGameKeyCategory, CategoryId, new Version(1, 2));
         }
 
         public static IGameKeySequence GetKey(GeneralGameKey key)

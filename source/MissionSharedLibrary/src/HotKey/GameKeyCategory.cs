@@ -1,5 +1,6 @@
 ﻿using MissionLibrary.HotKey;
 using MissionSharedLibrary.Config.HotKey;
+using MissionSharedLibrary.Utilities;
 using MissionSharedLibrary.View.ViewModelCollection.HotKey;
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,8 @@ namespace MissionSharedLibrary.HotKey
 
         public void FromSerializedGameKeyCategory(SerializedGameKeyCategory category)
         {
-            var dictionary = category.GameKeySequences.ToDictionary(serializedGameKey => serializedGameKey.StringId);
+            var dictionary = category.GameKeySequences.Select(gameKeySequence => gameKeySequence.StringId).Distinct()
+                .Select(stringId => category.GameKeySequences.First(gameKeySequence => gameKeySequence.StringId == stringId)).ToDictionary(serializedGameKey => serializedGameKey.StringId);
             for (var i = 0; i < GameKeySequences.Count; i++)
             {
                 var gameKeySequence = GameKeySequences[i];
@@ -54,14 +56,30 @@ namespace MissionSharedLibrary.HotKey
 
         public override void Save()
         {
-            _config.Category = ToSerializedGameKeyCategory();
-            _config.Serialize();
+            try
+            {
+                _config.Category = ToSerializedGameKeyCategory();
+                _config.Serialize();
+            }
+            catch (Exception e)
+            {
+                Utility.DisplayMessage(e.ToString());
+                Console.WriteLine(e);
+            }
         }
 
         public override void Load()
         {
-            //_config.Deserialize();
-            FromSerializedGameKeyCategory(_config.Category);
+            try
+            {
+                //_config.Deserialize();
+                FromSerializedGameKeyCategory(_config.Category);
+            }
+            catch (Exception e)
+            {
+                Utility.DisplayMessage(e.ToString());
+                Console.WriteLine(e);
+            }
         }
 
         public GameKeyCategory(string categoryId, int gameKeysCount, IGameKeyConfig config)
