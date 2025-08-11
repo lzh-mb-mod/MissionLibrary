@@ -28,7 +28,7 @@ namespace MissionSharedLibrary.View
         {
             base.OnMissionScreenFinalize();
 
-            MissionLibrary.Event.MissionEvent.Clear();
+            MissionEvent.Clear();
             AMenuManager.Get().MenuClassCollection.Clear();
         }
 

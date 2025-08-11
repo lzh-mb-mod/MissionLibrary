@@ -8,7 +8,7 @@ namespace MissionSharedLibrary.Config
 {
     public class GeneralConfig : MissionConfigBase<GeneralConfig>
     {
-        protected static Version BinaryVersion => new Version(1, 0);
+        protected static Version BinaryVersion => new Version(1, 1);
         public string ConfigVersion { get; set; } = BinaryVersion.ToString();
 
         public string PreviouslySelectedOptionClassId = "RTSCamera";
@@ -36,6 +36,9 @@ namespace MissionSharedLibrary.Config
                     Serialize();
                     goto case "1.0";
                 case "1.0":
+                    HasUsageShown = false;
+                    goto case "1.1";
+                case "1.1":
                     break;
             }
 
