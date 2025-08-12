@@ -1,5 +1,6 @@
 ﻿using System;
 using TaleWorlds.Library;
+using MathF = TaleWorlds.Library.MathF;
 
 namespace MissionSharedLibrary.View.ViewModelCollection.Basic
 {
@@ -61,7 +62,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Basic
             get => _optionValue;
             set
             {
-                if (Math.Abs(value - (double)_optionValue) < 0.01f)
+                if (MathF.Abs(value - (double)_optionValue) < 0.01f)
                     return;
                 _optionValue = MathF.Round(value * _roundScale) / (float)_roundScale;
                 OnPropertyChanged(nameof(OptionValue));

@@ -5,10 +5,22 @@
   <Import Project="$(MSBuildProjectDirectory)\*.props" />
 
   <PropertyGroup>
+    <!-- <TargetFrameworks>net6.0;net472</TargetFrameworks> -->
     <TargetFramework>net472</TargetFramework>
     <ProcessorArchitecture>amd64</ProcessorArchitecture>
     <LangVersion>8</LangVersion>
+    <!-- <BuildForWindows>false</BuildForWindows>
+    <BuildForWindowsStore>false</BuildForWindowsStore> -->
   </PropertyGroup>
+
+  <!-- <PropertyGroup Condition="$(TargetFramework) == 'net472'">
+    <BuildForWindows>true</BuildForWindows>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework) == 'net6.0'">
+    <BuildForWindowsStore>true</BuildForWindowsStore>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+  </PropertyGroup> -->
 
   <ItemGroup>
     <Reference Include="SandBox">
@@ -37,15 +49,6 @@
     </Reference>
     <Reference Include="TaleWorlds.Diamond">
       <HintPath>$(GamePath)bin\Win64_Shipping_Client\TaleWorlds.Diamond.dll</HintPath>
-    </Reference>
-    <Reference Include="TaleWorlds.Diamond.AccessProvider.Epic">
-      <HintPath>$(GamePath)bin\Win64_Shipping_Client\TaleWorlds.Diamond.AccessProvider.Epic.dll</HintPath>
-    </Reference>
-    <Reference Include="TaleWorlds.Diamond.AccessProvider.Steam">
-      <HintPath>$(GamePath)bin\Win64_Shipping_Client\TaleWorlds.Diamond.AccessProvider.Steam.dll</HintPath>
-    </Reference>
-    <Reference Include="TaleWorlds.Diamond.AccessProvider.Test">
-      <HintPath>$(GamePath)bin\Win64_Shipping_Client\TaleWorlds.Diamond.AccessProvider.Test.dll</HintPath>
     </Reference>
     <Reference Include="TaleWorlds.DotNet">
       <HintPath>$(GamePath)bin\Win64_Shipping_Client\TaleWorlds.DotNet.dll</HintPath>

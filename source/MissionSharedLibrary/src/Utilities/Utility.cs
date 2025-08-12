@@ -13,6 +13,7 @@ using TaleWorlds.MountAndBlade.GauntletUI.Mission.Singleplayer;
 using TaleWorlds.MountAndBlade.View.MissionViews;
 using TaleWorlds.MountAndBlade.View.Screens;
 using TaleWorlds.MountAndBlade.ViewModelCollection.Order;
+using MathF = TaleWorlds.Library.MathF;
 using Module = TaleWorlds.MountAndBlade.Module;
 
 namespace MissionSharedLibrary.Utilities
