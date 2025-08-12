@@ -6,6 +6,7 @@
   </tags>
   <strings>
     <string id="MissionLibrary_config_key" text="Config Key" />
+    <string id="MissionLibrary_open_menu_hint" text="Press {KeyName} in battle to open menu." />
     <string id="MissionLibrary_config_key_hint" text="Config hotkey." />
     <string id="MissionLibrary_general_game_key" text="General Hot Key" />
     <string id="MissionLibrary_openmenukey" text="Open Menu" />

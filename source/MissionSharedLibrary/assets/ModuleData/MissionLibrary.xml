@@ -2,6 +2,7 @@
 
 <strings>
   <string id="str_mission_library_gamekey_config" text="{=MissionLibrary_config_key}Config Key" />
+  <string id="str_mission_library_open_menu_hint" text="{=MissionLibrary_open_menu_hint}Press {KeyName} in battle to open mod menu." />
   <string id="str_mission_library_config_key_hint" text="{=MissionLibrary_config_key_hint}Config hotkey." />
   <string id="str_key_category_name.MissionLibraryGeneralGameKey" text="{=MissionLibrary_general_game_key}General Hot Key" />
   <string id="str_key_name.MissionLibraryGeneralGameKey_OpenMenu" text="{=MissionLibrary_openmenukey}Open Menu" />
