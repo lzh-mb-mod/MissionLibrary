@@ -17,6 +17,8 @@ namespace MissionSharedLibrary.View
         protected MissionMenuVMBase DataSource;
         protected GauntletLayer GauntletLayer;
         protected IGauntletMovie _movie;
+        protected bool _enginePausedBySelf;
+        protected bool _missionPausedBySelf;
 
         public bool IsActivated { get; set; }
 
@@ -111,20 +113,36 @@ namespace MissionSharedLibrary.View
         {
             if (_pauseGameEngine)
             {
-                MBCommon.PauseGameEngine();
-                Game.Current.GameStateManager.RegisterActiveStateDisableRequest(this);
+                if (!MBCommon.IsPaused)
+                {
+                    _enginePausedBySelf = true;
+                    MBCommon.PauseGameEngine();
+                    Game.Current.GameStateManager.RegisterActiveStateDisableRequest(this);
+                }
             }
-            MissionState.Current.Paused = true;
+            if (!MissionState.Current.Paused)
+            {
+                _missionPausedBySelf = true;
+                MissionState.Current.Paused = true;
+            }
         }
 
         private void UnpauseGame()
         {
             if (_pauseGameEngine)
             {
-                MBCommon.UnPauseGameEngine();
-                Game.Current.GameStateManager.UnregisterActiveStateDisableRequest(this);
+                if (_enginePausedBySelf)
+                {
+                    _enginePausedBySelf = false;
+                    MBCommon.UnPauseGameEngine();
+                    Game.Current.GameStateManager.UnregisterActiveStateDisableRequest(this);
+                }
             }
-            MissionState.Current.Paused = false;
+            if (_missionPausedBySelf)
+            {
+                _missionPausedBySelf = false;
+                MissionState.Current.Paused = false;
+            }
         }
     }
 }
