@@ -96,7 +96,7 @@ namespace MissionSharedLibrary.Utilities
         {
             var keyName = GeneralGameKeyCategory.GetKey(GeneralGameKey.OpenMenu).ToSequenceString();
             var hint = Module.CurrentModule.GlobalTextManager.FindText("str_mission_library_open_menu_hint").SetTextVariable("KeyName", keyName).ToString();
-            DisplayMessageForced(hint);
+            DisplayMessage(hint);
         }
 
         public static void DisplayMessageForced(string text)
