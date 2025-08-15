@@ -133,12 +133,14 @@ namespace MissionSharedLibrary.Utilities
             mission.PlayerTeam.PlayerOrderController.Owner = mission.MainAgent;
             foreach (var formation in mission.PlayerTeam.FormationsIncludingEmpty)
             {
-                if (formation.PlayerOwner != null || forced)
+                if (formation.PlayerOwner != null && formation.PlayerOwner != mission.MainAgent || forced)
                 {
-                    bool isAIControlled = formation.IsAIControlled;
-                    bool isSplittableByAI = formation.IsSplittableByAI;
-                    formation.PlayerOwner = mission.MainAgent;
-                    formation.SetControlledByAI(isAIControlled, isSplittableByAI);
+                    // set to _playerOwner to avoid changing formation.IsAIControlled
+                    typeof(Formation).GetField("_playerOwner", BindingFlags.Instance | BindingFlags.NonPublic)?.SetValue(formation, mission.MainAgent);
+                    //bool isAIControlled = formation.IsAIControlled;
+                    //bool isSplittableByAI = formation.IsSplittableByAI;
+                    //formation.PlayerOwner = mission.MainAgent;
+                    //formation.SetControlledByAI(isAIControlled, isSplittableByAI);
                 }
             }
         }
