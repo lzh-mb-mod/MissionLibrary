@@ -1,5 +1,4 @@
-﻿using MissionLibrary;
-using MissionLibrary.Controller;
+﻿using MissionLibrary.Controller;
 using MissionSharedLibrary.Controller.MissionBehaviors;
 using MissionSharedLibrary.View;
 using MissionSharedLibrary.View.HotKey;
@@ -8,11 +7,12 @@ using TaleWorlds.MountAndBlade.View.MissionViews;
 
 namespace MissionSharedLibrary.Controller
 {
+    // Deprecated. Use GeneralResourceCreator instead.
+    // kept to prevent other mods containing old DefaultMissionStartingHandlerAdder and register things.
     public class DefaultMissionStartingHandlerAdder : ADefaultMissionStartingHandlerAdder
     {
         public DefaultMissionStartingHandlerAdder()
         {
-            Global.GetInstance<AMissionStartingManager>().AddHandler(new DefaultMissionStartingHandler());
         }
     }
 

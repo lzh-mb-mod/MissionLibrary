@@ -44,7 +44,6 @@ namespace MissionSharedLibrary
             IsSecondInitialized = true;
 
             Global2.SecondInitialize();
-            GeneralGameKeyCategory.RegisterGameKeyCategory();
             return true;
         }
 
@@ -65,7 +64,7 @@ namespace MissionSharedLibrary
 
         public static void RegisterProvider<T>(Func<ATag<T>> creator, Version providerVersion, string key = "") where T : ATag<T>
         {
-            Global2.RegisterProvider(VersionProviderCreator.Create(creator, providerVersion), key);
+            Global2.RegisterInstance(VersionProviderCreator.Create(creator, providerVersion), key);
         }
 
     }

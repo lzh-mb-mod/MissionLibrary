@@ -9,10 +9,12 @@ namespace MissionSharedLibrary.Config
     public class GeneralConfig : MissionConfigBase<GeneralConfig>
     {
         protected static Version BinaryVersion => new Version(1, 1);
-        public string ConfigVersion { get; set; } = BinaryVersion.ToString();
+
+        public string ConfigVersion = BinaryVersion.ToString();
 
         public string PreviouslySelectedOptionClassId = "RTSCamera";
-        public bool HasUsageShown { get; set; }
+
+        public bool HasUsageShown;
 
         public static void OnMenuClosed()
         {

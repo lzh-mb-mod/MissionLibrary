@@ -19,6 +19,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)src\Controller\MissionLibraryMissionLogicFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Controller\MissionBehaviors\MissionLibraryLogic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\Controller\MissionStartingManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)src\Controller\GeneralResourceCreator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\view\UsageView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\view\UsageVM.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)src\view\viewmodelcollection\hotkey\MissionLibraryGameKeySequenceAlternativeOptionVM.cs" />

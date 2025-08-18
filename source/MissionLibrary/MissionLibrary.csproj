@@ -5,8 +5,8 @@
   <Import Project="$(MSBuildProjectDirectory)\*.props" />
 
   <PropertyGroup>
-    <!-- <TargetFrameworks>net6.0;net472</TargetFrameworks> -->
-    <TargetFramework>net472</TargetFramework>
+     <TargetFrameworks>net6.0;net472</TargetFrameworks> 
+    <!--<TargetFramework>net472</TargetFramework>-->
     <ProcessorArchitecture>amd64</ProcessorArchitecture>
     <LangVersion>8</LangVersion>
     <!-- <BuildForWindows>false</BuildForWindows>

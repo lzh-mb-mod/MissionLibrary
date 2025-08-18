@@ -46,7 +46,7 @@ namespace MissionSharedLibrary.Config
             {
                 EnsureParentDirectory();
                 XmlSerializer serializer = Serializer;
-                using TextWriter writer = new StreamWriter(SaveName);
+                using TextWriter writer = new StreamWriter(SaveName, false, System.Text.Encoding.UTF8);
                 serializer.Serialize(writer, this);
                 return true;
             }

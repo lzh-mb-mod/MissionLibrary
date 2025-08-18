@@ -26,7 +26,7 @@ namespace MissionSharedLibrary
             // Multiple mods may register MissionLibraryVersionManager, but
             // only the one with the highest version will be selected.
             // MissionLibraryVersionManager with lower version registered by old mods will be ignored.
-            RegisterProvider(() => new MissionLibraryVersionManager(), new Version(1, 2), nameof(MissionLibraryVersionManager));
+            RegisterInstance(() => new MissionLibraryVersionManager(), new Version(1, 2), nameof(MissionLibraryVersionManager));
         }
 
         public MissionLibraryVersionManager()
@@ -40,17 +40,18 @@ namespace MissionSharedLibrary
             // and MissionLibraryVersionManager will overwrite them because the versions are 2.x above.
             // If we increment any of below versions, we should also increment version of MissionLibraryVersionManager.
             // so that the mod with the highest version of MissionLibraryVersionManager will register all the below instances.
-            RegisterProvider(() => new GameKeyCategoryManager(), new Version(2, 0));
-            RegisterProvider(() => new CameraControllerManager(), new Version(2, 0));
-            RegisterProvider(() => new DefaultMissionStartingHandlerAdder(), new Version(2, 0));
-            RegisterProvider(() => new MissionStartingManager(), new Version(2, 0));
-            RegisterProvider(() => new MenuManager(), new Version(2, 0));
-            RegisterProvider(() => new UsageCategoryManager(), new Version(2, 0));
+            RegisterInstance(() => new GameKeyCategoryManager(), new Version(2, 0));
+            RegisterInstance(() => new CameraControllerManager(), new Version(2, 0));
+            RegisterInstance(() => new DefaultMissionStartingHandlerAdder(), new Version(2, 0));
+            RegisterInstance(() => new MissionStartingManager(), new Version(2, 0));
+            RegisterInstance(() => new MenuManager(), new Version(2, 0));
+            RegisterInstance(() => new UsageCategoryManager(), new Version(2, 0));
+            RegisterInstance(() => new GeneralResourceCreator(), new Version(2, 0));
         }
 
-        private static void RegisterProvider<T>(Func<ATag<T>> creator, Version providerVersion, string key = "") where T : ATag<T>
+        private static void RegisterInstance<T>(Func<ATag<T>> creator, Version providerVersion, string key = "") where T : ATag<T>
         {
-            Global2.RegisterProvider(VersionProviderCreator.Create(creator, providerVersion), key);
+            Global2.RegisterInstance(VersionProviderCreator.Create(creator, providerVersion), key);
         }
     }
 

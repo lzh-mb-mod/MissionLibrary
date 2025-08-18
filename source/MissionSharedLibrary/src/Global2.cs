@@ -16,7 +16,7 @@ namespace MissionSharedLibrary
             Global.SecondInitialize();
         }
 
-        public static void RegisterProvider<T>(IVersionProvider<T> newProvider, string key = "") where T : ATag<T>
+        public static void RegisterInstance<T>(IVersionProvider<T> newProvider, string key = "") where T : ATag<T>
         {
             Global.RegisterProvider(newProvider, key);
         }

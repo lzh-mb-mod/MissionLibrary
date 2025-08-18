@@ -1,11 +1,10 @@
-﻿using System;
-using JetBrains.Annotations;
-using MissionLibrary.Config.HotKey;
+﻿using MissionLibrary.Config.HotKey;
 using MissionLibrary.HotKey;
 using MissionSharedLibrary.Config.HotKey;
+using MissionSharedLibrary.Usage;
+using System;
 using System.Collections.Generic;
 using TaleWorlds.InputSystem;
-using MissionSharedLibrary.Usage;
 
 namespace MissionSharedLibrary.HotKey
 {
@@ -21,7 +20,6 @@ namespace MissionSharedLibrary.HotKey
 
         public static AGameKeyCategory Category => AGameKeyCategoryManager.Get()?.GetItem(CategoryId);
 
-        [NotNull]
         public static AGameKeyCategory CreateGeneralGameKeyCategory()
         {
             var result = new GameKeyCategory(CategoryId, (int) GeneralGameKey.NumberOfGameKeyEnums,
@@ -43,7 +41,7 @@ namespace MissionSharedLibrary.HotKey
 
         public static void RegisterGameKeyCategory()
         {
-            AGameKeyCategoryManager.Get()?.RegisterItem(CreateGeneralGameKeyCategory, CategoryId, new Version(1, 2));
+            AGameKeyCategoryManager.Get()?.RegisterGameKeyCategory(CreateGeneralGameKeyCategory, CategoryId, new Version(2, 0));
         }
 
         public static IGameKeySequence GetKey(GeneralGameKey key)

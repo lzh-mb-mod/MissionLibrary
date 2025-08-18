@@ -4,7 +4,7 @@
     {
         public SerializedGameKeyCategory Category { get; set; } = new SerializedGameKeyCategory();
 
-        public string ConfigVersion { get; set; } = "1.0";
+        public string ConfigVersion = "1.0";
 
         protected override void CopyFrom(T other)
         {
