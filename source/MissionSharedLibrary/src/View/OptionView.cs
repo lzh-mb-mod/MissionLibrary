@@ -17,10 +17,10 @@ namespace MissionSharedLibrary.View
             base.OnMissionScreenTick(dt);
             if (IsActivated)
             {
-                if (GeneralGameKeyCategory.GetKey(GeneralGameKey.OpenMenu).IsKeyPressed(GauntletLayer.Input))
+                if (GeneralGameKeyCategory.GetKey(GeneralGameKey.OpenMenu).IsKeyPressed())
                     DeactivateMenu();
             }
-            else if (GeneralGameKeyCategory.GetKey(GeneralGameKey.OpenMenu).IsKeyPressed(Input))
+            else if (GeneralGameKeyCategory.GetKey(GeneralGameKey.OpenMenu).IsKeyPressed())
                 ActivateMenu();
         }
 
