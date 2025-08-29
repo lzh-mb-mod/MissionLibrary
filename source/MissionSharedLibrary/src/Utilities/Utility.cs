@@ -279,6 +279,10 @@ namespace MissionSharedLibrary.Utilities
 
         public static void PlayerControlAgent(Agent agent)
         {
+            if (agent == null)
+            {
+                return;
+            }
             if (Mission.Current?.IsFastForward ?? false)
             {
                 Mission.Current.SetFastForwardingFromUI(false);
