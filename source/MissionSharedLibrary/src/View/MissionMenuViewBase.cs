@@ -19,14 +19,16 @@ namespace MissionSharedLibrary.View
         protected IGauntletMovie _movie;
         protected bool _enginePausedBySelf;
         protected bool _missionPausedBySelf;
+        protected bool _focus;
 
         public bool IsActivated { get; set; }
 
-        protected MissionMenuViewBase(int viewOrderPriority, string movieName, bool pauseGameEngine = true)
+        protected MissionMenuViewBase(int viewOrderPriority, string movieName, bool pauseGameEngine = true, bool focus = true)
         {
             ViewOrderPriority = viewOrderPriority;
             _movieName = movieName;
             _pauseGameEngine = pauseGameEngine;
+            _focus = focus;
         }
 
         protected abstract MissionMenuVMBase GetDataSource();
@@ -65,8 +67,11 @@ namespace MissionSharedLibrary.View
             ResourceDepot uiResourceDepot = UIResourceManager.UIResourceDepot;
             spriteData.SpriteCategories["ui_saveload"]?.Load(resourceContext, uiResourceDepot);
             MissionScreen.AddLayer(GauntletLayer);
-            GauntletLayer.IsFocusLayer = true;
-            ScreenManager.TrySetFocus(GauntletLayer);
+            if (_focus)
+            {
+                GauntletLayer.IsFocusLayer = true;
+                ScreenManager.TrySetFocus(GauntletLayer);
+            }
             PauseGame();
         }
 
