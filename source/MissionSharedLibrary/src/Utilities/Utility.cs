@@ -13,6 +13,7 @@ using TaleWorlds.MountAndBlade.GauntletUI.Mission.Singleplayer;
 using TaleWorlds.MountAndBlade.View.MissionViews;
 using TaleWorlds.MountAndBlade.View.Screens;
 using TaleWorlds.MountAndBlade.ViewModelCollection.Order;
+using static TaleWorlds.MountAndBlade.Agent;
 using MathF = TaleWorlds.Library.MathF;
 using Module = TaleWorlds.MountAndBlade.Module;
 
@@ -194,7 +195,17 @@ namespace MissionSharedLibrary.Utilities
                         {
                             formation.SetControlledByAI(false, formation.IsSplittableByAI);
                         }
-                        if (originalFormation == null || originalFormation.FormationIndex == FormationClass.General)
+                        if (formation.FormationIndex == FormationClass.General)
+                        {
+                            var generalFormation = Mission.Current.PlayerTeam.GetFormation(FormationClass.General);
+                            if (generalFormation.AI.GetBehavior<BehaviorGeneral>() != null)
+                            {
+                                TacticComponent.SetDefaultBehaviorWeights(generalFormation);
+                                generalFormation.AI.SetBehaviorWeight<BehaviorGeneral>(1f);
+                                generalFormation.SetControlledByAI(true);
+                            }
+                        }
+                        else if (originalFormation == null || originalFormation.FormationIndex == FormationClass.General)
                         {
                             // fix crash when begin a battle and assign player to an empty formation, then give it an shield wall order.
                             formation.SetMovementOrder(
@@ -231,7 +242,7 @@ namespace MissionSharedLibrary.Utilities
         {
             if (Campaign.Current != null)
             {
-                if (agent.Origin is SimpleAgentOrigin simpleAgentOrigin && simpleAgentOrigin.Party == Campaign.Current.MainParty?.Party ||
+                if (agent.Origin is SimpleAgentOrigin simpleAgentOrigin && (simpleAgentOrigin.Party == null || simpleAgentOrigin.Party == Campaign.Current.MainParty?.Party) ||
                     agent.Origin is PartyAgentOrigin partyAgentOrigin && partyAgentOrigin.Party == Campaign.Current.MainParty?.Party ||
                     agent.Origin is PartyGroupAgentOrigin partyGroupAgentOrigin && partyGroupAgentOrigin.Party == Campaign.Current.MainParty?.Party)
                     return true;
@@ -297,6 +308,14 @@ namespace MissionSharedLibrary.Utilities
             //}
             agent.Controller = Agent.ControllerType.Player;
 
+            agent.MountAgent?.SetMaximumSpeedLimit(-1f, isMultiplier: false);
+            agent.SetMaximumSpeedLimit(-1f, isMultiplier: false);
+            if (agent.WalkMode)
+            {
+                agent.EventControlFlags |= EventControlFlag.Run;
+                // required to fix the issue that the agent may still walk after switching to player controller, after deployment.
+                agent.EventControlFlags &= ~EventControlFlag.Walk;
+            }
             var component = agent.GetComponent<VictoryComponent>();
             if (component != null)
             {
