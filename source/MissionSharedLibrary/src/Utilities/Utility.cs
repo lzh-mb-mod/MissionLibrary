@@ -363,7 +363,16 @@ namespace MissionSharedLibrary.Utilities
                     //    SetMainAgentFormation(formation);
                     //}
                     // the Initialize method need to be called manually.
-                    mission.MainAgent.CommonAIComponent?.Initialize();
+                    try
+                    {
+                        mission.MainAgent.CommonAIComponent?.Initialize();
+                        mission.MainAgent.HumanAIComponent?.Initialize();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.ToString());
+                        DisplayMessage(e.ToString());
+                    }
 
                     // TODO: Need to check whether the following is needed.
                     mission.MainAgent.ResetEnemyCaches();
