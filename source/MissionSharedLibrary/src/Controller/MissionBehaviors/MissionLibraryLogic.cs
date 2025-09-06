@@ -1,4 +1,5 @@
-﻿using MissionLibrary.View;
+﻿using MissionLibrary.Usage;
+using MissionLibrary.View;
 using MissionSharedLibrary.Config;
 using TaleWorlds.MountAndBlade;
 
@@ -17,7 +18,7 @@ namespace MissionSharedLibrary.Controller.MissionBehaviors
             if (team == Mission.PlayerTeam)
             {
 
-                if (!_config.HasUsageShown)
+                if (!_config.HasUsageShown && AUsageCategoryManager.Get().Items.Count > 0)
                 {
                     _config.HasUsageShown = true;
                     _config.Serialize();
