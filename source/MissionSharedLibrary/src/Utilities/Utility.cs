@@ -357,6 +357,14 @@ namespace MissionSharedLibrary.Utilities
 
                     //mission.MainAgent.Formation = null;
                     mission.MainAgent.Controller = Agent.ControllerType.AI;
+                    if (mission.MainAgent.Character?.Equipment[EquipmentIndex.Horse].Item != null || (mission.MainAgent.Character?.IsMounted ?? false))
+                    {
+                        mission.MainAgent.SetAgentFlags(mission.MainAgent.GetAgentFlags() | AgentFlag.CanRide);
+                    }
+                    else
+                    {
+                        mission.MainAgent.SetAgentFlags(mission.MainAgent.GetAgentFlags() & ~AgentFlag.CanRide);
+                    }
                     // Note that the formation may be already set by SwitchFreeCameraLogic
                     //if (mission.MainAgent.Formation == null)
                     //{
@@ -462,9 +470,9 @@ namespace MissionSharedLibrary.Utilities
 
         public static bool ShouldSmoothMoveToAgent = true;
 
-        public static bool BeforeSetMainAgent()
+        public static bool BeforeSetMainAgent(Agent agent)
         {
-            if (ShouldSmoothMoveToAgent)
+            if (ShouldSmoothMoveToAgent && GetMissionScreen().LastFollowedAgent != agent)
             {
                 ShouldSmoothMoveToAgent = false;
                 return true;
@@ -479,6 +487,10 @@ namespace MissionSharedLibrary.Utilities
             {
                 ShouldSmoothMoveToAgent = true;
                 SmoothMoveToAgent(missionScreen, false, rotateCamera);
+            }
+            else
+            {
+                SetIsPlayerAgentAdded(missionScreen, false);
             }
         }
 
