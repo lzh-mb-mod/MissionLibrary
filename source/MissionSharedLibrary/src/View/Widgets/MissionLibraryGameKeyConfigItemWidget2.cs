@@ -72,7 +72,7 @@ namespace MissionLibrary.View.Widgets
 
         private void RegisterHoverEvents()
         {
-            foreach (Widget allChild in AllChildren)
+            foreach (Widget allChild in GetAllChildrenRecursive())
                 allChild.boolPropertyChanged += Child_BoolPropertyChanged;
         }
 

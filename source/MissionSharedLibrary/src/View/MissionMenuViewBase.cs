@@ -16,7 +16,7 @@ namespace MissionSharedLibrary.View
         private readonly bool _pauseGameEngine;
         protected MissionMenuVMBase DataSource;
         protected GauntletLayer GauntletLayer;
-        protected IGauntletMovie _movie;
+        protected GauntletMovieIdentifier _movie;
         protected bool _enginePausedBySelf;
         protected bool _missionPausedBySelf;
         protected bool _focus;
@@ -63,9 +63,7 @@ namespace MissionSharedLibrary.View
             GauntletLayer.Input.RegisterHotKeyCategory(HotKeyManager.GetCategory("GenericPanelGameKeyCategory"));
             _movie = GauntletLayer.LoadMovie(_movieName, DataSource);
             SpriteData spriteData = UIResourceManager.SpriteData;
-            TwoDimensionEngineResourceContext resourceContext = UIResourceManager.ResourceContext;
-            ResourceDepot uiResourceDepot = UIResourceManager.UIResourceDepot;
-            spriteData.SpriteCategories["ui_saveload"]?.Load(resourceContext, uiResourceDepot);
+            UIResourceManager.LoadSpriteCategory("ui_saveload");
             MissionScreen.AddLayer(GauntletLayer);
             if (_focus)
             {

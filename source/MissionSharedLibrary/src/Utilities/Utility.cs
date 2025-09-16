@@ -214,20 +214,7 @@ namespace MissionSharedLibrary.Utilities
                         else
                         {
                             // copied from Formation.CopyOrdersFrom
-                            formation.SetMovementOrder(originalFormation.GetReadonlyMovementOrderReference());
-                            formation.FormOrder = originalFormation.FormOrder;
-                            formation.SetPositioning(unitSpacing: originalFormation.UnitSpacing);
-                            formation.RidingOrder = originalFormation.RidingOrder;
-                            formation.FiringOrder = originalFormation.FiringOrder;
-                            formation.SetControlledByAI(originalFormation.IsAIControlled || !originalFormation.Team.IsPlayerGeneral, originalFormation.IsSplittableByAI);
-                            if (originalFormation.AI.Side != FormationAI.BehaviorSide.BehaviorSideNotSet)
-                            {
-                                formation.AI.Side = originalFormation.AI.Side;
-                            }
-                            formation.SetMovementOrder(originalFormation.GetReadonlyMovementOrderReference());
-                            formation.SetTargetFormation(originalFormation.TargetFormation);
-                            formation.FacingOrder = originalFormation.FacingOrder;
-                            formation.ArrangementOrder = originalFormation.ArrangementOrder;
+                            CopyOrdersFrom(formation, originalFormation);
 
                             //formation.SetPositioning(GetOrderPosition(formation), formation.Direction, formation.UnitSpacing);
                         }
@@ -236,6 +223,23 @@ namespace MissionSharedLibrary.Utilities
                     SetMainAgentFormation(formation);
                 }
             }
+        }
+
+        private static void CopyOrdersFrom(Formation formation, Formation target)
+        {
+            // copied from Formation.CopyOrdersFrom
+            formation.SetMovementOrder(target.GetReadonlyMovementOrderReference());
+            formation.SetFormOrder(target.FormOrder);
+            formation.SetPositioning(unitSpacing: new int?(target.UnitSpacing));
+            formation.SetRidingOrder(target.RidingOrder);
+            formation.SetFiringOrder(target.FiringOrder);
+            formation.SetControlledByAI(target.IsAIControlled || !target.Team.IsPlayerGeneral);
+            if (target.AI.Side != FormationAI.BehaviorSide.BehaviorSideNotSet)
+                formation.AI.Side = target.AI.Side;
+            formation.SetMovementOrder(target.GetReadonlyMovementOrderReference());
+            formation.SetTargetFormation(target.TargetFormation);
+            formation.SetFacingOrder(target.FacingOrder);
+            formation.SetArrangementOrder(target.ArrangementOrder);
         }
 
         public static bool IsInPlayerParty(Agent agent)
@@ -306,7 +310,7 @@ namespace MissionSharedLibrary.Utilities
             //{
             //    SetHasPlayerControlledTroop(agent.Formation, true);
             //}
-            agent.Controller = Agent.ControllerType.Player;
+            agent.Controller = AgentControllerType.Player;
 
             agent.MountAgent?.SetMaximumSpeedLimit(-1f, isMultiplier: false);
             agent.SetMaximumSpeedLimit(-1f, isMultiplier: false);
@@ -334,7 +338,7 @@ namespace MissionSharedLibrary.Utilities
             try
             {
                 mission.GetMissionBehavior<MissionMainAgentController>()?.InteractionComponent.ClearFocus();
-                if (mission.MainAgent.Controller == Agent.ControllerType.Player)
+                if (mission.MainAgent.Controller == AgentControllerType.Player)
                 {
                     var formation = mission.MainAgent.Formation;
                     if (formation != null && mission.MainAgent.IsUsingGameObject && !(mission.MainAgent.CurrentlyUsedGameObject is SpawnedItemEntity))
@@ -356,7 +360,7 @@ namespace MissionSharedLibrary.Utilities
                     // }
 
                     //mission.MainAgent.Formation = null;
-                    mission.MainAgent.Controller = Agent.ControllerType.AI;
+                    mission.MainAgent.Controller = AgentControllerType.AI;
                     if (mission.MainAgent.Character?.Equipment[EquipmentIndex.Horse].Item != null || (mission.MainAgent.Character?.IsMounted ?? false))
                     {
                         mission.MainAgent.SetAgentFlags(mission.MainAgent.GetAgentFlags() | AgentFlag.CanRide);

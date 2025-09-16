@@ -60,10 +60,8 @@ namespace MissionSharedLibrary.View.HotKey
 
         public void Activate()
         {
-            _optionsSpriteCategory = UIResourceManager.SpriteData.SpriteCategories["ui_options"];
-            _optionsSpriteCategory.Load(UIResourceManager.ResourceContext, UIResourceManager.UIResourceDepot);
-            _fullScreensSpriteCategory = UIResourceManager.SpriteData.SpriteCategories["ui_fullscreens"];
-            _fullScreensSpriteCategory.Load(UIResourceManager.ResourceContext, UIResourceManager.UIResourceDepot);
+            _optionsSpriteCategory = UIResourceManager.LoadSpriteCategory("ui_options"); ;
+            _fullScreensSpriteCategory = UIResourceManager.LoadSpriteCategory("ui_fullscreens");
             _dataSource = new GameKeyConfigVM(AGameKeyCategoryManager.Get(), OnKeyBindRequest, Deactivate);
             _gauntletLayer = new GauntletLayer(ViewOrderPriority);
             _gauntletLayer.LoadMovie("MissionLibraryOptionsGameKeyScreen-2", _dataSource);
