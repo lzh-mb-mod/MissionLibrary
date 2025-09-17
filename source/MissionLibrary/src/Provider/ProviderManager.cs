@@ -9,7 +9,7 @@ namespace MissionLibrary.Provider
         private readonly Dictionary<Type, Dictionary<string, IVersionProvider>> _providersWithKey =
             new Dictionary<Type, Dictionary<string, IVersionProvider>>();
 
-        public void RegisterProvider<T>(IVersionProvider<T> newProvider, string key = "") where T : ATag<T>
+        public void RegisterInstance<T>(IVersionProvider<T> newProvider, string key = "") where T : ATag<T>
         {
             if (!_providersWithKey.TryGetValue(typeof(T), out var dictionary))
             {

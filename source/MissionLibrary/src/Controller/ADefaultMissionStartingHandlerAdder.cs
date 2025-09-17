@@ -2,7 +2,7 @@
 
 namespace MissionLibrary.Controller
 {
-    public abstract class ADefaultMissionStartingHandlerAdder : ATag<ADefaultMissionStartingHandlerAdder>
+    public abstract class AResourceCreator : ATag<AResourceCreator>
     {
     }
 }

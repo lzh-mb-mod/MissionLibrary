@@ -11,14 +11,14 @@ namespace MissionSharedLibrary
             Global.Initialize();
         }
 
-        public static void SecondInitialize()
+        public static void ThirdInitialize()
         {
-            Global.SecondInitialize();
+            Global.ThirdInitialize();
         }
 
         public static void RegisterInstance<T>(IVersionProvider<T> newProvider, string key = "") where T : ATag<T>
         {
-            Global.RegisterProvider(newProvider, key);
+            Global.RegisterInstance(newProvider, key);
         }
 
         public static T GetInstance<T>(string key = "") where T : ATag<T>
@@ -28,7 +28,7 @@ namespace MissionSharedLibrary
 
         public static IEnumerable<T> GetInstances<T>() where T : ATag<T>
         {
-            return Global.GetProviders<T>();
+            return Global.GetInstances<T>();
         }
         public static void Clear()
         {

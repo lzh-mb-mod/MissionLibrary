@@ -1,5 +1,4 @@
 ﻿using MissionLibrary.Provider;
-using MissionSharedLibrary.HotKey;
 using MissionSharedLibrary.Provider;
 using MissionSharedLibrary.Utilities;
 using System;
@@ -11,6 +10,8 @@ namespace MissionSharedLibrary
         public static bool IsInitialized { get; private set; }
         public static bool IsInstancesRegisteredFromVersionManager { get; private set; }
         public static bool IsSecondInitialized { get; private set; }
+
+        public static bool IsThirdInitialized { get; private set; }
 
         public static bool Initialize(string moduleId)
         {
@@ -26,24 +27,33 @@ namespace MissionSharedLibrary
 
         public static void OnApplicationTick(float dt)
         {
-            if (!IsInitialized || IsInstancesRegisteredFromVersionManager)
+            if (!IsInitialized || IsSecondInitialized)
                 return;
 
-            IsInstancesRegisteredFromVersionManager = true;
-            // This should be called after all calls to Initialize and before all calls to SecondInitialize
-            // This is the only point I found.
-            RegisterInstancesFromVersionManager();
+            SecondInitialize();
             return;
         }
 
-        public static bool SecondInitialize()
+        private static bool SecondInitialize()
         {
             if (IsSecondInitialized)
                 return false;
 
             IsSecondInitialized = true;
 
-            Global2.SecondInitialize();
+            RegisterInstancesFromVersionManager();
+            return true;
+        }
+
+        public static bool ThirdInitialize()
+        {
+            if (IsThirdInitialized)
+            {
+                return false;
+            }
+
+            IsThirdInitialized = true;
+            Global2.ThirdInitialize();
             return true;
         }
 

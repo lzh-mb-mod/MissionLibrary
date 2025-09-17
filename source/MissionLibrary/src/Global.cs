@@ -6,7 +6,7 @@ namespace MissionLibrary
     public static class Global
     {
         private static bool IsInitialized { get; set; }
-        private static bool IsSecondInitialized { get; set; }
+        private static bool IsThirdInitialized { get; set; }
 
         private static ProviderManager ProviderManager { get; set; }
 
@@ -19,18 +19,18 @@ namespace MissionLibrary
             ProviderManager = new ProviderManager();
         }
 
-        public static void SecondInitialize()
+        public static void ThirdInitialize()
         {
-            if (IsSecondInitialized)
+            if (IsThirdInitialized)
                 return;
 
-            IsSecondInitialized = true;
+            IsThirdInitialized = true;
             ProviderManager.InstantiateAll();
         }
 
-        public static void RegisterProvider<T>(IVersionProvider<T> newProvider, string key = "") where T : ATag<T>
+        public static void RegisterInstance<T>(IVersionProvider<T> newProvider, string key = "") where T : ATag<T>
         {
-            ProviderManager.RegisterProvider(newProvider, key);
+            ProviderManager.RegisterInstance(newProvider, key);
         }
 
         public static T GetInstance<T>(string key = "") where T : ATag<T>
@@ -38,7 +38,7 @@ namespace MissionLibrary
             return ProviderManager.GetInstance<T>(key);
         }
 
-        public static IEnumerable<T> GetProviders<T>() where T : ATag<T>
+        public static IEnumerable<T> GetInstances<T>() where T : ATag<T>
         {
             return ProviderManager.GetInstances<T>();
         }
@@ -49,7 +49,7 @@ namespace MissionLibrary
                 return;
 
             IsInitialized = false;
-            IsSecondInitialized = false;
+            IsThirdInitialized = false;
             ProviderManager = null;
         }
     }

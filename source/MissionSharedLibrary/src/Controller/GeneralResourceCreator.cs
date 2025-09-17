@@ -4,7 +4,7 @@ using MissionSharedLibrary.HotKey;
 
 namespace MissionSharedLibrary.Controller
 {
-    public class GeneralResourceCreator : ADefaultMissionStartingHandlerAdder
+    public class GeneralResourceCreator : AResourceCreator
     {
         public GeneralResourceCreator()
         {

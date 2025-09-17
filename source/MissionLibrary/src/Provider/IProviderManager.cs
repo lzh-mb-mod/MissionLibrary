@@ -2,6 +2,6 @@
 {
     public interface IProviderManager
     {
-        void RegisterProvider<T>(IVersionProvider<T> newProvider, string key = "") where T : ATag<T>;
+        void RegisterInstance<T>(IVersionProvider<T> newProvider, string key = "") where T : ATag<T>;
     }
 }

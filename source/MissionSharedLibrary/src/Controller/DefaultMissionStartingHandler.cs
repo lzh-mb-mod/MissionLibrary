@@ -7,14 +7,6 @@ using TaleWorlds.MountAndBlade.View.MissionViews;
 
 namespace MissionSharedLibrary.Controller
 {
-    // Deprecated. Use GeneralResourceCreator instead.
-    // kept to prevent other mods containing old DefaultMissionStartingHandlerAdder and register things.
-    public class DefaultMissionStartingHandlerAdder : ADefaultMissionStartingHandlerAdder
-    {
-        public DefaultMissionStartingHandlerAdder()
-        {
-        }
-    }
 
     public class DefaultMissionStartingHandler : AMissionStartingHandler
     {

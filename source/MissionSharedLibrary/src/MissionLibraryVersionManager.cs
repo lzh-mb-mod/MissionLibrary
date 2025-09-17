@@ -12,13 +12,13 @@ namespace MissionSharedLibrary
     // Use ADefaultMissionStartingHandlerAdder as it has no extra methods
     // Only the constructor is used.
     // It's not related with the original purpose of ADefaultMissionStartingHandlerAdder
-    public class MissionLibraryVersionManager : ADefaultMissionStartingHandlerAdder
+    public class MissionLibraryVersionManager : AResourceCreator
     {
         // Create MissionLibraryVersionManager to call constructor
         public static void RegisterInstances()
         {
             // Create MissionLibraryVersionManager to call constructor
-            Global2.GetInstance<ADefaultMissionStartingHandlerAdder>(nameof(MissionLibraryVersionManager));
+            Global2.GetInstance<AResourceCreator>(nameof(MissionLibraryVersionManager));
         }
 
         public static void RegisterSelf()
@@ -42,7 +42,6 @@ namespace MissionSharedLibrary
             // so that the mod with the highest version of MissionLibraryVersionManager will register all the below instances.
             RegisterInstance(() => new GameKeyCategoryManager(), new Version(2, 0));
             RegisterInstance(() => new CameraControllerManager(), new Version(2, 0));
-            RegisterInstance(() => new DefaultMissionStartingHandlerAdder(), new Version(2, 0));
             RegisterInstance(() => new MissionStartingManager(), new Version(2, 0));
             RegisterInstance(() => new MenuManager(), new Version(2, 0));
             RegisterInstance(() => new UsageCategoryManager(), new Version(2, 0));

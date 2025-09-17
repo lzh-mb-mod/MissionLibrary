@@ -5,6 +5,7 @@ namespace MissionLibrary.Controller.Camera
     public interface ICameraController
     {
         float ViewAngle { get; set; }
+        float RollAngle { get; set; }
         bool SmoothRotationMode { get; set; }
 
         float MovementSpeedFactor { get; set; }
