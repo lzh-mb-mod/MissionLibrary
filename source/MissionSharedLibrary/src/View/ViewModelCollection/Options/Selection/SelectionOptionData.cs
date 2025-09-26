@@ -8,10 +8,10 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options.Selection
         private readonly Action<int> _setValue;
         private readonly Func<int> _getValue;
         private int _value;
-        private readonly int _limit;
-        private readonly IEnumerable<SelectionItem> _data;
+        private readonly Func<int> _limit;
+        private readonly Func<IEnumerable<SelectionItem>> _data;
 
-        public SelectionOptionData(Action<int> setValue, Func<int> getValue, int limit, IEnumerable<SelectionItem> data)
+        public SelectionOptionData(Action<int> setValue, Func<int> getValue, Func<int> limit, Func<IEnumerable<SelectionItem>> data)
         {
             _setValue = setValue;
             _getValue = getValue;
@@ -42,12 +42,12 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options.Selection
 
         public int GetSelectableOptionsLimit()
         {
-            return _limit;
+            return _limit();
         }
 
         public IEnumerable<SelectionItem> GetSelectableOptionNames()
         {
-            return _data;
+            return _data();
         }
     }
 }
