@@ -62,6 +62,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.Options.Selection
             IEnumerable<SelectionItem> selectableOptionNames = _selectionOptionData.GetSelectableOptionNames();
             Selector.SetOnChangeAction(null);
             Selector.SelectedIndex = -1;
+            _selectionOptionData.SetValue(_selectionOptionData.GetDefaultValue());
             var selectionItems = selectableOptionNames as SelectionItem[] ?? selectableOptionNames.ToArray();
             if (selectionItems.Any() && selectionItems.All(n => n.IsLocalizationId))
             {
