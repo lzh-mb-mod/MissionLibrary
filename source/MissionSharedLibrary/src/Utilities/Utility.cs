@@ -406,6 +406,10 @@ namespace MissionSharedLibrary.Utilities
                             SetMainAgentAlarmed(false);
                         }
                     }
+                    if (mission.MainAgent.IsPaused)
+                    {
+                        mission.MainAgent.SetIsAIPaused(false);
+                    }
 
                     mission.MainAgent.Formation?.GetReadonlyMovementOrderReference()
                         .OnUnitJoinOrLeave(mission.MainAgent.Formation, mission.MainAgent, true);
