@@ -60,11 +60,12 @@ namespace MissionSharedLibrary.View.HotKey
 
         public void Activate()
         {
+            var movieName = "MissionLibraryOptionsGameKeyScreen-2";
             _optionsSpriteCategory = UIResourceManager.LoadSpriteCategory("ui_options"); ;
             _fullScreensSpriteCategory = UIResourceManager.LoadSpriteCategory("ui_fullscreens");
             _dataSource = new GameKeyConfigVM(AGameKeyCategoryManager.Get(), OnKeyBindRequest, Deactivate);
-            _gauntletLayer = new GauntletLayer(ViewOrderPriority);
-            _gauntletLayer.LoadMovie("MissionLibraryOptionsGameKeyScreen-2", _dataSource);
+            _gauntletLayer = new GauntletLayer(movieName, ViewOrderPriority);
+            _gauntletLayer.LoadMovie(movieName, _dataSource);
             _gauntletLayer.Input.RegisterHotKeyCategory(HotKeyManager.GetCategory("GenericPanelGameKeyCategory"));
             _gauntletLayer.InputRestrictions.SetInputRestrictions();
             _gauntletLayer.IsFocusLayer = true;

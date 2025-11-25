@@ -560,6 +560,9 @@ namespace MissionSharedLibrary.Utilities
                     SetCameraBearing?.Invoke(missionScreen,
                         new object[] { bearing });
                 }
+                Mission.Current.SetCustomCameraFixedDistance(float.MinValue);
+                Mission.Current.SetListenerAndAttenuationPosBlendFactor(0.0f);
+                Mission.Current.SetCustomCameraTargetLocalOffset(Vec3.Zero);
             }
             catch (Exception e)
             {
@@ -797,6 +800,16 @@ namespace MissionSharedLibrary.Utilities
         public static MissionScreen GetMissionScreen()
         {
             return MissionState.Current.GetListenerOfType<MissionScreen>();
+        }
+
+        public static MissionBehavior GetMissionBehaviorOfType(Mission mission, Type type)
+        {
+            for (int index = 0; index < mission.MissionBehaviors.Count; ++index)
+            {
+                if (type.IsAssignableFrom(mission.MissionBehaviors[index].GetType()))
+                    return mission.MissionBehaviors[index];
+            }
+            return default;
         }
     }
 }

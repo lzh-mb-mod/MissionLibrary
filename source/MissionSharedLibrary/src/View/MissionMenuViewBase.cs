@@ -58,7 +58,7 @@ namespace MissionSharedLibrary.View
             DataSource = GetDataSource();
             if (DataSource == null)
                 return;
-            GauntletLayer = new GauntletLayer(ViewOrderPriority);
+            GauntletLayer = new GauntletLayer(_movieName, ViewOrderPriority);
             GauntletLayer.InputRestrictions.SetInputRestrictions();
             GauntletLayer.Input.RegisterHotKeyCategory(HotKeyManager.GetCategory("GenericPanelGameKeyCategory"));
             _movie = GauntletLayer.LoadMovie(_movieName, DataSource);
