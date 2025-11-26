@@ -560,9 +560,6 @@ namespace MissionSharedLibrary.Utilities
                     SetCameraBearing?.Invoke(missionScreen,
                         new object[] { bearing });
                 }
-                Mission.Current.SetCustomCameraFixedDistance(float.MinValue);
-                Mission.Current.SetListenerAndAttenuationPosBlendFactor(0.0f);
-                Mission.Current.SetCustomCameraTargetLocalOffset(Vec3.Zero);
             }
             catch (Exception e)
             {
