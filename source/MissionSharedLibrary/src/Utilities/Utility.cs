@@ -340,11 +340,11 @@ namespace MissionSharedLibrary.Utilities
                 mission.GetMissionBehavior<MissionMainAgentController>()?.InteractionComponent.ClearFocus();
                 if (mission.MainAgent.Controller == AgentControllerType.Player)
                 {
-                    //var formation = mission.MainAgent.Formation;
-                    //if (formation != null && mission.MainAgent.IsUsingGameObject && !(mission.MainAgent.CurrentlyUsedGameObject is SpawnedItemEntity))
-                    //{
-                    //    mission.MainAgent.HandleStopUsingAction();
-                    //}
+                    var formation = mission.MainAgent.Formation;
+                    if (formation != null && mission.MainAgent.IsUsingGameObject && !(mission.MainAgent.CurrentlyUsedGameObject is SpawnedItemEntity))
+                    {
+                        mission.MainAgent.HandleStopUsingAction();
+                    }
 
                     // if (mission.MainAgent.HumanAIComponent != null)
                     // {
