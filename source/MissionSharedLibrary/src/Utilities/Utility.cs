@@ -338,7 +338,7 @@ namespace MissionSharedLibrary.Utilities
             try
             {
                 mission.GetMissionBehavior<MissionMainAgentController>()?.InteractionComponent.ClearFocus();
-                if (mission.MainAgent.Controller == AgentControllerType.Player)
+                if (mission.MainAgent.Controller != AgentControllerType.AI)
                 {
                     var formation = mission.MainAgent.Formation;
                     if (formation != null && mission.MainAgent.IsUsingGameObject && !(mission.MainAgent.CurrentlyUsedGameObject is SpawnedItemEntity))
