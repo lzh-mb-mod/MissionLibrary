@@ -177,6 +177,8 @@ namespace MissionSharedLibrary.Utilities
 
         public static void SetPlayerFormationClass(FormationClass formationClass)
         {
+            if (Mission.Current.IsNavalBattle)
+                return;
             if (formationClass < 0 || formationClass >= FormationClass.NumberOfAllFormations)
                 return;
             var mission = Mission.Current;
