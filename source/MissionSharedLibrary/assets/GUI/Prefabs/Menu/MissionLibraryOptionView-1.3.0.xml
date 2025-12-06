@@ -52,10 +52,10 @@
 
                         <ScrollablePanel Id="ScrollablePanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" HorizontalAlignment="Center" VerticalAlignment="Center" AutoHideScrollBarHandle="true" AutoHideScrollBars="false" ClipRect="MyClipRect" InnerPanel="MyClipRect\InnerPannel" VerticalScrollbar="..\VerticalScrollbar">
                           <Children>
-                            <Widget Id="MyClipRect" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" HorizontalAlignment="Center" ClipContents="true">
+                            <Widget Id="MyClipRect" DataSource="{CurrentOptionClassViewModel}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" HorizontalAlignment="Center" ClipContents="true">
                               <Children>
 
-                                <ListPanel Id="InnerPannel" DataSource="{CurrentOptionClassViewModel\OptionColumns}" LayoutImp.LayoutMethod="HorizontalLeftToRight" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="1500" HorizontalAlignment="Center">
+                                <ListPanel Id="InnerPannel" DataSource="{OptionColumns}" LayoutImp.LayoutMethod="HorizontalLeftToRight" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="1500" HorizontalAlignment="Center">
                                   <ItemTemplate>
 
                                     <ListPanel LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="750" HorizontalAlignment="Left" MarginTop="10">

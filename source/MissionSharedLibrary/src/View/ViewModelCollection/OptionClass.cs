@@ -33,6 +33,10 @@ namespace MissionSharedLibrary.View.ViewModelCollection
         public override void UpdateSelection(bool isSelected)
         {
             _viewModel.IsSelected = isSelected;
+            if (isSelected)
+            {
+                _viewModel.RefreshValues();
+            }
         }
 
         private void OnSelect()
