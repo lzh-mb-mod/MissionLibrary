@@ -22,7 +22,7 @@ namespace MissionSharedLibrary.Controller
         private void AddMissionLibraryMissionBehaviors(MissionView entranceView)
         {
             MissionStartingManager.AddMissionBehavior(entranceView, new MissionLibraryLogic());
-            MissionStartingManager.AddMissionBehavior(entranceView, new OptionView(24, new Version(1, 2, 0)));
+            MissionStartingManager.AddMissionBehavior(entranceView, new OptionView(24, new Version(1, 3, 0)));
             MissionStartingManager.AddMissionBehavior(entranceView, new GameKeyConfigView());
             MissionStartingManager.AddMissionBehavior(entranceView, new UsageView(26, new Version(1, 2, 0)));
         }

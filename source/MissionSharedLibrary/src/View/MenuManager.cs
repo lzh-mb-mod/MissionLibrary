@@ -1,7 +1,5 @@
 ﻿using MissionLibrary.View;
-using MissionSharedLibrary.View.HotKey;
 using MissionSharedLibrary.View.ViewModelCollection;
-using System;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.View.MissionViews;
 
@@ -14,13 +12,13 @@ namespace MissionSharedLibrary.View
         // deprecated
         public override MissionView CreateMenuView()
         {
-            return new OptionView(24, new Version(1, 2, 0));
+            return null;
         }
 
         // deprecated
         public override MissionView CreateGameKeyConfigView()
         {
-            return new GameKeyConfigView();
+            return null;
         }
 
         public override void RequestToOpenMenu()

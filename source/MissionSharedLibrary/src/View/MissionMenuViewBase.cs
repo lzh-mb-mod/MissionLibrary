@@ -1,8 +1,6 @@
 ﻿using TaleWorlds.Core;
 using TaleWorlds.Engine.GauntletUI;
-using TaleWorlds.GauntletUI.Data;
 using TaleWorlds.InputSystem;
-using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.View.MissionViews;
 using TaleWorlds.ScreenSystem;
@@ -70,6 +68,7 @@ namespace MissionSharedLibrary.View
                 GauntletLayer.IsFocusLayer = true;
                 ScreenManager.TrySetFocus(GauntletLayer);
             }
+            DataSource.RefreshValues();
             PauseGame();
         }
 

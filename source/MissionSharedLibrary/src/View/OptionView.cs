@@ -21,7 +21,9 @@ namespace MissionSharedLibrary.View
                     DeactivateMenu();
             }
             else if (GeneralGameKeyCategory.GetKey(GeneralGameKey.OpenMenu).IsKeyPressed())
+            {
                 ActivateMenu();
+            }
         }
 
         public override void OnMissionScreenFinalize()
