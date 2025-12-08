@@ -184,15 +184,17 @@ namespace MissionSharedLibrary.Config.HotKey
         public bool Mandatory = false;
 
         private readonly List<GameKeySequenceAlternative> _defaultGameKeys;
+        private readonly List<GameKeySequenceAlternative> _forbiddenGameKeys;
 
-        public GameKeySequence(int id, string stringId, string categoryId ,List<GameKeySequenceAlternative> sequenceAlternatives, bool mandatory = false)
+        public GameKeySequence(int id, string stringId, string categoryId, List<GameKeySequenceAlternative> sequenceAlternatives, bool mandatory = false, List<GameKeySequenceAlternative> forbiddenAlternatives = null)
         {
             Id = id;
             StringId = stringId;
             CategoryId = categoryId;
-            sequenceAlternatives = NormalizeGameKeySequenceAlternatives(sequenceAlternatives);
-            _defaultGameKeys = sequenceAlternatives;
             Mandatory = mandatory;
+            _defaultGameKeys = sequenceAlternatives;
+            _forbiddenGameKeys = forbiddenAlternatives ?? new List<GameKeySequenceAlternative>();
+            sequenceAlternatives = NormalizeGameKeySequenceAlternatives(sequenceAlternatives);
             SetGameKeys(sequenceAlternatives);
         }
 
@@ -209,7 +211,10 @@ namespace MissionSharedLibrary.Config.HotKey
         {
             var keys = NormalizeGameKeySequenceAlternatives(inputKeys);
             if (Mandatory && keys.Count == 0)
+            {
+                ResetToDefault();
                 return;
+            }
             KeyAlternatives = keys;
         }
 
@@ -237,7 +242,29 @@ namespace MissionSharedLibrary.Config.HotKey
 
         private List<GameKeySequenceAlternative> NormalizeGameKeySequenceAlternatives(List<GameKeySequenceAlternative> alternatives)
         {
-            return alternatives.Select(sa => new GameKeySequenceAlternative(sa.Keys.Where(key => key.InputKey != InputKey.Invalid).Select(key => key.InputKey).ToList())).Where(sa => sa.Keys.Any()).ToList();
+            var result = new List<GameKeySequenceAlternative>();
+            foreach (var alternative in alternatives)
+            {
+                var newSequenceAlternative = new GameKeySequenceAlternative(alternative.Keys.Where(key => key.InputKey != InputKey.Invalid).Select(key => key.InputKey).ToList());
+                // key sequence should not be empty.
+                if (!newSequenceAlternative.Keys.Any())
+                    continue;
+                // key sequence should not be the same as any forbidden key sequences.
+                if (IsSequenceAlternativeForbidden(newSequenceAlternative))
+                    continue;
+                result.Add(newSequenceAlternative);
+            }
+            return result;
+        }
+        
+        private bool IsSequenceAlternativeForbidden(GameKeySequenceAlternative sequenceAlternative)
+        {
+            foreach (var forbiddenKeySequence in _forbiddenGameKeys)
+            {
+                if (sequenceAlternative.Keys.Select(key => key.InputKey).SequenceEqual(forbiddenKeySequence.Keys.Select(key => key.InputKey)))
+                    return true;
+            }
+            return false;
         }
 
         public bool IsKeyDownInOrder(IInputContext input = null)
