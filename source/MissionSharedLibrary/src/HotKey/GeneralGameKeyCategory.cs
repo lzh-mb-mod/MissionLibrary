@@ -27,7 +27,8 @@ namespace MissionSharedLibrary.HotKey
 
             result.AddGameKeySequence(new GameKeySequence((int) GeneralGameKey.OpenMenu,
                 nameof(GeneralGameKey.OpenMenu),
-                CategoryId, new List<GameKeySequenceAlternative>()
+                CategoryId,
+                new List<GameKeySequenceAlternative>()
                 {
                     new GameKeySequenceAlternative
                     (
@@ -35,7 +36,26 @@ namespace MissionSharedLibrary.HotKey
                             InputKey.L
                         }
                     )
-                }, true));
+                },
+                // mandatory
+                true,
+                // forbidden keys
+                new List<GameKeySequenceAlternative>()
+                {
+                    new GameKeySequenceAlternative
+                    (
+                        new List<InputKey> () {
+                             InputKey.LeftMouseButton
+                        }
+                    ),
+                    new GameKeySequenceAlternative
+                    (
+                        new List<InputKey>()
+                        {
+                            InputKey.RightMouseButton
+                        }
+                    )
+                }));
             return result;
         }
 
