@@ -20,8 +20,10 @@ namespace MissionSharedLibrary.View
                 if (GeneralGameKeyCategory.GetKey(GeneralGameKey.OpenMenu).IsKeyPressed())
                     DeactivateMenu();
             }
-            else if (GeneralGameKeyCategory.GetKey(GeneralGameKey.OpenMenu).IsKeyPressed())
+            else if (Mission.Mode != TaleWorlds.Core.MissionMode.Conversation && GeneralGameKeyCategory.GetKey(GeneralGameKey.OpenMenu).IsKeyPressed())
+            {
                 ActivateMenu();
+            }
         }
 
         public override void OnMissionScreenFinalize()
