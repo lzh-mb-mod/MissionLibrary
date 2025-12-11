@@ -31,6 +31,8 @@ namespace MissionSharedLibrary.View.HotKey
             base.OnMissionScreenInitialize();
 
             _keybindingPopup = new KeybindingPopup(SetHotKey, MissionScreen);
+            _optionsSpriteCategory = UIResourceManager.LoadSpriteCategory("ui_options"); ;
+            _fullScreensSpriteCategory = UIResourceManager.LoadSpriteCategory("ui_fullscreens");
         }
 
         public override void OnMissionScreenFinalize()
@@ -39,6 +41,8 @@ namespace MissionSharedLibrary.View.HotKey
 
             _keybindingPopup.OnToggle(false);
             _keybindingPopup = null;
+            _optionsSpriteCategory.Unload();
+            _fullScreensSpriteCategory.Unload();
         }
 
         public override void OnMissionScreenTick(float dt)
@@ -61,8 +65,6 @@ namespace MissionSharedLibrary.View.HotKey
         public void Activate()
         {
             var movieName = "MissionLibraryOptionsGameKeyScreen-2";
-            _optionsSpriteCategory = UIResourceManager.LoadSpriteCategory("ui_options"); ;
-            _fullScreensSpriteCategory = UIResourceManager.LoadSpriteCategory("ui_fullscreens");
             _dataSource = new GameKeyConfigVM(AGameKeyCategoryManager.Get(), OnKeyBindRequest, Deactivate);
             _gauntletLayer = new GauntletLayer(movieName, ViewOrderPriority);
             _gauntletLayer.LoadMovie(movieName, _dataSource);
@@ -82,8 +84,6 @@ namespace MissionSharedLibrary.View.HotKey
             _gauntletLayer = null;
             _dataSource.OnFinalize();
             _dataSource = null;
-            _optionsSpriteCategory.Unload();
-            _fullScreensSpriteCategory.Unload();
         }
 
         private void OnKeyBindRequest(IHotKeySetter requestedHotKeyToChange)

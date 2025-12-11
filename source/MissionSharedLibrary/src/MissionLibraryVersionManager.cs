@@ -26,7 +26,7 @@ namespace MissionSharedLibrary
             // Multiple mods may register MissionLibraryVersionManager, but
             // only the one with the highest version will be selected.
             // MissionLibraryVersionManager with lower version registered by old mods will be ignored.
-            RegisterInstance(() => new MissionLibraryVersionManager(), new Version(1, 6), nameof(MissionLibraryVersionManager));
+            RegisterInstance(() => new MissionLibraryVersionManager(), new Version(1, 7), nameof(MissionLibraryVersionManager));
         }
 
         public MissionLibraryVersionManager()
