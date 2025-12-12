@@ -1,5 +1,6 @@
 ﻿using MissionSharedLibrary.HotKey;
 using System;
+using System.Linq;
 using System.Reflection;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.AgentOrigins;
@@ -8,6 +9,7 @@ using TaleWorlds.Engine;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
+using TaleWorlds.ModuleManager;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.GauntletUI.Mission.Singleplayer;
 using TaleWorlds.MountAndBlade.View.MissionViews;
@@ -799,6 +801,21 @@ namespace MissionSharedLibrary.Utilities
             return null;
         }
 
+        public static OrderItemVM FindOrderWithId(MissionOrderVM missionOrderVM, string orderId)
+        {
+            for (int index1 = 0; index1 < missionOrderVM.OrderSets.Count; ++index1)
+            {
+                OrderSetVM orderSet = missionOrderVM.OrderSets[index1];
+                for (int index2 = 0; index2 < orderSet.Orders.Count; ++index2)
+                {
+                    OrderItemVM order = orderSet.Orders[index2];
+                    if (order.OrderIconId == orderId)
+                        return order;
+                }
+            }
+            return (OrderItemVM)null;
+        }
+
         public static MissionScreen GetMissionScreen()
         {
             return MissionState.Current.GetListenerOfType<MissionScreen>();
@@ -812,6 +829,23 @@ namespace MissionSharedLibrary.Utilities
                     return mission.MissionBehaviors[index];
             }
             return default;
+        }
+
+        public static bool IsModuleInstalled(string moduleId)
+        {
+            try
+            {
+                // some module may be not loaded, causes info be null.
+                return TaleWorlds.Engine.Utilities.GetModulesNames().Select(ModuleHelper.GetModuleInfo).FirstOrDefault(info =>
+                    info?.Id == moduleId) != null;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                DisplayMessage(e.ToString());
+                MBDebug.Print(e.ToString());
+                return false;
+            }
         }
     }
 }

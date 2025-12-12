@@ -41,8 +41,6 @@ namespace MissionSharedLibrary.View.HotKey
 
             _keybindingPopup.OnToggle(false);
             _keybindingPopup = null;
-            _optionsSpriteCategory.Unload();
-            _fullScreensSpriteCategory.Unload();
         }
 
         public override void OnMissionScreenTick(float dt)

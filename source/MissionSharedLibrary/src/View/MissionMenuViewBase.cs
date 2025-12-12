@@ -60,7 +60,6 @@ namespace MissionSharedLibrary.View
             GauntletLayer.InputRestrictions.SetInputRestrictions();
             GauntletLayer.Input.RegisterHotKeyCategory(HotKeyManager.GetCategory("GenericPanelGameKeyCategory"));
             _movie = GauntletLayer.LoadMovie(_movieName, DataSource);
-            SpriteData spriteData = UIResourceManager.SpriteData;
             UIResourceManager.LoadSpriteCategory("ui_saveload");
             MissionScreen.AddLayer(GauntletLayer);
             if (_focus)
