@@ -1,5 +1,6 @@
 ﻿using MissionSharedLibrary.HotKey;
 using System;
+using System.Linq;
 using System.Reflection;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.AgentOrigins;
@@ -8,6 +9,7 @@ using TaleWorlds.Engine;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
+using TaleWorlds.ModuleManager;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.GauntletUI.Mission.Singleplayer;
 using TaleWorlds.MountAndBlade.View.MissionViews;
@@ -789,6 +791,23 @@ namespace MissionSharedLibrary.Utilities
         public static MissionScreen GetMissionScreen()
         {
             return MissionState.Current.GetListenerOfType<MissionScreen>();
+        }
+
+        public static bool IsModuleInstalled(string moduleId)
+        {
+            try
+            {
+                // some module may be not loaded, causes info be null.
+                return TaleWorlds.Engine.Utilities.GetModulesNames().Select(ModuleHelper.GetModuleInfo).FirstOrDefault(info =>
+                    info?.Id == moduleId) != null;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                DisplayMessage(e.ToString());
+                MBDebug.Print(e.ToString());
+                return false;
+            }
         }
     }
 }
