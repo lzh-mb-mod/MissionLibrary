@@ -309,7 +309,7 @@ namespace MissionSharedLibrary.Utilities
             //    SetHasPlayerControlledTroop(agent.Formation, true);
             //}
             agent.Controller = Agent.ControllerType.Player;
-
+            agent.AIStateFlags = AIStateFlag.None;
             agent.MountAgent?.SetMaximumSpeedLimit(-1f, isMultiplier: false);
             agent.SetMaximumSpeedLimit(-1f, isMultiplier: false);
             if (agent.WalkMode)
@@ -385,9 +385,9 @@ namespace MissionSharedLibrary.Utilities
                     }
 
                     // TODO: Need to check whether the following is needed.
-                    mission.MainAgent.ResetEnemyCaches();
-                    mission.MainAgent.InvalidateTargetAgent();
-                    mission.MainAgent.InvalidateAIWeaponSelections();
+                    //mission.MainAgent.ResetEnemyCaches();
+                    //mission.MainAgent.InvalidateTargetAgent();
+                    //mission.MainAgent.InvalidateAIWeaponSelections();
                     if (mission.MainAgent.Formation != null)
                     {
                         mission.MainAgent.SetRidingOrder(mission.MainAgent.Formation.RidingOrder.OrderEnum);
@@ -812,6 +812,16 @@ namespace MissionSharedLibrary.Utilities
                 MBDebug.Print(e.ToString());
                 return false;
             }
+        }
+
+        public static bool IsHideoutBattle()
+        {
+            return MissionState.Current?.MissionName == "HideoutBattle";
+        }
+
+        public static bool IsHideoutAmbush()
+        {
+            return MissionState.Current?.MissionName == "HideoutAmbush";
         }
     }
 }
