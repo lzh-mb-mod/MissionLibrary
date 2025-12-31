@@ -290,6 +290,16 @@ namespace MissionSharedLibrary.Utilities
             return null;
         }
 
+        public static bool IsUsingNonPickableObject(Agent agent)
+        {
+            return agent.IsUsingGameObject && !(agent.CurrentlyUsedGameObject is SpawnedItemEntity);
+        }
+
+        public static bool IsPickingUpObject(Agent agent)
+        {
+            return agent.IsUsingGameObject && agent.CurrentlyUsedGameObject is SpawnedItemEntity;
+        }
+
         public static void PlayerControlAgent(Agent agent)
         {
             if (agent == null)
@@ -308,6 +318,16 @@ namespace MissionSharedLibrary.Utilities
             //{
             //    SetHasPlayerControlledTroop(agent.Formation, true);
             //}
+            bool isAIMovingToGameObject = agent.AIMoveToGameObjectIsEnabled();
+            bool isPickingUp = IsPickingUpObject(agent);
+            if (isAIMovingToGameObject)
+            {
+                agent.AIMoveToGameObjectDisable();
+            }
+            if (isAIMovingToGameObject || isPickingUp)
+            {
+                agent.DisableScriptedMovement();
+            }
             agent.Controller = Agent.ControllerType.Player;
             agent.AIStateFlags = AIStateFlag.None;
             agent.MountAgent?.SetMaximumSpeedLimit(-1f, isMultiplier: false);
@@ -338,8 +358,7 @@ namespace MissionSharedLibrary.Utilities
                 mission.GetMissionBehavior<MissionMainAgentController>()?.InteractionComponent.ClearFocus();
                 if (mission.MainAgent.Controller != ControllerType.AI)
                 {
-                    var formation = mission.MainAgent.Formation;
-                    if (formation != null && mission.MainAgent.IsUsingGameObject && !(mission.MainAgent.CurrentlyUsedGameObject is SpawnedItemEntity))
+                    if (IsUsingNonPickableObject(mission.MainAgent))
                     {
                         mission.MainAgent.HandleStopUsingAction();
                     }
