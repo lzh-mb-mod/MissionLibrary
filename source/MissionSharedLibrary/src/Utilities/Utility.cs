@@ -216,20 +216,7 @@ namespace MissionSharedLibrary.Utilities
                         else
                         {
                             // copied from Formation.CopyOrdersFrom
-                            formation.SetMovementOrder(originalFormation.GetReadonlyMovementOrderReference());
-                            formation.FormOrder = originalFormation.FormOrder;
-                            formation.SetPositioning(unitSpacing: originalFormation.UnitSpacing);
-                            formation.RidingOrder = originalFormation.RidingOrder;
-                            formation.FiringOrder = originalFormation.FiringOrder;
-                            formation.SetControlledByAI(originalFormation.IsAIControlled || !originalFormation.Team.IsPlayerGeneral, originalFormation.IsSplittableByAI);
-                            if (originalFormation.AI.Side != FormationAI.BehaviorSide.BehaviorSideNotSet)
-                            {
-                                formation.AI.Side = originalFormation.AI.Side;
-                            }
-                            formation.SetMovementOrder(originalFormation.GetReadonlyMovementOrderReference());
-                            formation.SetTargetFormation(originalFormation.TargetFormation);
-                            formation.FacingOrder = originalFormation.FacingOrder;
-                            formation.ArrangementOrder = originalFormation.ArrangementOrder;
+                            CopyOrdersFrom(formation, originalFormation);
 
                             //formation.SetPositioning(GetOrderPosition(formation), formation.Direction, formation.UnitSpacing);
                         }
@@ -238,6 +225,25 @@ namespace MissionSharedLibrary.Utilities
                     SetMainAgentFormation(formation);
                 }
             }
+        }
+
+        private static void CopyOrdersFrom(Formation formation, Formation target)
+        {
+            // copied from Formation.CopyOrdersFrom
+            formation.SetMovementOrder(target.GetReadonlyMovementOrderReference());
+            formation.FormOrder = target.FormOrder;
+            formation.SetPositioning(unitSpacing: target.UnitSpacing);
+            formation.RidingOrder = target.RidingOrder;
+            formation.FiringOrder = target.FiringOrder;
+            formation.SetControlledByAI(target.IsAIControlled || !target.Team.IsPlayerGeneral, target.IsSplittableByAI);
+            if (target.AI.Side != FormationAI.BehaviorSide.BehaviorSideNotSet)
+            {
+                formation.AI.Side = target.AI.Side;
+            }
+            formation.SetMovementOrder(target.GetReadonlyMovementOrderReference());
+            formation.SetTargetFormation(target.TargetFormation);
+            formation.FacingOrder = target.FacingOrder;
+            formation.ArrangementOrder = target.ArrangementOrder;
         }
 
         public static bool IsInPlayerParty(Agent agent)
@@ -814,6 +820,16 @@ namespace MissionSharedLibrary.Utilities
         public static MissionScreen GetMissionScreen()
         {
             return MissionState.Current.GetListenerOfType<MissionScreen>();
+        }
+
+        public static MissionBehavior GetMissionBehaviorOfType(Mission mission, Type type)
+        {
+            for (int index = 0; index < mission.MissionBehaviors.Count; ++index)
+            {
+                if (type.IsAssignableFrom(mission.MissionBehaviors[index].GetType()))
+                    return mission.MissionBehaviors[index];
+            }
+            return default;
         }
 
         public static bool IsModuleInstalled(string moduleId)
