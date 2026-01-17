@@ -828,7 +828,7 @@ namespace MissionSharedLibrary.Utilities
                 for (int index2 = 0; index2 < orderSet.Orders.Count; ++index2)
                 {
                     OrderItemVM order = orderSet.Orders[index2];
-                    if (order.OrderIconId == orderId)
+                    if (order.Order.StringId == orderId)
                         return order;
                 }
             }
