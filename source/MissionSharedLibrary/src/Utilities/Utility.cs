@@ -385,16 +385,18 @@ namespace MissionSharedLibrary.Utilities
                     //mission.MainAgent.Formation = null;
                     mission.MainAgent.Controller = AgentControllerType.AI;
 
-                    // This is to resolve the issue that player cannot ride horse afte switching to AI and switching back.
-                    // no longer required.
-                    //if (mission.MainAgent.Character?.Equipment[EquipmentIndex.Horse].Item != null || (mission.MainAgent.Character?.IsMounted ?? false))
-                    //{
-                    //    mission.MainAgent.SetAgentFlags(mission.MainAgent.GetAgentFlags() | AgentFlag.CanRide);
-                    //}
-                    //else
-                    //{
-                    //    mission.MainAgent.SetAgentFlags(mission.MainAgent.GetAgentFlags() & ~AgentFlag.CanRide);
-                    //}
+                    // This is to resolve the issue that AI always tends to ride horses.
+                    if (mission.MainAgent.Character?.Equipment[EquipmentIndex.Horse].Item != null || (mission.MainAgent.Character?.IsMounted ?? false))
+                    {
+                        mission.MainAgent.SetAgentFlags(mission.MainAgent.GetAgentFlags() | AgentFlag.CanRide);
+                    }
+                    else
+                    {
+                        if (!mission.MainAgent.HasMount)
+                        {
+                            mission.MainAgent.SetAgentFlags(mission.MainAgent.GetAgentFlags() & ~AgentFlag.CanRide);
+                        }
+                    }
                     // Note that the formation may be already set by SwitchFreeCameraLogic
                     //if (mission.MainAgent.Formation == null)
                     //{
