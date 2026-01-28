@@ -351,6 +351,11 @@ namespace MissionSharedLibrary.Utilities
                 agent.SetActionChannel(1, ActionIndexCache.act_none, true);
                 agent.ClearTargetFrame();
             }
+            if (agent.Formation != null)
+            {
+                // Trigger Formation.OnUnitCountChanged to update member count in OrderTroopItemVM.
+                agent.Formation.OnUnitAddedOrRemoved();
+            }
         }
 
         public static void AIControlMainAgent(bool changeAlarmed, bool alarmed = false)
@@ -421,6 +426,8 @@ namespace MissionSharedLibrary.Utilities
                     if (mission.MainAgent.Formation != null)
                     {
                         mission.MainAgent.SetRidingOrder(mission.MainAgent.Formation.RidingOrder.OrderEnum);
+                        // Trigger Formation.OnUnitCountChanged to update member count in OrderTroopItemVM.
+                        mission.MainAgent.Formation.OnUnitAddedOrRemoved();
                     }
                     if (changeAlarmed)
                     {
@@ -438,6 +445,10 @@ namespace MissionSharedLibrary.Utilities
                     {
                         mission.MainAgent.SetIsAIPaused(false);
                     }
+
+                    // Fix the issue that, if player use game object in player mode, the agent will be added with Agent.AIScriptedFrameFlags.NoAttack scripted flag in Agent.UseGameObject.
+                    // then after switching to AI, the flag is not cleared, and the AI will just stand and do nothing.
+                    mission.MainAgent.DisableScriptedMovement();
 
                     mission.MainAgent.Formation?.GetReadonlyMovementOrderReference()
                         .OnUnitJoinOrLeave(mission.MainAgent.Formation, mission.MainAgent, true);
