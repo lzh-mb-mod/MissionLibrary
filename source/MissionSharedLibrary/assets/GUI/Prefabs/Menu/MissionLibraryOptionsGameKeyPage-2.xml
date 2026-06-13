@@ -7,7 +7,7 @@
     <Constant Name="SPOptions.GameKeysgroup.ExpandIndicator.Height" BrushLayer="Default" BrushName="SPOptions.GameKeysgroup.ExpandIndicator" BrushValueType="Height" />
   </Constants>
   <Window>
-    <Widget Id="OptionsInnerPanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Top" MarginTop="10" MarginBottom="10" LayoutImp.LayoutMethod="VerticalBottomToTop">
+    <Widget Id="OptionsInnerPanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Top" MarginTop="10" MarginBottom="10" LayoutImp.LayoutMethod="VerticalTopToBottom">
       <Children>
         <Widget Id="@Name" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Top">
           <Children>
@@ -17,9 +17,9 @@
               </Children>
             </ButtonWidget>
 
-            <ListPanel DataSource="{Groups}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Top" MarginTop="50" MarginBottom="200" LayoutImp.LayoutMethod="VerticalBottomToTop">
+            <ListPanel DataSource="{Groups}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Top" MarginTop="50" MarginBottom="200" LayoutImp.LayoutMethod="VerticalTopToBottom">
               <ItemTemplate>
-                <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" MarginBottom="50" LayoutImp.LayoutMethod="VerticalBottomToTop">
+                <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" MarginBottom="50" LayoutImp.LayoutMethod="VerticalTopToBottom">
                   <Children>
 
                     <PartyHeaderToggleWidget DoNotPassEventsToChildren="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Top" MarginLeft="52" MarginRight="10" CollapseIndicator="Description\CollapseParent\GroupTitle\CollapseIndicator" ListPanel="..\GameKeysList" RenderLate="true" UpdateChildrenStates="true" WidgetToClose="..\GameKeysList">
@@ -46,9 +46,9 @@
                       </Children>
                     </PartyHeaderToggleWidget>
 
-                    <ListPanel Id="GameKeysList" DataSource="{GameKeySequenceOptions}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" LayoutImp.LayoutMethod="VerticalBottomToTop">
+                    <ListPanel Id="GameKeysList" DataSource="{GameKeySequenceOptions}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" LayoutImp.LayoutMethod="VerticalTopToBottom">
                       <ItemTemplate>
-                        <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" LayoutImp.LayoutMethod="VerticalBottomToTop">
+                        <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" LayoutImp.LayoutMethod="VerticalTopToBottom">
                           <Children>
                             <Widget WidthSizePolicy="Fixed" SuggestedWidth="830" HeightSizePolicy="Fixed" SuggestedHeight="12" HorizontalAlignment="Right" MarginTop="10" MarginBottom="10" Sprite="StdAssets\subpage_divider" />
                             <MissionLibraryGameKeyConfigItemWidget2 Id="ListPanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" MarginTop="5" LayoutImp.LayoutMethod="HorizontalLeftToRight" OptionTitle="@Name" OptionDescription="@Description" VMVersion="@GameKeySequenceOptionVMVersion" V2ui="V2UI" V1ui="V1UI">
@@ -56,7 +56,7 @@
 
                                 <RichTextWidget WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="505" HorizontalAlignment="Right" VerticalAlignment="Top" Brush="SPOptions.OptionName.Text" Text="@Name" />
 
-                                <ListPanel Id="V2UI" IsVisible="false" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" LayoutImp.LayoutMethod="VerticalBottomToTop" >
+                                <ListPanel Id="V2UI" IsVisible="false" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" LayoutImp.LayoutMethod="VerticalTopToBottom" >
                                   <Children>
                                     <ListPanel WidthSizePolicy="Fixed" SuggestedWidth="320" HeightSizePolicy="CoverChildren" LayoutImp.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Left" MarginLeft="50">
                                       <Children>
@@ -72,7 +72,7 @@
                                         </ButtonWidget>
                                       </Children>
                                     </ListPanel>
-                                    <ListPanel DataSource="{Alternatives}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" LayoutImp.LayoutMethod="VerticalBottomToTop" >
+                                    <ListPanel DataSource="{Alternatives}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" LayoutImp.LayoutMethod="VerticalTopToBottom" >
                                       <ItemTemplate>
                                         <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" LayoutImp.LayoutMethod="HorizontalLeftToRight" MarginBottom="10">
                                           <Children>
@@ -88,7 +88,7 @@
                                               </ItemTemplate>
                                             </ListPanel>
 
-                                            <ListPanel WidthSizePolicy="Fixed" SuggestedWidth="150" HeightSizePolicy="CoverChildren" LayoutImp.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Right">
+                                            <ListPanel WidthSizePolicy="Fixed" SuggestedWidth="150" HeightSizePolicy="CoverChildren" LayoutImp.LayoutMethod="VerticalTopToBottom" HorizontalAlignment="Right">
                                               <Children>
                                                 <ButtonWidget DoNotPassEventsToChildren="true" Command.Click="PushGameKey" IsEnabled="@PushEnabled" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="150" SuggestedHeight="40" HorizontalAlignment="Right" Brush="ButtonBrush2" PositiveBehaviourBrush="ButtonBrush1" >
                                                   <Children>
@@ -123,7 +123,7 @@
                                       </ItemTemplate>
                                     </ListPanel>
 
-                                    <ListPanel WidthSizePolicy="Fixed" SuggestedWidth="150" HeightSizePolicy="CoverChildren" LayoutImp.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Right">
+                                    <ListPanel WidthSizePolicy="Fixed" SuggestedWidth="150" HeightSizePolicy="CoverChildren" LayoutImp.LayoutMethod="VerticalTopToBottom" HorizontalAlignment="Right">
                                       <Children>
                                         <ButtonWidget DoNotPassEventsToChildren="true" Command.Click="PushGameKey" IsEnabled="@PushEnabled" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="150" SuggestedHeight="40" Brush="ButtonBrush2" PositiveBehaviourBrush="ButtonBrush1" >
                                           <Children>

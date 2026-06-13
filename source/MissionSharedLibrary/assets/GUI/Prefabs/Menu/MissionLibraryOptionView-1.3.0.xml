@@ -10,7 +10,7 @@
         <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="1758" HorizontalAlignment="Center" VerticalAlignment="Top" MarginTop="50" Brush="MissionLibrary.MissionMenuBrush">
           <Children>
 
-            <ListPanel LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren">
+            <ListPanel LayoutImp.LayoutMethod="VerticalTopToBottom" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren">
               <Children>
 
                 <ListPanel LayoutImp.LayoutMethod="HorizontalLeftToRight" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="750" HorizontalAlignment="Left" MarginLeft="250">
@@ -36,7 +36,7 @@
                 <ListPanel DataSource="{OptionClassCollection}" LayoutImp.LayoutMethod="HorizontalLeftToRight" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="1758" HorizontalAlignment="Center">
                   <Children>
 
-                    <ListPanel DataSource="{OptionClassViewModels}" LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="250" HorizontalAlignment="Left">
+                    <ListPanel DataSource="{OptionClassViewModels}" LayoutImp.LayoutMethod="VerticalTopToBottom" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="250" HorizontalAlignment="Left">
                       <ItemTemplate>
 
                         <ButtonWidget IsSelected="@IsSelected" Command.Click="ExecuteSelection" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="250" SuggestedHeight="50" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="SaveLoad.Tuple">
@@ -58,12 +58,12 @@
                                 <ListPanel Id="InnerPannel" DataSource="{OptionColumns}" LayoutImp.LayoutMethod="HorizontalLeftToRight" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="1500" HorizontalAlignment="Center">
                                   <ItemTemplate>
 
-                                    <ListPanel LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="750" HorizontalAlignment="Left" MarginTop="10">
+                                    <ListPanel LayoutImp.LayoutMethod="VerticalTopToBottom" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="750" HorizontalAlignment="Left" MarginTop="10">
                                       <Children>
-                                        <ListPanel DataSource="{Categories}" LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="750" HorizontalAlignment="Left" MarginTop="10">
+                                        <ListPanel DataSource="{Categories}" LayoutImp.LayoutMethod="VerticalTopToBottom" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="750" HorizontalAlignment="Left" MarginTop="10">
                                           <ItemTemplate>
 
-                                            <ListPanel LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="750" HorizontalAlignment="Left" MarginTop="10">
+                                            <ListPanel LayoutImp.LayoutMethod="VerticalTopToBottom" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="750" HorizontalAlignment="Left" MarginTop="10">
                                               <Children>
 
                                                 <PartyHeaderToggleWidget IsTargetVisible="@IsTargetVisible" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" SuggestedWidth="750" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left" VerticalAlignment="Center" MarginLeft="10" MarginRight="10" MarginTop="5" CollapseIndicator="Description\CollapseParent\GroupTitle\CollapseIndicator" WidgetToClose="..\ToggledListPanel" ListPanel="..\ToggledListPanel" RenderLate="true" UpdateChildrenStates="true">
@@ -89,7 +89,7 @@
                                                   </Children>
                                                 </PartyHeaderToggleWidget>
 
-                                                <ListPanel DataSource="{OptionViewModels}" Id="ToggledListPanel" LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <ListPanel DataSource="{OptionViewModels}" Id="ToggledListPanel" LayoutImp.LayoutMethod="VerticalTopToBottom" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center">
                                                   <ItemTemplate>
                                                     <MissionLibraryOptionItemWidget />
                                                   </ItemTemplate>

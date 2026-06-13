@@ -1,4 +1,5 @@
-﻿using MissionSharedLibrary.HotKey;
+﻿using HarmonyLib;
+using MissionSharedLibrary.HotKey;
 using System;
 using System.Linq;
 using System.Reflection;
@@ -888,6 +889,19 @@ namespace MissionSharedLibrary.Utilities
         public static bool IsHideoutAmbush()
         {
             return MissionState.Current?.MissionName == "HideoutAmbush";
+        }
+
+        public static MissionBehavior GetNavalShipsLogic(Mission mission)
+        {
+            return GetMissionBehaviorOfType(mission, AccessTools.TypeByName("NavalDLC.Missions.MissionLogics.NavalShipsLogic"));
+        }
+
+        private static MethodInfo _getNumTeamShips;
+
+        public static int GetNumTeamShips(MissionBehavior navalShipsLogic, TeamSideEnum teamSide)
+        {
+            _getNumTeamShips ??= AccessTools.Method("NavalDLC.Missions.MissionLogics.NavalShipsLogic:GetNumTeamShips");
+            return (int)_getNumTeamShips.Invoke(navalShipsLogic, new object[] { teamSide });
         }
     }
 }

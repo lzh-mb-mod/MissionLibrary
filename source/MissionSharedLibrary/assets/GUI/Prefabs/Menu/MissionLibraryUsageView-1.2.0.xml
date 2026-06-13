@@ -10,7 +10,7 @@
         <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="1000" HorizontalAlignment="Center" VerticalAlignment="Top" MarginTop="50" Brush="MissionLibrary.MissionMenuBrush">
           <Children>
 
-            <ListPanel DataSource="{UsageCollection}" LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren">
+            <ListPanel DataSource="{UsageCollection}" LayoutImp.LayoutMethod="VerticalTopToBottom" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren">
               <Children>
 
                 <ListPanel LayoutImp.LayoutMethod="HorizontalLeftToRight" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left" MarginLeft="270" MarginTop="20" MarginBottom="20">
@@ -24,7 +24,7 @@
                 <ListPanel LayoutImp.LayoutMethod="HorizontalLeftToRight" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="1000" HorizontalAlignment="Center">
                   <Children>
 
-                    <ListPanel DataSource="{UsageCategoryContainerViewModels}" LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="250" HorizontalAlignment="Left">
+                    <ListPanel DataSource="{UsageCategoryContainerViewModels}" LayoutImp.LayoutMethod="VerticalTopToBottom" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="250" HorizontalAlignment="Left">
                       <ItemTemplate>
 
                         <ButtonWidget DataSource="{CurrentUsageCategoryContainerViewModel}" IsSelected="@IsSelected" Command.Click="ExecuteSelection" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="250" SuggestedHeight="50" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="SaveLoad.Tuple">
@@ -48,12 +48,12 @@
                               <Children>
                                 <Widget Id="MyClipRect" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" HorizontalAlignment="Left" ClipContents="true">
                                   <Children>
-                                    <ListPanel Id="InnerPannel" DataSource="{UsageCategoryViewModel}" LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="750" HorizontalAlignment="Left" >
+                                    <ListPanel Id="InnerPannel" DataSource="{UsageCategoryViewModel}" LayoutImp.LayoutMethod="VerticalTopToBottom" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="750" HorizontalAlignment="Left" >
                                       <Children>
-                                        <ListPanel DataSource="{UsageList}" LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="750" HorizontalAlignment="Left" >
+                                        <ListPanel DataSource="{UsageList}" LayoutImp.LayoutMethod="VerticalTopToBottom" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="750" HorizontalAlignment="Left" >
                                           <ItemTemplate>
 
-                                            <ListPanel LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="750" HorizontalAlignment="Left" MarginTop="10">
+                                            <ListPanel LayoutImp.LayoutMethod="VerticalTopToBottom" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="750" HorizontalAlignment="Left" MarginTop="10">
                                               <Children>
 
                                                 <RichTextWidget Text="@Text" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left" VerticalAlignment="Center" SuggestedWidth="720" MarginLeft="20" Brush="MissionLibrary.Text.Usage" />
