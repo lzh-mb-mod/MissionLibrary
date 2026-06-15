@@ -180,7 +180,7 @@ namespace MissionSharedLibrary.Utilities
 
         public static void SetPlayerFormationClass(FormationClass formationClass)
         {
-            if (Mission.Current.IsNavalBattle)
+            if (Mission.Current.IsNavalBattle || Mission.Current.IsNavalRaidBattle)
                 return;
             if (formationClass < 0 || formationClass >= FormationClass.NumberOfAllFormations)
                 return;
@@ -534,7 +534,7 @@ namespace MissionSharedLibrary.Utilities
             if (shouldSmoothMoveToAgent)
             {
                 ShouldSmoothMoveToAgent = true;
-                SmoothMoveToAgent(missionScreen, false, rotateCamera);
+                SmoothMoveToAgent(missionScreen, false, rotateCamera, missionScreen.LastFollowedAgent != null);
             }
             else
             {
@@ -542,7 +542,7 @@ namespace MissionSharedLibrary.Utilities
             }
         }
 
-        public static void SmoothMoveToAgent(MissionScreen missionScreen, bool forceMove = false, bool changeCameraRotation = true)
+        public static void SmoothMoveToAgent(MissionScreen missionScreen, bool forceMove = false, bool changeCameraRotation = true, bool wasLockToAgent = false)
         {
             try
             {
@@ -553,11 +553,13 @@ namespace MissionSharedLibrary.Utilities
                     CameraApplySpecialMovementsInstantly?.SetValue(missionScreen, false);
                     if (missionScreen.LastFollowedAgent != spectatingData.AgentToFollow || forceMove)
                     {
-                        float virtualElevation = changeCameraRotation ? 0 : missionScreen.CameraElevation - (float)CameraAddedElevation.GetValue(missionScreen);
+                        float virtualElevation = changeCameraRotation ? 0 : wasLockToAgent ? missionScreen.CameraElevation : missionScreen.CameraElevation - (float)CameraAddedElevation.GetValue(missionScreen);
                         float virtualBearing = changeCameraRotation ? spectatingData.AgentToFollow.LookDirectionAsAngle : missionScreen.CameraBearing;
                         var targetFrame = GetCameraFrameWhenLockedToAgent(missionScreen, spectatingData.AgentToFollow, spectatingData.CameraType, virtualElevation, virtualBearing);
-                        SmoothMoveToPositionAndDirection(missionScreen, targetFrame.origin, 0,
-                            spectatingData.AgentToFollow.LookDirectionAsAngle, changeCameraRotation, changeCameraRotation);
+                        SmoothMoveToPositionAndDirection(missionScreen, targetFrame.origin, virtualElevation,
+                            spectatingData.AgentToFollow.LookDirectionAsAngle, changeCameraRotation, changeCameraRotation, wasLockToAgent);
+
+                        //CameraTargetAddedHeight.SetValue(missionScreen, 0f);
                     }
 
                     SetLastFollowedAgent.Invoke(missionScreen, new object[] { spectatingData.AgentToFollow });
@@ -572,7 +574,7 @@ namespace MissionSharedLibrary.Utilities
         }
 
         public static void SmoothMoveToPositionAndDirection(MissionScreen missionScreen, Vec3 position, float elevation,
-            float bearing, bool changeElevation, bool changeBearing)
+            float bearing, bool changeElevation, bool changeBearing, bool wasLockToAgent = false)
         {
             try
             {
@@ -584,14 +586,9 @@ namespace MissionSharedLibrary.Utilities
                 if (changeElevation)
                 {
                     CameraSpecialCurrentAddedElevation?.SetValue(missionScreen, missionScreen.CameraElevation - cameraAddedElevation - elevation);
-                    SetCameraElevation?.Invoke(missionScreen, new object[] { elevation });
                 }
-                else
-                {
-                    //CameraSpecialCurrentAddedElevation?.SetValue(missionScreen, 0);
-                    SetCameraElevation?.Invoke(missionScreen, new object[] { missionScreen.CameraElevation - cameraAddedElevation });
-                }
-                
+                SetCameraElevation?.Invoke(missionScreen, new object[] { elevation });
+
 
                 if (changeBearing)
                 {
@@ -681,13 +678,23 @@ namespace MissionSharedLibrary.Utilities
             bool flag6 = agentToFollow.AgentVisuals != null && (uint)agentToFollow.AgentVisuals.GetSkeleton().GetCurrentRagdollState() != 0;
             var agentVisualPosition = agentToFollow.VisualPosition;
             var cameraTarget = flag6 ? agentToFollow.AgentVisuals.GetFrame().origin : agentVisualPosition;
+            //float cameraTargetAddedHeight;
             if (agentToFollow.HasMount)
             {
                 var vec2_6 = agentToFollow.MountAgent.GetMovementDirection() * agentToFollow.MountAgent.Monster.RiderBodyCapsuleForwardAdder;
                 cameraTarget += vec2_6.ToVec3();
+                var monster = agentToFollow.MountAgent.Monster;
+                //cameraTargetAddedHeight = (float)(((double)monster.RiderCameraHeightAdder + (double)monster.BodyCapsulePoint1.z + (double)monster.BodyCapsuleRadius) * (double)agentToFollow.MountAgent.AgentScale + (double)agentToFollow.Monster.CrouchEyeHeight * (double)agentScale); ;
             }
-            
+            //else
+            //{
+            //    cameraTargetAddedHeight = agentToFollow.AgentVisuals.GetCurrentRagdollState() != RagdollState.Active ? ((agentToFollow.GetCurrentAnimationFlag(0) & AnimFlags.anf_reset_camera_height) == (AnimFlags)0 ? (agentToFollow.CrouchMode || agentToFollow.IsSitting() ? (agentToFollow.Monster.CrouchEyeHeight + 0.2f) * agentScale : (agentToFollow.Monster.StandingEyeHeight + 0.2f) * agentScale) : 0.5f) : 0.5f;
+            //}
+            //if (agentToFollow.HasMount && agentToFollow.IsDoingPassiveAttack && (cameraType != SpectatorCameraTypes.LockToTeamMembersView || agentToFollow == missionScreen.Mission.MainAgent))
+            //    cameraTargetAddedHeight *= 1.1f;
+
             cameraTarget.z += (float)CameraTargetAddedHeight.GetValue(missionScreen);
+            //cameraTarget.z += cameraTargetAddedHeight;
             if (missionScreen.Mission.Mode != MissionMode.Conversation && missionScreen.Mission.Mode != MissionMode.Barter)
                 cameraTarget += matrixFrame.rotation.f * agentScale * (0.7f * MathF.Pow(MathF.Cos((float)(1.0 / ((missionScreen.CameraResultDistanceToTarget / (double)agentScale - 0.20000000298023224) * 30.0 + 20.0))), 3500f));
             result.origin = cameraTarget + matrixFrame.rotation.u * missionScreen.CameraResultDistanceToTarget;
