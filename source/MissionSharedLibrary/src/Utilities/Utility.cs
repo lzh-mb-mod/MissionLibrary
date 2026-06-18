@@ -580,8 +580,11 @@ namespace MissionSharedLibrary.Utilities
             {
                 CameraAddSpecialMovement?.SetValue(missionScreen, true);
                 CameraApplySpecialMovementsInstantly?.SetValue(missionScreen, false);
+                var cameraFrame = missionScreen.CombatCamera.Frame;
+                var customCameraOffset = cameraFrame.rotation.s * (Mission.Current.CustomCameraLocalOffset.x + Mission.Current.CustomCameraLocalOffset2.x) +
+                    -cameraFrame.rotation.u * (Mission.Current.CustomCameraLocalOffset.y + Mission.Current.CustomCameraLocalOffset2.y) + cameraFrame.rotation.f * (Mission.Current.CustomCameraLocalOffset.z + Mission.Current.CustomCameraLocalOffset2.z);
                 CameraSpecialCurrentPositionToAdd?.SetValue(missionScreen,
-                    missionScreen.CombatCamera.Position - position);
+                    missionScreen.CombatCamera.Position - position - Mission.Current.CustomCameraTargetLocalOffset - customCameraOffset);
                 var cameraAddedElevation = (float)CameraAddedElevation.GetValue(missionScreen);
                 if (changeElevation)
                 {
