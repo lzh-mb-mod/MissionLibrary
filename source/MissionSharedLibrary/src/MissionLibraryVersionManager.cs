@@ -26,7 +26,7 @@ namespace MissionSharedLibrary
             // Multiple mods may register MissionLibraryVersionManager, but
             // only the one with the highest version will be selected.
             // MissionLibraryVersionManager with lower version registered by old mods will be ignored.
-            RegisterInstance(() => new MissionLibraryVersionManager(), new Version(1, 8), nameof(MissionLibraryVersionManager));
+            RegisterInstance(() => new MissionLibraryVersionManager(), new Version(1, 9), nameof(MissionLibraryVersionManager));
         }
 
         public MissionLibraryVersionManager()
@@ -43,9 +43,9 @@ namespace MissionSharedLibrary
             RegisterInstance(() => new GameKeyCategoryManager(), new Version(2, 0));
             RegisterInstance(() => new CameraControllerManager(), new Version(2, 0));
             RegisterInstance(() => new MissionStartingManager(), new Version(2, 0));
-            RegisterInstance(() => new MenuManager(), new Version(2, 0));
+            RegisterInstance(() => new MenuManager(), new Version(2, 1));
             RegisterInstance(() => new UsageCategoryManager(), new Version(2, 0));
-            RegisterInstance(() => new GeneralResourceCreator(), new Version(2, 0));
+            RegisterInstance(() => new GeneralResourceCreator(), new Version(2, 1));
         }
 
         private static void RegisterInstance<T>(Func<ATag<T>> creator, Version providerVersion, string key = "") where T : ATag<T>
