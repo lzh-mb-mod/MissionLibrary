@@ -67,7 +67,6 @@ namespace MissionSharedLibrary.View.ViewModelCollection
             base.RefreshValues();
 
             var isVisible = _isVisible();
-            IsTargetVisible = true;
             IsTargetVisible = isVisible;
 
             foreach (var optionViewModel in OptionViewModels)
