@@ -1,4 +1,6 @@
-﻿using HarmonyLib;
+﻿#if !DONTUSEHARMONY
+using HarmonyLib;
+#endif
 using MissionSharedLibrary.HotKey;
 using System;
 using System.Linq;
@@ -901,6 +903,7 @@ namespace MissionSharedLibrary.Utilities
             return MissionState.Current?.MissionName == "HideoutAmbush";
         }
 
+#if !DONTUSEHARMONY
         public static MissionBehavior GetNavalShipsLogic(Mission mission)
         {
             return GetMissionBehaviorOfType(mission, AccessTools.TypeByName("NavalDLC.Missions.MissionLogics.NavalShipsLogic"));
@@ -913,5 +916,6 @@ namespace MissionSharedLibrary.Utilities
             _getNumTeamShips ??= AccessTools.Method("NavalDLC.Missions.MissionLogics.NavalShipsLogic:GetNumTeamShips");
             return (int)_getNumTeamShips.Invoke(navalShipsLogic, new object[] { teamSide });
         }
+#endif
     }
 }
