@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using MissionLibrary.View;
+﻿using MissionLibrary.View;
 using MissionSharedLibrary.View.ViewModelCollection.Basic;
+using MissionSharedLibrary.View.ViewModelCollection.Options;
+using System;
+using System.Collections.Generic;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
@@ -72,6 +72,17 @@ namespace MissionSharedLibrary.View.ViewModelCollection
             foreach (var optionViewModel in OptionViewModels)
             {
                 optionViewModel.RefreshValues();
+            }
+        }
+
+        public void UpdateAllOptions()
+        {
+            foreach (var viewModel in OptionViewModels)
+            {
+                if (viewModel is OptionViewModel optionViewModel)
+                {
+                    optionViewModel.UpdateData(false);
+                }
             }
         }
 
