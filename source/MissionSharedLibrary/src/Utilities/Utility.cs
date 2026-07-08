@@ -332,6 +332,7 @@ namespace MissionSharedLibrary.Utilities
             if (isAIMovingToGameObject)
             {
                 agent.AIMoveToGameObjectDisable();
+                agent.Formation?.Team.DetachmentManager.RemoveScoresOfAgentFromDetachments(agent);
             }
             if (isAIMovingToGameObject || isPickingUp)
             {
