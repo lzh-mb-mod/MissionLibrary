@@ -894,6 +894,24 @@ namespace MissionSharedLibrary.Utilities
             }
         }
 
+        public static ApplicationVersion? GetModuleVersion(string moduleId)
+        {
+            try
+            {
+                // some module may be not loaded, causes info be null.
+                var module = TaleWorlds.Engine.Utilities.GetModulesNames().Select(ModuleHelper.GetModuleInfo).FirstOrDefault(info =>
+                    info?.Id == moduleId);
+                return module?.Version;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                DisplayMessage(e.ToString());
+                MBDebug.Print(e.ToString());
+                return null;
+            }
+        }
+
         public static bool IsHideoutBattle()
         {
             return MissionState.Current?.MissionName == "HideoutBattle";
