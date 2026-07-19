@@ -1,5 +1,4 @@
-﻿using MissionLibrary.Usage;
-using MissionLibrary.View;
+﻿using MissionLibrary.View;
 using MissionSharedLibrary.Config;
 using TaleWorlds.MountAndBlade;
 
@@ -15,18 +14,18 @@ namespace MissionSharedLibrary.Controller.MissionBehaviors
         {
             base.OnTeamDeployed(team);
 
-            if (team == Mission.PlayerTeam)
-            {
+            //if (team == Mission.PlayerTeam)
+            //{
 
-                if (!_config.HasUsageShown && AUsageCategoryManager.Get().Items.Count > 0)
-                {
-                    _config.HasUsageShown = true;
-                    _config.Serialize();
-                    //_showUsageHintAfterTimeUp = true;
-                    //_timerForShowingUsageHint = 2f;
-                    AMenuManager.Get()?.RequestToOpenUsageView();
-                }
-            }
+            //    if (!_config.HasUsageShown && AUsageCategoryManager.Get().Items.Count > 0)
+            //    {
+            //        _config.HasUsageShown = true;
+            //        _config.Serialize();
+            //        //_showUsageHintAfterTimeUp = true;
+            //        //_timerForShowingUsageHint = 2f;
+            //        AMenuManager.Get()?.RequestToOpenUsageView();
+            //    }
+            //}
         }
 
         public override void OnMissionTick(float dt)

@@ -1,10 +1,10 @@
 ﻿using MissionLibrary.HotKey;
+using System;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.InputSystem;
 using TaleWorlds.MountAndBlade.GauntletUI;
 using TaleWorlds.MountAndBlade.View.MissionViews;
 using TaleWorlds.ScreenSystem;
-using TaleWorlds.TwoDimension;
 
 namespace MissionSharedLibrary.View.HotKey
 {
@@ -15,15 +15,15 @@ namespace MissionSharedLibrary.View.HotKey
         private KeybindingPopup _keybindingPopup;
         private IHotKeySetter _currentGameKey;
         private bool _enableKeyBindingPopupNextTick;
-        private SpriteCategory _optionsSpriteCategory;
-        private SpriteCategory _fullScreensSpriteCategory;
+        private string _movieName;
 
         public const string KeyBindRequestEventId = "KeyBindRequest";
         public const string KeyBindRequestReceiverId = "GameKeyConfigView";
 
-        public GameKeyConfigView()
+        public GameKeyConfigView(Version version)
         {
             ViewOrderPriority = 50;
+            _movieName = "MissionLibraryOptionsGameKeyScreen-" + version;
         }
 
         public override void OnMissionScreenInitialize()
@@ -31,8 +31,6 @@ namespace MissionSharedLibrary.View.HotKey
             base.OnMissionScreenInitialize();
 
             _keybindingPopup = new KeybindingPopup(SetHotKey, MissionScreen);
-            _optionsSpriteCategory = UIResourceManager.LoadSpriteCategory("ui_options"); ;
-            _fullScreensSpriteCategory = UIResourceManager.LoadSpriteCategory("ui_fullscreens");
         }
 
         public override void OnMissionScreenFinalize()
@@ -62,10 +60,9 @@ namespace MissionSharedLibrary.View.HotKey
 
         public void Activate()
         {
-            var movieName = "MissionLibraryOptionsGameKeyScreen-2";
             _dataSource = new GameKeyConfigVM(AGameKeyCategoryManager.Get(), OnKeyBindRequest, Deactivate);
-            _gauntletLayer = new GauntletLayer(movieName, ViewOrderPriority);
-            _gauntletLayer.LoadMovie(movieName, _dataSource);
+            _gauntletLayer = new GauntletLayer(_movieName, ViewOrderPriority);
+            _gauntletLayer.LoadMovie(_movieName, _dataSource);
             _gauntletLayer.Input.RegisterHotKeyCategory(HotKeyManager.GetCategory("GenericPanelGameKeyCategory"));
             _gauntletLayer.InputRestrictions.SetInputRestrictions();
             _gauntletLayer.IsFocusLayer = true;

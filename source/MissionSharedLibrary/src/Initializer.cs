@@ -72,7 +72,7 @@ namespace MissionSharedLibrary
             MissionLibraryVersionManager.RegisterInstances();
         }
 
-        public static void RegisterProvider<T>(Func<ATag<T>> creator, Version providerVersion, string key = "") where T : ATag<T>
+        public static void RegisterInstance<T>(Func<ATag<T>> creator, Version providerVersion, string key = "") where T : ATag<T>
         {
             Global2.RegisterInstance(VersionProviderCreator.Create(creator, providerVersion), key);
         }

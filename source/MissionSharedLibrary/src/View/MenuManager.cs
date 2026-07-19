@@ -1,4 +1,6 @@
-﻿using MissionLibrary.View;
+﻿using MissionLibrary;
+using MissionLibrary.Controller;
+using MissionLibrary.View;
 using MissionSharedLibrary.View.ViewModelCollection;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.View.MissionViews;
@@ -8,6 +10,11 @@ namespace MissionSharedLibrary.View
     public class MenuManager : AMenuManager
     {
         public override AMenuClassCollection MenuClassCollection { get; } = new MenuClassCollection();
+
+        public MenuManager()
+        {
+            Global.GetInstance<AMissionStartingManager>().AddHandler(new MenuViewAdder());
+        }
 
         // deprecated
         public override MissionView CreateMenuView()

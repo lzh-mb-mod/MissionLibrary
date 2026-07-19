@@ -1,8 +1,5 @@
 ﻿using MissionLibrary.Controller;
 using MissionSharedLibrary.Controller.MissionBehaviors;
-using MissionSharedLibrary.View;
-using MissionSharedLibrary.View.HotKey;
-using System;
 using TaleWorlds.MountAndBlade.View.MissionViews;
 
 namespace MissionSharedLibrary.Controller
@@ -22,9 +19,6 @@ namespace MissionSharedLibrary.Controller
         private void AddMissionLibraryMissionBehaviors(MissionView entranceView)
         {
             MissionStartingManager.AddMissionBehavior(entranceView, new MissionLibraryLogic());
-            MissionStartingManager.AddMissionBehavior(entranceView, new OptionView(24, new Version(1, 4, 0)));
-            MissionStartingManager.AddMissionBehavior(entranceView, new GameKeyConfigView());
-            MissionStartingManager.AddMissionBehavior(entranceView, new UsageView(26, new Version(1, 2, 0)));
         }
     }
 }

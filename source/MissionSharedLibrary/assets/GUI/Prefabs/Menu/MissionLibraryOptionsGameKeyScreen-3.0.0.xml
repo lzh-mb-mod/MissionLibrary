@@ -19,7 +19,7 @@
                           <Children>
                             <TabControl Id="TabControl" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren">
                               <Children>
-                                <MissionLibraryOptionsGameKeyPage-2 Id="GameKeyOptionGroupsPage" DataSource="{GameKeyOptions}" />
+                                <MissionLibraryOptionsGameKeyPage-3 Id="GameKeyOptionGroupsPage" DataSource="{GameKeyOptions}" />
                               </Children>
                             </TabControl>
                           </Children>
@@ -58,7 +58,7 @@
               </Children>
             </ListPanel>
 
-            <Standard.DialogCloseButtons Parameter.CancelButtonAction="ExecuteCancel" Parameter.CancelButtonText="@CancelLbl" Parameter.DoneButtonAction="ExecuteDone" Parameter.DoneButtonText="@DoneLbl" />
+            <Standard.TripleDialogCloseButtons Parameter.CancelButtonAction="ExecuteCancel" Parameter.CancelButtonText="@CancelLbl" Parameter.DoneButtonAction="ExecuteDone" Parameter.DoneButtonText="@DoneLbl" Parameter.ResetButtonAction="ExecuteReset" />
 
 
           </Children>
