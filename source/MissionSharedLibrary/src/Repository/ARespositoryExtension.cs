@@ -3,7 +3,7 @@ using MissionLibrary.Repository;
 using MissionSharedLibrary.Provider;
 using System;
 
-namespace MissionSharedLibrary.Usage
+namespace MissionSharedLibrary.Repository
 {
     public static class ARespositoryExtension
     {

@@ -380,19 +380,6 @@ namespace MissionSharedLibrary.Utilities
                         mission.MainAgent.HandleStopUsingAction();
                     }
 
-                    // if (mission.MainAgent.HumanAIComponent != null)
-                    // {
-                    //     // HumanAIComponent registered the following action in constructor, but didn't unregister it.
-                    //     // TODO: Need to check the official code whether this fix affects other behaviors.
-                    //     if (mission.MainAgent.OnAgentWieldedItemChange != null)
-                    //         mission.MainAgent.OnAgentWieldedItemChange -=
-                    //             mission.MainAgent.HumanAIComponent.DisablePickUpForAgentIfNeeded;
-                    //     if (mission.MainAgent.OnAgentMountedStateChanged != null)
-                    //         mission.MainAgent.OnAgentMountedStateChanged -=
-                    //             mission.MainAgent.HumanAIComponent.DisablePickUpForAgentIfNeeded;
-                    //     mission.MainAgent.RemoveComponent(mission.MainAgent.HumanAIComponent);
-                    // }
-
                     //mission.MainAgent.Formation = null;
                     mission.MainAgent.Controller = AgentControllerType.AI;
 
