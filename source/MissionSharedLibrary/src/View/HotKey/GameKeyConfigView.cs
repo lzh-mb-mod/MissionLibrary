@@ -11,6 +11,7 @@ namespace MissionSharedLibrary.View.HotKey
     public class GameKeyConfigView : MissionView
     {
         private GauntletLayer _gauntletLayer;
+        private GauntletMovieIdentifier _movie;
         private GameKeyConfigVM _dataSource;
         private KeybindingPopup _keybindingPopup;
         private IHotKeySetter _currentGameKey;
@@ -62,7 +63,7 @@ namespace MissionSharedLibrary.View.HotKey
         {
             _dataSource = new GameKeyConfigVM(AGameKeyCategoryManager.Get(), OnKeyBindRequest, Deactivate);
             _gauntletLayer = new GauntletLayer(_movieName, ViewOrderPriority);
-            _gauntletLayer.LoadMovie(_movieName, _dataSource);
+            _movie = _gauntletLayer.LoadMovie(_movieName, _dataSource);
             _gauntletLayer.Input.RegisterHotKeyCategory(HotKeyManager.GetCategory("GenericPanelGameKeyCategory"));
             _gauntletLayer.InputRestrictions.SetInputRestrictions();
             _gauntletLayer.IsFocusLayer = true;
@@ -75,8 +76,13 @@ namespace MissionSharedLibrary.View.HotKey
             if (_gauntletLayer == null)
                 return;
             _gauntletLayer.InputRestrictions.ResetInputRestrictions();
+            if (_movie != null)
+            {
+                _gauntletLayer.ReleaseMovie(_movie);
+            }
             MissionScreen.RemoveLayer(_gauntletLayer);
             _gauntletLayer = null;
+            _movie = null;
             _dataSource.OnFinalize();
             _dataSource = null;
         }

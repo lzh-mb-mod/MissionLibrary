@@ -1,5 +1,4 @@
 using MissionLibrary.Controller;
-using MissionLibrary.View;
 using MissionSharedLibrary.Controller;
 using MissionSharedLibrary.View.HotKey;
 using System;
