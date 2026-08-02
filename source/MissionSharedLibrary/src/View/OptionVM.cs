@@ -60,7 +60,7 @@ namespace MissionSharedLibrary.View
 
         public void ShowUsageView()
         {
-            Mission.Current?.GetMissionBehavior<UsageView>()?.ActivateMenu();
+            AMenuManager.Get().RequestToOpenUsageView();
         }
 
         public ViewModel OptionClassCollection { get; }

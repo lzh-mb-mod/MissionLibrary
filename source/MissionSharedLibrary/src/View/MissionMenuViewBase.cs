@@ -4,6 +4,7 @@ using TaleWorlds.InputSystem;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.View.MissionViews;
 using TaleWorlds.ScreenSystem;
+using TaleWorlds.TwoDimension;
 
 namespace MissionSharedLibrary.View
 {
@@ -17,6 +18,7 @@ namespace MissionSharedLibrary.View
         protected bool _enginePausedBySelf;
         protected bool _missionPausedBySelf;
         protected bool _focus;
+        private SpriteCategory _spriteCategory;
 
         public bool IsActivated { get; set; }
 
@@ -33,6 +35,10 @@ namespace MissionSharedLibrary.View
         public override void OnMissionScreenFinalize()
         {
             base.OnMissionScreenFinalize();
+            if (_movie != null && GauntletLayer != null)
+            {
+                GauntletLayer.ReleaseMovie(_movie);
+            }
             GauntletLayer = null;
             DataSource?.OnFinalize();
             DataSource = null;
@@ -59,7 +65,7 @@ namespace MissionSharedLibrary.View
             GauntletLayer.InputRestrictions.SetInputRestrictions();
             GauntletLayer.Input.RegisterHotKeyCategory(HotKeyManager.GetCategory("GenericPanelGameKeyCategory"));
             _movie = GauntletLayer.LoadMovie(_movieName, DataSource);
-            UIResourceManager.LoadSpriteCategory("ui_saveload");
+            _spriteCategory = UIResourceManager.LoadSpriteCategory("ui_saveload");
             MissionScreen.AddLayer(GauntletLayer);
             if (_focus)
             {
@@ -83,11 +89,16 @@ namespace MissionSharedLibrary.View
             GauntletLayer.InputRestrictions.ResetInputRestrictions();
             GauntletLayer.IsFocusLayer = false;
             ScreenManager.TryLoseFocus(GauntletLayer);
+            if (_movie != null)
+            {
+                GauntletLayer.ReleaseMovie(_movie);
+            }
             MissionScreen.RemoveLayer(GauntletLayer);
             DataSource.OnFinalize();
             DataSource = null;
             _movie = null;
             GauntletLayer = null;
+            _spriteCategory.Unload();
             UnpauseGame();
         }
 

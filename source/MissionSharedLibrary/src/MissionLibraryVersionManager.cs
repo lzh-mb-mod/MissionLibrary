@@ -43,7 +43,7 @@ namespace MissionSharedLibrary
             RegisterInstance(() => new GameKeyCategoryManager(), new Version(3, 0));
             RegisterInstance(() => new CameraControllerManager(), new Version(3, 0));
             RegisterInstance(() => new MissionStartingManager(), new Version(3, 0));
-            RegisterInstance(() => new MenuManager(), new Version(3, 0));
+            RegisterInstance(() => new MenuManager(), new Version(3, 1));
             RegisterInstance(() => new UsageCategoryManager(), new Version(3, 0));
             RegisterInstance(() => new GeneralResourceCreator(), new Version(3, 0));
         }
