@@ -1,5 +1,6 @@
 ﻿using MissionLibrary.View;
 using MissionSharedLibrary.Config;
+using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
 namespace MissionSharedLibrary.Controller.MissionBehaviors
@@ -10,9 +11,9 @@ namespace MissionSharedLibrary.Controller.MissionBehaviors
         private bool _showUsageHintAfterTimeUp = false;
         private float _timerForShowingUsageHint = 0;
 
-        public override void OnTeamDeployed(Team team)
+        public override void OnBattleSideSpawned(BattleSideEnum side)
         {
-            base.OnTeamDeployed(team);
+            base.OnBattleSideSpawned(side);
 
             //if (team == Mission.PlayerTeam)
             //{
@@ -26,6 +27,11 @@ namespace MissionSharedLibrary.Controller.MissionBehaviors
             //        AMenuManager.Get()?.RequestToOpenUsageView();
             //    }
             //}
+        }
+
+        public override void OnAutoDeployTeam(Team team)
+        {
+            base.OnAutoDeployTeam(team);
         }
 
         public override void OnMissionTick(float dt)
