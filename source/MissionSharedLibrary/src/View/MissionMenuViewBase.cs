@@ -43,6 +43,11 @@ namespace MissionSharedLibrary.View
             DataSource?.OnFinalize();
             DataSource = null;
             _movie = null;
+            if (_spriteCategory != null)
+            {
+                _spriteCategory.Unload();
+                _spriteCategory = null;
+            }
         }
 
         public void ToggleMenu()
@@ -98,7 +103,6 @@ namespace MissionSharedLibrary.View
             DataSource = null;
             _movie = null;
             GauntletLayer = null;
-            _spriteCategory.Unload();
             UnpauseGame();
         }
 

@@ -375,7 +375,7 @@ namespace MissionSharedLibrary.Utilities
                 mission.GetMissionBehavior<MissionMainAgentController>()?.InteractionComponent.ClearFocus();
                 if (mission.MainAgent.Controller != AgentControllerType.AI)
                 {
-                    if (IsUsingNonPickableObject(mission.MainAgent) && mission.MainAgent.Formation?.Team.DetachmentManager.Detachments.Count > 0)
+                    if (!mission.IsFriendlyMission && IsUsingNonPickableObject(mission.MainAgent))
                     {
                         mission.MainAgent.HandleStopUsingAction();
                     }
