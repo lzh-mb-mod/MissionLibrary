@@ -1,5 +1,4 @@
 ﻿using MissionLibrary.Repository;
-using MissionLibrary.Provider;
 using TaleWorlds.Library;
 
 namespace MissionLibrary.View
