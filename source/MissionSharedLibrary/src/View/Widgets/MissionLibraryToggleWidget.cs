@@ -1,9 +1,3 @@
-// Decompiled with JetBrains decompiler
-// Type: TaleWorlds.MountAndBlade.GauntletUI.Widgets.Party.PartyHeaderToggleWidget
-// Assembly: TaleWorlds.MountAndBlade.GauntletUI.Widgets, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: AA730C31-ADBC-4DB4-BC16-0D57CCDB38EB
-// Assembly location: C:\Program Files (x86)\Steam\steamapps\common\Mount & Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.GauntletUI.Widgets.dll
-
 using System;
 using TaleWorlds.GauntletUI;
 using TaleWorlds.GauntletUI.BaseTypes;

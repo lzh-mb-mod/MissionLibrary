@@ -1,5 +1,4 @@
 ﻿using MissionLibrary.Provider;
-using MissionLibrary.View;
 using System;
 using TaleWorlds.MountAndBlade.View.MissionViews;
 

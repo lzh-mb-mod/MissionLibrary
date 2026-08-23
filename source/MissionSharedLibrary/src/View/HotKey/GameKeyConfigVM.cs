@@ -1,10 +1,8 @@
-﻿using System;
-using MissionLibrary.HotKey;
+﻿using MissionLibrary.HotKey;
 using MissionSharedLibrary.View.ViewModelCollection.HotKey;
-using TaleWorlds.Core;
+using System;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
-using TaleWorlds.MountAndBlade.ViewModelCollection.GameOptions;
 
 namespace MissionSharedLibrary.View.HotKey
 {

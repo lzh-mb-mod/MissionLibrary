@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TaleWorlds.Library;
+﻿using TaleWorlds.Library;
 
+// The namespace should be MissionLibrary.View. But we have to keep it as is for compatibility.
 namespace MissionLibrary.src.View
 {
     public abstract class AUsageCategoryViewModel: ViewModel
