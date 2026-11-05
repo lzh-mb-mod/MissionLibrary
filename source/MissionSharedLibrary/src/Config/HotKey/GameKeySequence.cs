@@ -223,6 +223,11 @@ namespace MissionSharedLibrary.Config.HotKey
             KeyAlternatives = NormalizeGameKeySequenceAlternatives(KeyAlternatives);
         }
 
+        public List<GameKeySequenceAlternative> GetDefaultGameKeys()
+        {
+            return NormalizeGameKeySequenceAlternatives(_defaultGameKeys);
+        }
+
         public void ResetToDefault()
         {
             SetGameKeys(_defaultGameKeys);
