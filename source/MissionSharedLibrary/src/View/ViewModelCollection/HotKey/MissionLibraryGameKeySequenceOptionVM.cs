@@ -32,7 +32,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
             GameKeySequence = gameKeySequence;
             _groupId = GameKeySequence.CategoryId;
             _id = GameKeySequence.StringId;
-            UpdateAlternatives();
+            UpdateAlternatives(GameKeySequence.KeyAlternatives);
             RefreshValues();
         }
 
@@ -71,9 +71,7 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
 
         public override void OnReset()
         {
-            GameKeySequence.ResetToDefault();
-            
-            UpdateAlternatives();
+            UpdateAlternatives(GameKeySequence.GetDefaultGameKeys());
         }
 
         [DataSourceProperty]
@@ -126,10 +124,10 @@ namespace MissionSharedLibrary.View.ViewModelCollection.HotKey
             PushEnabled = Alternatives.Count < 4;
         }
 
-        private void UpdateAlternatives()
+        private void UpdateAlternatives(IEnumerable<GameKeySequenceAlternative> alternatives)
         {
             Alternatives = new MBBindingList<MissionLibraryGameKeySequenceAlternativeOptionVM>();
-            foreach (var key in GameKeySequence.KeyAlternatives)
+            foreach (var key in alternatives)
             {
                 Alternatives.Add(new MissionLibraryGameKeySequenceAlternativeOptionVM(key, _onKeybindRequest));
             }
