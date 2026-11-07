@@ -21,6 +21,8 @@ namespace MissionSharedLibrary.View.HotKey
         public const string KeyBindRequestEventId = "KeyBindRequest";
         public const string KeyBindRequestReceiverId = "GameKeyConfigView";
 
+        public bool IsActive => _gauntletLayer != null;
+
         public GameKeyConfigView(Version version)
         {
             ViewOrderPriority = 50;
