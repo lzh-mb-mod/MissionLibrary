@@ -1,6 +1,7 @@
 ﻿using MissionLibrary.Event;
 using MissionLibrary.View;
 using MissionSharedLibrary.HotKey;
+using MissionSharedLibrary.View.HotKey;
 using System;
 using TaleWorlds.MountAndBlade;
 
@@ -16,14 +17,11 @@ namespace MissionSharedLibrary.View
         public override void OnMissionScreenTick(float dt)
         {
             base.OnMissionScreenTick(dt);
-            if (IsActivated)
+            if ((IsActivated || Mission.Mode != TaleWorlds.Core.MissionMode.Conversation) &&
+                GeneralGameKeyCategory.GetKey(GeneralGameKey.OpenMenu).IsKeyPressed() &&
+                Mission.GetMissionBehavior<GameKeyConfigView>()?.IsActive != true)
             {
-                if (GeneralGameKeyCategory.GetKey(GeneralGameKey.OpenMenu).IsKeyPressed())
-                    DeactivateMenu();
-            }
-            else if (Mission.Mode != TaleWorlds.Core.MissionMode.Conversation && GeneralGameKeyCategory.GetKey(GeneralGameKey.OpenMenu).IsKeyPressed())
-            {
-                ActivateMenu();
+                ToggleMenu();
             }
         }
 

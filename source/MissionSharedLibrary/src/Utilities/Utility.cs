@@ -857,6 +857,9 @@ namespace MissionSharedLibrary.Utilities
 
         public static MissionBehavior GetMissionBehaviorOfType(Mission mission, Type type)
         {
+            if (mission == null || type == null)
+                return null;
+
             for (int index = 0; index < mission.MissionBehaviors.Count; ++index)
             {
                 if (type.IsAssignableFrom(mission.MissionBehaviors[index].GetType()))

@@ -6,6 +6,8 @@ namespace MissionLibrary.Event
 {
     public class MissionEvent
     {
+        private const string LegacyEventWarning = "The legacy string event API is defective. Use typed mission events instead.";
+
         private static Dictionary<string, Dictionary<string, Action<object[]>>> _eventMapping =
             new Dictionary<string, Dictionary<string, Action<object[]>>>();
 
@@ -22,6 +24,7 @@ namespace MissionLibrary.Event
         public static event Action MissionMenuClosed;
 
 
+        [Obsolete(LegacyEventWarning)]
         public static void Register(string eventId, string receiverId, Action<object[]> callback)
         {
             _eventMapping ??= new Dictionary<string, Dictionary<string, Action<object[]>>>();
@@ -29,6 +32,7 @@ namespace MissionLibrary.Event
             receivers[receiverId] = callback;
         }
 
+        [Obsolete(LegacyEventWarning)]
         public static void TriggerEvent(string eventId, object[] param)
         {
             var receivers = _eventMapping?[eventId];
@@ -40,6 +44,7 @@ namespace MissionLibrary.Event
             }
         }
 
+        [Obsolete(LegacyEventWarning)]
         public static void TriggerEvent(string eventId, string receiverId, object[] param)
         {
             _eventMapping?[eventId]?[receiverId]?.Invoke(param);
